@@ -8,18 +8,18 @@ package engine.map;
 public class Batiment {
 
 	private Block position;
-	private String nom;
+	private String nomBatiment;
 	
 	public Batiment(Block position, String nom) {
 		this.position = position;
-		this.nom=nom;
+		this.nomBatiment=nom;
 	}
 
 	public Block getPosition() {
 		return position;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getNomBatiment() {
+		return nomBatiment;
 	}
 }
