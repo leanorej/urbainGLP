@@ -23,7 +23,6 @@ public class GameBuilder {
 		Ville ville= new Ville(map);
 		ville.creationBatiments();
 		return ville;
-		
 	}
 
 }

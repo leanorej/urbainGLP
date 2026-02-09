@@ -14,7 +14,7 @@ public class Map {
 	private Block[][] blocks;
 	private int lineCount;
 	private int columnCount;
-	//J'hésite entre utiliser la position (c'est-à-dire le Bllock associé) ou le nom du bâtiment comme key.
+	//J'hésite entre utiliser la position (c'est-à-dire le Block associé) ou le nom du bâtiment comme key.
 	private HashMap<Block, Batiment> batiments = new HashMap<Block, Batiment>();
 
 
