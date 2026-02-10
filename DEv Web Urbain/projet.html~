@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Urbain - Le Projet</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>
+        <img src="img/logo.png" alt="Logo" />
+        <h1>Détails du Projet</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="equipe.html">L'Équipe</a></li>
+            <li><a href="projet.html">Le Projet</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section>
+            <h2>L'Environnement : La Ville</h2>
+            <p>La ville est structurée sur un plan romain (en damier) avec des bâtiments transparents.</p>
+            <figure>
+                <img src="plan_ville.jpg" alt="Plan de la ville" style="width:100%;max-width:400px;" />
+                <figcaption>Figure 1 : Modélisation du plan en damier de la cité.</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h2>Les Habitants</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sim</th>
+                        <th>Âge</th>
+                        <th>Profession</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Sim 1</td><td>37 ans</td><td>Ouvrier</td></tr>
+                    <tr><td>Sim 3</td><td>17 ans</td><td>Lycéen</td></tr>
+                    <tr><td>Sim 6</td><td>50 ans</td><td>Maire</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Mécaniques et Statistiques</h2>
+            <article>
+                <h3>Règles de Survie</h3>
+                <p>Les Sims ont trois besoins : Moral, Physique et Faim. Si la faim descend sous 25%, le Sim perd 5% de santé par heure.</p>
+            </article>
+            <article>
+                <h3>Conditions de Victoire / Défaite</h3>
+                <ul>
+                    <li><strong>Victoire :</strong> Passer une semaine sans aucun décès pour monter de niveau.</li>
+                    <li><strong>Défaite :</strong> La partie s'arrête si 3 Sims meurent.</li>
+                </ul>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>Projet Urbain 2026 - L2 Informatique</p>
+    </footer>
+</body>
+</html>

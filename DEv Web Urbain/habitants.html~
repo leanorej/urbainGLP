@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Urbain - Recensement des Sims</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* Cas 2 : Style interne pour la mise en valeur des fiches */
+        .fiche-sim {
+            background-color: #f9f9f9;
+            border-left: 5px solid #2c3e50;
+            margin: 20px 0;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Population de la Ville</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="habitants.html">Les Sims</a></li>
+            <li><a href="ville.html">La Ville</a></li>
+            <li><a href="mecaniques.html">Règles du Jeu</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section>
+            <h2>Tableau Récapitulatif</h2>
+            <table>
+                <caption>Détails des résidents interactifs</caption>
+                <thead>
+                    <tr>
+                        <th>Identité</th>
+                        <th>Âge</th>
+                        <th>Profession</th>
+                        <th>Lieu de travail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Sim 1 (H)</td><td>37 ans</td><td>Ouvrier</td><td>Usine [cite: 206, 207]</td></tr>
+                    <tr><td>Sim 2 (F)</td><td>74 ans</td><td>Retraitée</td><td>Domicile [cite: 211]</td></tr>
+                    <tr><td>Sim 3 (H)</td><td>17 ans</td><td>Lycéen</td><td>Lycée [cite: 215]</td></tr>
+                    <tr><td>Sim 4 (F)</td><td>8 ans</td><td>Écolière</td><td>École primaire [cite: 221, 222]</td></tr>
+                    <tr><td>Sim 5 (F)</td><td>34 ans</td><td>Boulangère</td><td>Boulangerie [cite: 224]</td></tr>
+                    <tr><td>Sim 6 (H)</td><td>50 ans</td><td>Maire</td><td>Mairie [cite: 226]</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Profils Détaillés</h2>
+            <article class="fiche-sim">
+                <h3>Le Maire (Sim 6)</h3>
+                <p><strong>Santé :</strong> Il est diabétique et doit prendre son traitement quotidiennement à heure fixe pour éviter l'hospitalisation[cite: 229].</p>
+                <p><strong>Routine :</strong> Travaille 5 heures par jour (11h-16h) puis inspecte les lieux de la ville[cite: 226, 227].</p>
+            </article>
+            <article class="fiche-sim">
+                <h3>L'Adolescent (Sim 3)</h3>
+                <p><strong>Santé :</strong> Risque d'isolement social s'il ne sort pas le week-end[cite: 220].</p>
+                <p><strong>Occupation :</strong> Passionné de jeux vidéo, il doit surveiller son sommeil pour réussir son Bac[cite: 216, 218].</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
