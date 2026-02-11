@@ -26,7 +26,7 @@ public class PaintStrategy {
 			for (int columnIndex = 0; columnIndex < map.getColumnCount(); columnIndex++) {
 				Block block = blocks[lineIndex][columnIndex];
 
-					graphics.setColor(Color.green.darker());
+					graphics.setColor(Color.GREEN);
 					graphics.fillRect(block.getColumn() * blockSize, block.getLine() * blockSize, blockSize, blockSize);
 				
 			}
@@ -43,20 +43,50 @@ public class PaintStrategy {
 
 		int col = batiment.getCouleur();
 
-		if(col==1)
-			graphics.setColor(Color.red);
-		else if (col ==2)
-			graphics.setColor(Color.blue);
-		else if (col == 3)
-			graphics.setColor(Color.black);
-		else if (col==4)
-			graphics.setColor(Color.yellow);
-		else if(col==5)
-			graphics.setColor(Color.pink);
-		else if (col==6)
-			graphics.setColor(Color.cyan);
-		else if(col==7)
-			graphics.setColor(Color.gray);
+		switch (col){
+			case 1 : 
+				graphics.setColor(Color.RED);
+				break;
+			case 2 :
+				graphics.setColor(Color.RED.darker());
+				break;
+			case 3 : 
+				graphics.setColor(Color.ORANGE);
+				break;
+			case 4 :
+				graphics.setColor(Color.BLACK);
+				break;
+			case 5 : 
+				graphics.setColor(Color.CYAN);
+				break;
+			case 6 :
+				graphics.setColor(Color.YELLOW.brighter());
+				break;
+			case 7 : 
+				graphics.setColor(Color.YELLOW.darker());
+				break;
+			case 8 :
+				graphics.setColor(Color.GREEN.darker());
+				break;
+			case 9 : 
+				graphics.setColor(Color.BLUE);
+				break;
+			case 10 :
+				graphics.setColor(Color.MAGENTA.darker());
+				break;
+			case 11 :
+				graphics.setColor(Color.PINK);
+				break;
+			case 12 :
+				graphics.setColor(Color.WHITE);
+				break;
+			case 13 :
+				graphics.setColor(Color.GRAY);
+				break;
+			case 14 :
+				graphics.setColor(Color.DARK_GRAY);
+				break;
+		}
 		graphics.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
 	}
 }
