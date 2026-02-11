@@ -50,20 +50,23 @@ aside{
 	height: 100%;
 	width: 160px;
 	position: fixed;
-	z-index: 1;
+	z-index: 1; 
   	top: 0;
   	left: 0;
   	background-color: AliceBlue;
 	padding:10px;
 }
 aside ul li a {
-   text-decoration: none;
-   color: MidnightBlue;
-   font-weight: bold;
+	text-decoration: none;
+	color: MidnightBlue;
+	font-weight: bold;
 }
 
 aside ul li a:hover {
 	color: SteelBlue;
+}
+ul{
+	list-style-type:square;
 }
 
 main {
@@ -71,7 +74,7 @@ main {
 	background-color: White;
 	max-width: 1200px;
 	margin: 20px auto;
-	margin-left: 180px;/*pour laisser de l'escpace a la asideNav 160px plus 10px de padding*/
+	margin-left: 180px;/*pour laisser de l'escpace à la asideNav 160px + 10px de padding*/
 	padding: 40px;
 	border: 1px solid SteelBlue;
 	line-height: 1.6;
@@ -100,8 +103,15 @@ footer {
 	background-color: MidnightBlue;
 	color: White;
 }
-{
-	font-family: Arial, sans-serif;
-	background-color: AliceBlue;
-	color: Black;
+
+/*tableau*/
+th, td{
+	border: 2px solid;	
+	border-color: black;
+	padding: 10px;
 }
+
+table{
+	border-collapse: collapse;	
+	}
+	
