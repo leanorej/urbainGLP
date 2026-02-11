@@ -16,12 +16,13 @@ import engine.map.Block;
 import engine.map.Map;
 import engine.map.Ville;
 import engine.process.GameBuilder;
+import engine.process.MobileInterface;
 
 
 /**
  * Copyright SEDAMOP - Software Engineering
  * 
- * @author tianxiao.liu@cyu.fr Loukili
+ * @author tianxiao.liu@cyu.fr Loukili JEAN
  *
  */
 public class MainGUI extends JFrame implements Runnable {
@@ -33,6 +34,8 @@ public class MainGUI extends JFrame implements Runnable {
 	private final static Dimension preferredSize = new Dimension(GameConfiguration.WINDOW_WIDTH, GameConfiguration.WINDOW_HEIGHT);
 
 	private Ville ville;
+	
+	private MobileInterface manager;
 
 	private GameDisplay dashboard;
 
@@ -52,7 +55,9 @@ public class MainGUI extends JFrame implements Runnable {
 		//Constuction de la ville
 		ville =GameBuilder.buildVille(map);
 		
-		dashboard = new GameDisplay(map, ville);
+		manager = GameBuilder.buildInitMobile(map, ville);
+		
+		dashboard = new GameDisplay(map, ville, manager);
 
 		dashboard.setPreferredSize(preferredSize);
 		contentPane.add(dashboard, BorderLayout.CENTER);
@@ -72,6 +77,7 @@ public class MainGUI extends JFrame implements Runnable {
 			} catch (InterruptedException e) {
 				System.out.println(e.getMessage());
 			}
+			manager.nextRound();
 			dashboard.repaint();
 		}
 	}

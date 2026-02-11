@@ -8,11 +8,12 @@ import config.GameConfiguration;
 import engine.map.Batiment;
 import engine.map.Block;
 import engine.map.Map;
+import engine.mobile.Sim;
 
 /**
  * Copyright SEDAMOP - Software Engineering
  * 
- * @author Loukili 
+ * @author Loukili JEAN
  *
  */
 
@@ -58,5 +59,16 @@ public class PaintStrategy {
 		else if(col==7)
 			graphics.setColor(Color.gray);
 		graphics.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+	}
+
+	public void paint(Sim sim, Graphics graphics){
+		Block position = sim.getPosition();
+		int blockSize = GameConfiguration.BLOCK_SIZE;
+		
+		int y = position.getLine();
+		int x = position.getColumn();
+
+		graphics.setColor(Color.white);
+		graphics.fillOval(x * blockSize + blockSize/4, y * blockSize + blockSize/4, blockSize/2, blockSize/2);
 	}
 }

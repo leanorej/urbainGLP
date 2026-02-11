@@ -21,6 +21,7 @@ public class Ville {
 		batiments.add(batiment);
 	} 
 	
+
 	public void creationBatiments() {
 		Batiment maison1= new Batiment(new Block(0,0), "maison1", 1);
 		this.add(maison1);

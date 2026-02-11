@@ -2,15 +2,18 @@ package engine.process;
 
 import java.util.HashMap;
 
+
 import config.GameConfiguration;
 import engine.map.Batiment;
 import engine.map.Block;
 import engine.map.Map;
 import engine.map.Ville;
+import engine.mobile.Sim;
+
 /**
  * Copyright SEDAMOP - Software Engineering
  * 
- * @author tianxiao.liu@cyu.fr Loukili
+ * @author tianxiao.liu@cyu.fr Loukili JEAN
  *
  */
 public class GameBuilder {
@@ -25,4 +28,17 @@ public class GameBuilder {
 		return ville;
 	}
 
+	public static MobileInterface buildInitMobile(Map map, Ville ville) {
+		MobileInterface manager = new MobileSimManager(map, ville);
+		
+		initializeSim(map, ville, manager);
+		
+		return manager;
+	}
+
+	private static void initializeSim(Map map, Ville ville, MobileInterface manager) {
+		Block block = ville.getBatiments().get(0).getPosition();
+		Sim sim = new Sim(block);
+		manager.add(sim);
+	}
 }

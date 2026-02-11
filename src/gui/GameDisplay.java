@@ -9,6 +9,8 @@ import config.GameConfiguration;
 import engine.map.Batiment;
 import engine.map.Block;
 import engine.map.Map;
+import engine.mobile.Sim;
+import engine.process.MobileInterface;
 
 import engine.map.Ville;
 
@@ -16,7 +18,7 @@ import engine.map.Ville;
 /**
  * Copyright SEDAMOP - Software Engineering
  * 
- * @author tianxiao.liu@cyu.fr Loukili
+ * @author tianxiao.liu@cyu.fr Loukili JEAN
  *
  */
 public class GameDisplay extends JPanel {
@@ -26,10 +28,12 @@ public class GameDisplay extends JPanel {
 	private Map map;
 	private Ville ville;
 	private PaintStrategy paintStrategy = new PaintStrategy();
+	private MobileInterface manager;
 
-	public GameDisplay(Map map, Ville ville) {
+	public GameDisplay(Map map, Ville ville, MobileInterface manager) {
 		this.map = map;
 		this.ville=ville;
+		this.manager = manager;
 	}
 
 	@Override
@@ -38,6 +42,10 @@ public class GameDisplay extends JPanel {
 		paintStrategy.paint(map, g);
 		for(Batiment batiment : ville.getBatiments()) {
             paintStrategy.paint(batiment, g);
+        }
+        
+        for(Sim sim : manager.getSims()){
+        	paintStrategy.paint(sim, g);
         }
 	}
 
