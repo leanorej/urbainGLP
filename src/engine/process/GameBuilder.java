@@ -19,7 +19,7 @@ import engine.mobile.Sim;
 public class GameBuilder {
 
 	public static Map buildMap() {
-		return new Map(GameConfiguration.LINE_COUNT, GameConfiguration.COLUMN_COUNT);
+		return new Map(GameConfiguration.NUMERO_BLOC_HAUTEUR , GameConfiguration.NUMERO_BLOC_LARGEUR);
 	}
 	//construcion de la ville a l'aide de creationBatiments
 	public static Ville buildVille(Map map) {

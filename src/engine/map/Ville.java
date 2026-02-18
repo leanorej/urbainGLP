@@ -26,9 +26,9 @@ public class Ville {
 		//1
 		Batiment maison1= new Batiment(new Block(0,0), "maison1", 1);
 		this.add(maison1);
-		Batiment maison2= new Batiment(new Block(0,1), "maison2",1);
+		Batiment maison2= new Batiment(new Block(0,2), "maison2",1);
 		this.add(maison2);
-		Batiment maison3= new Batiment(new Block(0,2), "maison3", 1);
+		Batiment maison3= new Batiment(new Block(0,4), "maison3", 1);
 		this.add(maison3);
 		//2
 		Batiment imm1= new Batiment(new Block(6,4), "imm1", 2);

@@ -9,7 +9,7 @@ public class Batiment {
 
 	private Block position;
 	private String nomBatiment;
-	private int couleur ;
+	private int couleur ;//  a enlever 
 	
 	public Batiment(Block position, String nom, int coul) {
 		this.position = position;
