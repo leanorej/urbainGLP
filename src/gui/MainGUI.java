@@ -3,26 +3,17 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.JFrame;
-import javax.swing.JTextField;
-
 import config.GameConfiguration;
-import engine.map.Block;
 import engine.map.Map;
 import engine.map.Ville;
 import engine.process.GameBuilder;
 import engine.process.MobileInterface;
-
+import chrono.Chronometer;
 
 /**
  * Copyright SEDAMOP - Software Engineering
- * 
- * @author tianxiao.liu@cyu.fr Loukili JEAN
+ * * @author tianxiao.liu@cyu.fr Loukili JEAN
  *
  */
 public class MainGUI extends JFrame implements Runnable {
@@ -38,6 +29,9 @@ public class MainGUI extends JFrame implements Runnable {
 	private MobileInterface manager;
 
 	private GameDisplay dashboard;
+	
+	private SidePanel sidePanel;
+	private Chronometer chronometer;
 
 	public MainGUI(String title) {
 		super(title);
@@ -49,18 +43,21 @@ public class MainGUI extends JFrame implements Runnable {
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
-	
+		chronometer = new Chronometer();
 
 		map = GameBuilder.buildMap();
-		//Constuction de la ville
-		ville =GameBuilder.buildVille(map);
+		ville = GameBuilder.buildVille(map);
 		
 		manager = GameBuilder.buildInitMobile(map, ville);
 		
 		dashboard = new GameDisplay(map, ville, manager);
+		sidePanel = new SidePanel(chronometer);
 
-		dashboard.setPreferredSize(preferredSize);
+		dashboard.setPreferredSize(new Dimension(GameConfiguration.NUMERO_BLOC_LARGEUR * GameConfiguration.BLOCK_SIZE, GameConfiguration.WINDOW_HEIGHT));
+		sidePanel.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
+		
 		contentPane.add(dashboard, BorderLayout.CENTER);
+		contentPane.add(sidePanel, BorderLayout.EAST);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		pack();
@@ -77,11 +74,16 @@ public class MainGUI extends JFrame implements Runnable {
 			} catch (InterruptedException e) {
 				System.out.println(e.getMessage());
 			}
+			
+			chronometer.increment();
+			
+			if (chronometer.getHour().getValue() == 0 && chronometer.getMinute().getValue() == 0 && chronometer.getSecond().getValue() == 0) {
+				sidePanel.incrementDay();
+			}
+			
 			manager.nextRound();
+			sidePanel.updateUI();
 			dashboard.repaint();
 		}
 	}
-
-
-
 }
