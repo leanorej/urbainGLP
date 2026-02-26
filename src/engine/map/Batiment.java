@@ -1,4 +1,7 @@
 package engine.map;
+
+import java.util.ArrayList;
+
 /**
  * Le bâtiment est caractérise par sa positon et son nom
  * 
@@ -9,12 +12,10 @@ public class Batiment {
 
 	private Block position;
 	private String nomBatiment;
-	private int couleur ;//  a enlever 
 	
-	public Batiment(Block position, String nom, int coul) {
+	public Batiment(Block position, String nom) {
 		this.position = position;
 		this.nomBatiment=nom;
-		this.couleur=coul ;
 	}
 
 	public Block getPosition() {
@@ -25,7 +26,4 @@ public class Batiment {
 		return nomBatiment;
 	}
 
-	public int getCouleur(){
-		return couleur ;
-	}
 }

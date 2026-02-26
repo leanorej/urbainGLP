@@ -40,9 +40,14 @@ public class GameDisplay extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		paintStrategy.paint(map, g);
+
+
+		
 		for(Batiment batiment : ville.getBatiments()) {
             paintStrategy.paint(batiment, g);
         }
+		
+		
         
         for(Sim sim : manager.getSims()){
         	paintStrategy.paint(sim, g);
