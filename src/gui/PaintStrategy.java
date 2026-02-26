@@ -48,24 +48,11 @@ public class PaintStrategy {
 		int y = position.getLine();
 		int x = position.getColumn();
 
-		Random num = new Random() ;
-
-			float r = num.nextFloat();
-			float g = num.nextFloat();
-			float b = num.nextFloat() ;
-		
-			graphics.setColor(new Color(r,g,b));
-			graphics.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-        
-
+		graphics.setColor(Color.black);
+		graphics.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
 		
 	}
 
-	public void paintRoute(Map map, Graphics graphics){
-
-	}
-	
-	
 
 	public void paint(Sim sim, Graphics graphics){
 		Block position = sim.getPositionCourante();
