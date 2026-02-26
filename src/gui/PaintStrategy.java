@@ -92,7 +92,7 @@ public class PaintStrategy {
 	}
 
 	public void paint(Sim sim, Graphics graphics){
-		Block position = sim.getPosition();
+		Block position = sim.getPositionCourante();
 		int blockSize = GameConfiguration.BLOCK_SIZE;
 		
 		int y = position.getLine();
