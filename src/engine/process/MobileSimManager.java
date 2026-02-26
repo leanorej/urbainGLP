@@ -38,7 +38,7 @@ public class MobileSimManager implements MobileInterface {
 	private void moveSims() {
 
 		for (Sim sim : sims) {
-			Block position = sim.getPosition();
+			Block position = sim.getPositionCourante();
 			
 			List<Batiment> batiments = ville.getBatiments();
 			/** il faudra adapter la boucle for en fonction des batiments de la routine **/
@@ -47,7 +47,7 @@ public class MobileSimManager implements MobileInterface {
 				if(position.getLine() == batimentPosition.getLine() && position.getColumn() == batimentPosition.getColumn()){
 					int suivanti = (i+1) % batiments.size();
 					Block newPosition = batiments.get(suivanti).getPosition();
-					sim.setPosition(newPosition);
+					sim.setPositionCourante(newPosition);
 					break;
 				}
 			}
