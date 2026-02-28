@@ -10,6 +10,8 @@ public class Chronometer {
 	private CyclicCounter hour = new CyclicCounter(0, 23, 0);
 	private CyclicCounter minute = new CyclicCounter(0, 59, 0);
 	private CyclicCounter second = new CyclicCounter(0, 59, 0);
+	
+	
 
 	public void increment() {
 		second.increment();
@@ -63,5 +65,4 @@ public class Chronometer {
 		minute.setValue(0);
 		second.setValue(0);
 	}
-
 }
