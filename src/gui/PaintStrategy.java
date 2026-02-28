@@ -148,7 +148,7 @@ public class PaintStrategy {
 		int y = position.getLine();
 		int x = position.getColumn();
 
-		graphics.setColor(Color.white);
+		graphics.setColor(Color.blue);
 		graphics.fillOval(x * blockSize + blockSize/4, y * blockSize + blockSize/4, blockSize/2, blockSize/2);
 	}
 }

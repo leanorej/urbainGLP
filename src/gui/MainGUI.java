@@ -7,13 +7,14 @@ import javax.swing.JFrame;
 import config.GameConfiguration;
 import engine.map.Map;
 import engine.map.Ville;
+import engine.mobile.Sims;
 import engine.process.GameBuilder;
-import engine.process.MobileInterface;
+
+import engine.process.MobileSimManager;
 import chrono.Chronometer;
 
 /**
- * Copyright SEDAMOP - Software Engineering
- * * @author tianxiao.liu@cyu.fr Loukili JEAN
+ * @author Loukili JEAN
  *
  */
 public class MainGUI extends JFrame implements Runnable {
@@ -26,12 +27,15 @@ public class MainGUI extends JFrame implements Runnable {
 
 	private Ville ville;
 	
-	private MobileInterface manager;
+	private Sims sims;
+	
+	private MobileSimManager manager;
 
 	private GameDisplay dashboard;
 	
 	private SidePanel sidePanel;
 	private Chronometer chronometer;
+	int dernierHeure = -1;//j'en ai besoin pour faire moin de verification que de heure en heure
 
 	public MainGUI(String title) {
 		super(title);
@@ -47,12 +51,13 @@ public class MainGUI extends JFrame implements Runnable {
 
 		map = GameBuilder.buildMap();
 		ville = GameBuilder.buildVille(map);
-		
-		manager = GameBuilder.buildInitMobile(map, ville);
+		//je initialise les sims avec leur routine corrispectives
+		sims = GameBuilder.initializeSims(ville);
+		manager = GameBuilder.buildInitMobile(map, ville,sims);
 		
 		dashboard = new GameDisplay(map, ville, manager);
 		sidePanel = new SidePanel(chronometer);
-
+		
 		dashboard.setPreferredSize(new Dimension(GameConfiguration.NUMERO_BLOC_LARGEUR * GameConfiguration.BLOCK_SIZE, GameConfiguration.WINDOW_HEIGHT));
 		sidePanel.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
 		
@@ -81,7 +86,13 @@ public class MainGUI extends JFrame implements Runnable {
 				sidePanel.incrementDay();
 			}
 			
-			manager.nextRound();
+			int heureCourante = chronometer.getHour().getValue();
+		    // on vérifie la routine SEULEMENT si l'heure a changé
+		    if (heureCourante != dernierHeure) {
+		        manager.nextMove(heureCourante);
+		        dernierHeure = heureCourante;
+		    }
+		    
 			sidePanel.updateUI();
 			dashboard.repaint();
 		}

@@ -10,8 +10,7 @@ import engine.map.Batiment;
 import engine.map.Block;
 import engine.map.Map;
 import engine.mobile.Sim;
-import engine.process.MobileInterface;
-
+import engine.process.MobileSimManager;
 import engine.map.Ville;
 
 
@@ -28,12 +27,12 @@ public class GameDisplay extends JPanel {
 	private Map map;
 	private Ville ville;
 	private PaintStrategy paintStrategy = new PaintStrategy();
-	private MobileInterface manager;
+	private MobileSimManager SimManager;
 
-	public GameDisplay(Map map, Ville ville, MobileInterface manager) {
+	public GameDisplay(Map map, Ville ville, MobileSimManager SimManager) {
 		this.map = map;
 		this.ville=ville;
-		this.manager = manager;
+		this.SimManager = SimManager;
 	}
 
 	@Override
@@ -51,9 +50,10 @@ public class GameDisplay extends JPanel {
             paintStrategy.paint(batiment, g);
         }
         
-        for(Sim sim : manager.getSims()){
+        
+		for(Sim sim : SimManager.getSims().getSims()){
         	paintStrategy.paint(sim, g);
+        }
         }
 	}
 
-}

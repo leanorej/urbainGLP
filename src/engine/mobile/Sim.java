@@ -11,12 +11,14 @@ import engine.map.Block;
  *
  */
 public class Sim {
-	//ajouterun classe identité
+	//nom? age? genre?
 	private Block positionCourante;
 	//La routin associée au sim
-	private Routine routine;
+	private HashMap<Integer,Batiment> routine;
 	
-	public Sim(Block position, Routine routine){
+	private boolean vivant= true;
+	
+	public Sim(Block position, HashMap<Integer,Batiment> routine){
 		this.positionCourante = position;
 		this.routine=routine;
 	}
@@ -29,11 +31,19 @@ public class Sim {
 		this.positionCourante = position;
 	}
 
-	public Routine getRoutine() {
+	public HashMap<Integer,Batiment> getRoutine() {
 		return routine;
 	}
 
-	public void setRoutine(Routine routine) {
+	public void setRoutine(HashMap<Integer,Batiment> routine) {
 		this.routine = routine;
+	}
+
+	public boolean isVivant() {
+		return vivant;
+	}
+
+	public void setVivant(boolean vivant) {
+		this.vivant = vivant;
 	}
 }
