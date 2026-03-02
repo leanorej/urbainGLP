@@ -3,14 +3,22 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import config.GameConfiguration;
+import engine.map.Block;
 import engine.map.Map;
 import engine.map.Ville;
+import engine.mobile.Sim;
 import engine.mobile.Sims;
 import engine.process.GameBuilder;
 
 import engine.process.MobileSimManager;
+
 import chrono.Chronometer;
 
 /**
@@ -29,7 +37,7 @@ public class MainGUI extends JFrame implements Runnable {
 	
 	private Sims sims;
 	
-	private MobileSimManager manager;
+	private MobileSimManager SimMenager;
 
 	private GameDisplay dashboard;
 	
@@ -41,7 +49,19 @@ public class MainGUI extends JFrame implements Runnable {
 		super(title);
 		init();
 	}
-
+	//Action listener pour l'instant quand on 
+	//selectionne un sim il bouge vers un block fixé en coord 6,7
+	//donc il faut programmer le actionListener voir dans AirCraft->MainGui->MouseControls
+	//
+	//Aussi je dois corriger un bug dans mobile menager ou pas car si on deplace le sim
+	//celui la il va rester jusqua la prochaine heure pui il va reprendre sa routine
+    private ActionListener actListener = e -> {
+        String selected = sidePanel.getSelectedSim();
+        if (selected != null) {
+        	SimMenager.getSims().getSim(selected).setPositionCourante(new Block(6,7));;
+        }
+    };
+    
 	private void init() {
 
 		Container contentPane = getContentPane();
@@ -53,10 +73,12 @@ public class MainGUI extends JFrame implements Runnable {
 		ville = GameBuilder.buildVille(map);
 		//je initialise les sims avec leur routine corrispectives
 		sims = GameBuilder.initializeSims(ville);
-		manager = GameBuilder.buildInitMobile(map, ville,sims);
+		SimMenager = GameBuilder.buildInitMobile(sims);
 		
-		dashboard = new GameDisplay(map, ville, manager);
-		sidePanel = new SidePanel(chronometer);
+		dashboard = new GameDisplay(map, ville, SimMenager);
+		String s1[] = { "Pierre", "Maurizio", "Mimmo", "Dennis", "Rudy" }; 
+		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);
+		sidePanel = new SidePanel(chronometer, simsKey, actListener);
 		
 		dashboard.setPreferredSize(new Dimension(GameConfiguration.NUMERO_BLOC_LARGEUR * GameConfiguration.BLOCK_SIZE, GameConfiguration.WINDOW_HEIGHT));
 		sidePanel.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
@@ -85,11 +107,11 @@ public class MainGUI extends JFrame implements Runnable {
 			if (chronometer.getHour().getValue() == 0 && chronometer.getMinute().getValue() == 0 && chronometer.getSecond().getValue() == 0) {
 				sidePanel.incrementDay();
 			}
-			
+			//ON MET à JOUR LA POSITION DE UN SI UNE FOIS PAR HEUR
 			int heureCourante = chronometer.getHour().getValue();
 		    // on vérifie la routine SEULEMENT si l'heure a changé
 		    if (heureCourante != dernierHeure) {
-		        manager.nextMove(heureCourante);
+		    	SimMenager.nextMove(heureCourante);
 		        dernierHeure = heureCourante;
 		    }
 		    
@@ -97,4 +119,6 @@ public class MainGUI extends JFrame implements Runnable {
 			dashboard.repaint();
 		}
 	}
+	
+
 }

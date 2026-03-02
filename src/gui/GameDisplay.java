@@ -51,7 +51,7 @@ public class GameDisplay extends JPanel {
         }
         
         
-		for(Sim sim : SimManager.getSims().getSims()){
+		for(Sim sim : SimManager.getSims().getSims().values()){
         	paintStrategy.paint(sim, g);
         }
         }

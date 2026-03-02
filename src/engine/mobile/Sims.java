@@ -11,14 +11,18 @@ import java.util.HashMap;
 import engine.map.Batiment;
 import engine.map.Block;
 import engine.map.Ville;
-import engine.mobile.Sim;
-
+/*
+ * @author Loukili
+ * README A SUPRIMER:est ce que ca c'est du traiment?? est ce que on peu considere les classe ville et Sims comme des 
+ * Builder(un exmple de builder on l'a dans train pour line builder) 
+ * vu que on build un obgjet complexe? moi je dis non vous que il y pas un algorithme derriere et c'est codé en dure
+ * */
 public class Sims {
 
-	private ArrayList<Sim> sims = new ArrayList<Sim>();
+	private HashMap<String,Sim> sims = new HashMap<String,Sim>();
 	
 	public void add(Sim sim) {
-		sims.add(sim);
+		sims.put(sim.getNom(),sim);
 	} 
 	
 
@@ -30,7 +34,7 @@ public class Sims {
 		routine1.put(7,ville.getBatiments().get(8));
 		routine1.put(16,ville.getBatiments().get(4));
 		routine1.put(18,ville.getBatiments().get(9));
-		Sim Francis = new Sim(new Block(0,0),routine1);
+		Sim Francis = new Sim("Francis", new Block(0,0),routine1);
 		add(Francis);
 		//Genevieve
 		HashMap<Integer,Batiment> routine2=new HashMap<Integer,Batiment>();
@@ -39,13 +43,29 @@ public class Sims {
 		routine2.put(6,ville.getBatiments().get(4));
 		routine2.put(16,ville.getBatiments().get(9));
 		routine2.put(18,ville.getBatiments().get(8));
-		Sim Genevieve = new Sim(new Block(0,0),routine2);
+		Sim Genevieve = new Sim("Genevieve",new Block(0,1),routine2);
 		add(Genevieve);
-		
+		//Victor
+		HashMap<Integer,Batiment> routine3=new HashMap<Integer,Batiment>();
+		routine3.put(2,ville.getBatiments().get(2)); 
+		routine3.put(5,ville.getBatiments().get(8));
+		routine3.put(6,ville.getBatiments().get(4));
+		routine3.put(16,ville.getBatiments().get(13));
+		routine3.put(18,ville.getBatiments().get(7));
+		Sim Victor = new Sim("Victor",new Block(0,5),routine3);
+		add(Victor);
+		//jeBoujePas
+		HashMap<Integer,Batiment> routine4=new HashMap<Integer,Batiment>();
+		Sim jeBoujePas = new Sim("jeBoujePas",new Block(0,5),routine4);
+		add(jeBoujePas);
 	}
 	
-	public ArrayList<Sim>  getSims() {
+	public HashMap<String,Sim>  getSims() {
 		return sims;
+	}
+	
+	public Sim getSim(String Nom) {
+		return sims.get(Nom);
 	}
 
 }

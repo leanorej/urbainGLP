@@ -1,14 +1,8 @@
 package engine.process;
 
-import java.util.HashMap;
-
-
 import config.GameConfiguration;
-import engine.map.Batiment;
-import engine.map.Block;
 import engine.map.Map;
 import engine.map.Ville;
-import engine.mobile.Sim;
 import engine.mobile.Sims;
 
 /**
@@ -34,8 +28,8 @@ public class GameBuilder {
 		return sims;
 	}
 	
-	public static MobileSimManager buildInitMobile(Map map, Ville ville, Sims sims) {
-		MobileSimManager manager = new MobileSimManager(map, ville, sims);
+	public static MobileSimManager buildInitMobile(Sims sims) {
+		MobileSimManager manager = new MobileSimManager(sims);
 		return manager;
 	}
 }

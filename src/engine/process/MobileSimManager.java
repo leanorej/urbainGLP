@@ -1,36 +1,24 @@
 package engine.process;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import config.GameConfiguration;
-import engine.map.Batiment;
-import engine.map.Map;
-import engine.map.Ville;
 import engine.mobile.Sim;
 import engine.mobile.Sims;
-import engine.map.Block;
 /**
  * 
  * @author JEAN
  *
  */
-public class MobileSimManager {
-	private Map map;
-	private Ville ville;
+public class MobileSimManager{
 	private Sims sims;
 	int i=0;
 
 	public Sims getSims() {
 		return sims;
 	}
-	public MobileSimManager(Map map, Ville ville, Sims sims) {
-		this.map = map;
-		this.ville = ville;
+	public MobileSimManager(Sims sims) {
 		this.sims=sims;
 	}
 	public void nextMove(int heureCourante) {
-		for(Sim sim: sims.getSims()) {
+		for(Sim sim: sims.getSims().values()) {
 			//Verification si c'est l'heure de changer le batiment
 			if(sim.getRoutine().containsKey(heureCourante)) {
 				//ATTENTION EST CE QUE SA VA CAUSER PROBLEME QUAND ON VA IMPLEMETER LE DEPLACEMENT FORCE PAR  L'USER OU LES EVENENEMT??

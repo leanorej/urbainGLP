@@ -12,13 +12,16 @@ import engine.map.Block;
  */
 public class Sim {
 	//nom? age? genre?
+	private String nom;
+	
 	private Block positionCourante;
-	//La routin associée au sim
+	//La routine associée au sim
 	private HashMap<Integer,Batiment> routine;
 	
 	private boolean vivant= true;
 	
-	public Sim(Block position, HashMap<Integer,Batiment> routine){
+	public Sim(String nom, Block position, HashMap<Integer,Batiment> routine){
+		this.nom=nom;
 		this.positionCourante = position;
 		this.routine=routine;
 	}
@@ -46,4 +49,16 @@ public class Sim {
 	public void setVivant(boolean vivant) {
 		this.vivant = vivant;
 	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	@Override
+	public String toString() {
+		return "Sim [nom=" + nom + "]";
+	}
+	
+	
+	
 }
