@@ -1,0 +1,61 @@
+body {
+	background-color: AliceBlue;
+	color: Black;
+	margin: 0;
+}
+
+header {
+	background-color: SteelBlue;
+	color: White;
+	text-align: center;
+	padding: 15px;
+}
+
+aside {
+	position: fixed;
+	width: 120px;
+	padding: 10px;
+}
+
+aside ul {
+	list-style: none;
+	padding: 0;
+}
+
+aside a {
+	color: MidnightBlue;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+section {
+	margin-left: 140px;
+	padding: 20px;
+}
+
+article {
+	background-color: White;
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid SteelBlue;
+}
+footer{
+    text-align: center;
+}
+table {
+	border-collapse: collapse;
+	width: 100%;
+	margin: 15px 0;
+}
+
+th, td {
+	border: 2px solid Black;
+	padding: 10px;
+	text-align: center;
+}
+h1{
+    color :white;
+}
+h2, h3 {
+	color: SteelBlue;
+}
