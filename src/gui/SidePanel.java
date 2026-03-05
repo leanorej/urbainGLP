@@ -24,7 +24,7 @@ public class SidePanel extends JPanel {
 	private JLabel dayLabel;
 	private int dayCount = 1;
 
-	//menu de selction Sim
+	//menu de selction Sim qui contient uniquement les nome des sims et pas les istances des sims
 	private JComboBox<String> comboBox;
 	
 	
@@ -62,7 +62,7 @@ public class SidePanel extends JPanel {
 		dayCount++;
 		dayLabel.setText("JOUR " + dayCount);
 	}
-	//methode pour comboBox
+	//methode pour comboBox qui retourne l'element selectioné
 	public String getSelectedSim() {
 	    return  (String) comboBox.getSelectedItem();
 	}

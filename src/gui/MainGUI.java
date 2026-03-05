@@ -49,15 +49,19 @@ public class MainGUI extends JFrame implements Runnable {
 		super(title);
 		init();
 	}
-	//Action listener pour l'instant quand on 
-	//selectionne un sim il bouge vers un block fixé en coord 6,7
-	//donc il faut programmer le actionListener voir dans AirCraft->MainGui->MouseControls
-	//
-	//Aussi je dois corriger un bug dans mobile menager ou pas car si on deplace le sim
-	//celui la il va rester jusqua la prochaine heure pui il va reprendre sa routine
-    private ActionListener actListener = e -> {
-        String selected = sidePanel.getSelectedSim();
+	
+	/*Action listener pour l'instant quand on 
+	*selectionne un sim il bouge vers un block fixé en coord 6,7
+	*donc il faut programmer le actionListener (voir dans AirCraft->MainGui->MouseControls)
+	*
+	*Aussi je dois corriger un bug dans mobile menager ou pas car si on deplace le sim
+	*celui la il va rester jusqua la prochaine heure pui il va reprendre sa routine
+	*ducoup ce action listener est a enlever
+    */
+	private ActionListener actListener = e -> {
+        String selected = sidePanel.getSelectedSim();//en prends le nom du sim selctionné
         if (selected != null) {
+        	//on le place en position 67
         	SimMenager.getSims().getSim(selected).setPositionCourante(new Block(6,7));;
         }
     };
@@ -76,8 +80,8 @@ public class MainGUI extends JFrame implements Runnable {
 		SimMenager = GameBuilder.buildInitMobile(sims);
 		
 		dashboard = new GameDisplay(map, ville, SimMenager);
-		String s1[] = { "Pierre", "Maurizio", "Mimmo", "Dennis", "Rudy" }; 
-		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);
+		
+		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);//je prends la list des nom des sims
 		sidePanel = new SidePanel(chronometer, simsKey, actListener);
 		
 		dashboard.setPreferredSize(new Dimension(GameConfiguration.NUMERO_BLOC_LARGEUR * GameConfiguration.BLOCK_SIZE, GameConfiguration.WINDOW_HEIGHT));
