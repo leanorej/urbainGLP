@@ -6,7 +6,7 @@ import engine.map.Batiment;
 
 public class Routine {
 	
-	private HashMap<Integer,Batiment> routine;
+	private HashMap<Integer,Batiment> routine=new HashMap<>();
 	
 	public void ajouterActivite(int HeureDebut, Batiment lieuActivite) {
 		this.routine.put(HeureDebut, lieuActivite);
