@@ -41,12 +41,12 @@ public class GameDisplay extends JPanel {
 		paintStrategy.paint(map, g);
 		
 		
-		for(Batiment batiment : ville.getBatiments()) {
+		for(Batiment batiment : ville.getBatimentsList()) {
             paintStrategy.paint(map, batiment, g);
         }
 
 		
-		for(Batiment batiment : ville.getBatiments()) {
+		for(Batiment batiment : ville.getBatimentsList()) {
             paintStrategy.paint(batiment, g);
         }
         

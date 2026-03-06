@@ -2,6 +2,7 @@ package engine.mobile;
 
 import java.util.HashMap;
 
+import engine.donnee.Routine;
 import engine.map.Batiment;
 import engine.map.Block;
 /**
@@ -16,11 +17,11 @@ public class Sim {
 	
 	private Block positionCourante;
 	//La routine associée au sim
-	private HashMap<Integer,Batiment> routine;
+	private Routine routine;
 	
 	private boolean vivant= true;
 	
-	public Sim(String nom, Block position, HashMap<Integer,Batiment> routine){
+	public Sim(String nom, Block position, Routine routine){
 		this.nom=nom;
 		this.positionCourante = position;
 		this.routine=routine;
@@ -34,11 +35,11 @@ public class Sim {
 		this.positionCourante = position;
 	}
 
-	public HashMap<Integer,Batiment> getRoutine() {
+	public Routine getRoutine() {
 		return routine;
 	}
 
-	public void setRoutine(HashMap<Integer,Batiment> routine) {
+	public void setRoutine(Routine routine) {
 		this.routine = routine;
 	}
 
