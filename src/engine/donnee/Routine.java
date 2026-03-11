@@ -28,7 +28,7 @@ public class Routine {
 	}
 
 	public Batiment get(int heureCourante) {
-		return this.get(heureCourante);
+		return this.routine.get(heureCourante);
 	}
 	
 }
