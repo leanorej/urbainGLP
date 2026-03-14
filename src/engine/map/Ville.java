@@ -8,6 +8,7 @@ package engine.map;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 public class Ville {
 	private Map map;
@@ -91,7 +92,11 @@ public class Ville {
 	public ArrayList<Batiment>  getBatimentsList() {
 		return new ArrayList<Batiment>(batiments.values());
 	}
-	public Batiment get(String nomBatiment) {
-		return batiments.get(nomBatiment);
+	public Batiment get(String nomBatiment){
+		if (batiments.containsKey(nomBatiment)) {
+			return batiments.get(nomBatiment);
+		} else {
+			throw new NoSuchElementException("Le batiment " + nomBatiment + " n'existe pas.");
+		}
 	}
 }

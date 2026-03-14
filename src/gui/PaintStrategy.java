@@ -1,9 +1,17 @@
 package gui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random ;
+
+import javax.imageio.ImageIO;
 
 import config.GameConfiguration;
 import engine.map.Batiment;
@@ -151,4 +159,31 @@ public class PaintStrategy {
 		graphics.setColor(Color.blue);
 		graphics.fillOval(x * blockSize + blockSize/4, y * blockSize + blockSize/4, blockSize/2, blockSize/2);
 	}
+	public static Image readImage(String filePath) {
+		try {
+			return ImageIO.read(new File(filePath));
+		} catch (IOException e) {
+			System.err.println("-- Can not read the image file ! --");
+			return null;
+		}
+	}
+	public void paint2(Sim sim, Graphics graphics){
+		graphics.setColor(Color.BLACK);
+		
+
+		Block position = sim.getPositionCourante();
+		int blockSize = GameConfiguration.BLOCK_SIZE;
+		
+		int y = position.getLine();
+		int x = position.getColumn();
+
+		graphics.setColor(Color.blue);
+		graphics.fillOval(x * blockSize + blockSize/4, y * blockSize + blockSize/4, blockSize/2, blockSize/2);
+		
+		// Attention : don't call trainManager.getId(), because it will return the ID of the thread (not the train).
+		graphics .setFont(new Font("Dialog", Font.PLAIN, 20));
+		graphics.drawString("T" + sim.getNom(), y, x - 30);
+		graphics.drawImage(readImage("src/images/train.jpg"), 20+ y - 30, x - 25, 40, 20, null);
+	}
+
 }

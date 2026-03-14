@@ -23,7 +23,7 @@ public class Sims {
 	public void creationSims(Ville ville) {
 		//Francis 37 ans ouvrier
 	    Routine routine1 = new Routine();
-	    routine1.ajouterActivite(8,  ville.get("usine"));     
+	    routine1.ajouterActivite(8,  ville.get("usne"));     
 	    routine1.ajouterActivite(12, ville.get("maison1"));//pause dej  
 	    routine1.ajouterActivite(14, ville.get("usine"));    
 	    routine1.ajouterActivite(18, ville.get("salle"));     
