@@ -18,6 +18,7 @@ import engine.map.Batiment;
 import engine.map.Block;
 import engine.map.Map;
 import engine.mobile.Sim;
+import engine.process.GameUtility;
 
 /**
  * Copyright SEDAMOP - Software Engineering
@@ -148,7 +149,7 @@ public class PaintStrategy {
 
 	}
 
-
+//SUPRIMEEEEEEER
 	public void paint(Sim sim, Graphics graphics){
 		Block position = sim.getPositionCourante();
 		int blockSize = GameConfiguration.BLOCK_SIZE;
@@ -159,31 +160,27 @@ public class PaintStrategy {
 		graphics.setColor(Color.blue);
 		graphics.fillOval(x * blockSize + blockSize/4, y * blockSize + blockSize/4, blockSize/2, blockSize/2);
 	}
-	public static Image readImage(String filePath) {
-		try {
-			return ImageIO.read(new File(filePath));
-		} catch (IOException e) {
-			System.err.println("-- Can not read the image file ! --");
-			return null;
-		}
-	}
-	public void paint2(Sim sim, Graphics graphics){
-		graphics.setColor(Color.BLACK);
-		
+	
+	
+	//Amin
+	public void paint2(Sim sim, Graphics2D graphics2){
+		graphics2.setColor(Color.BLACK);
+		graphics2.setStroke(new BasicStroke(6));
+
 
 		Block position = sim.getPositionCourante();
 		int blockSize = GameConfiguration.BLOCK_SIZE;
 		
-		int y = position.getLine();
-		int x = position.getColumn();
+		int y = position.getLine()*blockSize;
+		int x = position.getColumn()*blockSize;
 
-		graphics.setColor(Color.blue);
-		graphics.fillOval(x * blockSize + blockSize/4, y * blockSize + blockSize/4, blockSize/2, blockSize/2);
+		graphics2.setColor(Color.blue);
+		graphics2.fillOval(x + blockSize/4, y  + blockSize/4, blockSize/2, blockSize/2);
 		
 		// Attention : don't call trainManager.getId(), because it will return the ID of the thread (not the train).
-		graphics .setFont(new Font("Dialog", Font.PLAIN, 20));
-		graphics.drawString("T" + sim.getNom(), y, x - 30);
-		graphics.drawImage(readImage("src/images/train.jpg"), 20+ y - 30, x - 25, 40, 20, null);
+		graphics2 .setFont(new Font("Dialog", Font.PLAIN, 20));
+		graphics2.drawString(sim.getNom(), x-blockSize/4, y);
+		graphics2.drawImage(GameUtility.readImage("src/images/train.jpg"),  x+blockSize/8, y+blockSize/4, 40, 20, null);
 	}
 
 }
