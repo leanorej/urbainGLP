@@ -87,7 +87,7 @@ public class MainGUI extends JFrame implements Runnable {
 		dashboard.setPreferredSize(new Dimension(GameConfiguration.NUMERO_BLOC_LARGEUR * GameConfiguration.BLOCK_SIZE, GameConfiguration.WINDOW_HEIGHT));
 		sidePanel.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
 		
-		contentPane.add(dashboard, BorderLayout.CENTER);
+		contentPane.add(dashboard, BorderLayout.WEST);
 		contentPane.add(sidePanel, BorderLayout.EAST);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -119,7 +119,7 @@ public class MainGUI extends JFrame implements Runnable {
 		        dernierHeure = heureCourante;
 		    }
 		    
-			sidePanel.updateUI();
+			sidePanel.nextRound();
 			dashboard.repaint();
 		}
 	}

@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import chrono.Chronometer;
 import config.GameConfiguration;
-import engine.mobile.Sim;
 
 public class SidePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -43,16 +42,17 @@ public class SidePanel extends JPanel {
 		
 		comboBox = new JComboBox<String>(array);
 		comboBox.addActionListener(actionListener);
-		
+		add(new JLabel("Le nom de la ville"));
 		add(dayLabel);
 		add(timeLabel);
+		
 		//amin
 		add(comboBox);
 		
-		updateUI();
+		nextRound();
 	}
 
-	public void updateUI() {
+	public void nextRound() {
 		if (chronometer != null) {
 			timeLabel.setText(chronometer.toString());
 		}
