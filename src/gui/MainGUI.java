@@ -105,7 +105,10 @@ public class MainGUI extends JFrame implements Runnable {
 			} catch (InterruptedException e) {
 				System.out.println(e.getMessage());
 			}
-			
+			//mettre plusieurs fois pour accelerer le temps
+			chronometer.increment();
+			chronometer.increment();
+			chronometer.increment();
 			chronometer.increment();
 			
 			if (chronometer.getHour().getValue() == 0 && chronometer.getMinute().getValue() == 0 && chronometer.getSecond().getValue() == 0) {

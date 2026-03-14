@@ -21,37 +21,32 @@ public class Sims {
 	
 
 	public void creationSims(Ville ville) {
-		//Fracis
-		Routine routine1=new Routine();
-		routine1.ajouterActivite(1,ville.getBatimentsList().get(7));//ca serait mieux de mettre un hashMap pour batimens dans la classe ville ou visitor si on veut se casser la tete
-		routine1.ajouterActivite(4,ville.getBatimentsList().get(5));
-		routine1.ajouterActivite(7,ville.getBatimentsList().get(8));
-		routine1.ajouterActivite(16,ville.getBatimentsList().get(4));
-		routine1.ajouterActivite(18,ville.getBatimentsList().get(9));
-		Sim Francis = new Sim("Francis", new Block(0,0),routine1);
-		add(Francis);
-		//Genevieve
-		Routine routine2=new Routine();
-		routine2.ajouterActivite(1,ville.getBatimentsList().get(6)); 
-		routine2.ajouterActivite(3,ville.getBatimentsList().get(2));
-		routine2.ajouterActivite(6,ville.getBatimentsList().get(4));
-		routine2.ajouterActivite(16,ville.getBatimentsList().get(9));
-		routine2.ajouterActivite(18,ville.getBatimentsList().get(8));
-		Sim Genevieve = new Sim("Genevieve",new Block(0,1),routine2);
-		add(Genevieve);
-		//Victor
-		Routine routine3=new Routine();
-		routine3.ajouterActivite(2,ville.getBatimentsList().get(2)); 
-		routine3.ajouterActivite(5,ville.getBatimentsList().get(8));
-		routine3.ajouterActivite(6,ville.getBatimentsList().get(4));
-		routine3.ajouterActivite(16,ville.getBatimentsList().get(13));
-		routine3.ajouterActivite(18,ville.getBatimentsList().get(7));
-		Sim Benjamin = new Sim("Benjamin",new Block(0,5),routine3);
-		add(Benjamin);
-		//jeBoujePas
-		Routine routine4=new Routine();
-		Sim jeBoujePas = new Sim("jeBoujePas",new Block(0,5),routine4);
-		add(jeBoujePas);
+		//Francis 37 ans ouvrier
+	    Routine routine1 = new Routine();
+	    routine1.ajouterActivite(8,  ville.get("usine"));     
+	    routine1.ajouterActivite(12, ville.get("maison1"));//pause dej  
+	    routine1.ajouterActivite(14, ville.get("usine"));    
+	    routine1.ajouterActivite(18, ville.get("salle"));     
+	    routine1.ajouterActivite(20, ville.get("maison1"));   
+	    Sim Francis = new Sim("Francis", ville.get("maison1").getPosition(), routine1);
+	    add(Francis);
+	
+	    //Genevieve 74 ans retraitée
+	    Routine routine2 = new Routine();
+	    routine2.ajouterActivite(9,  ville.get("parc"));      
+	    routine2.ajouterActivite(11, ville.get("maison2"));   
+	    routine2.ajouterActivite(16, ville.get("piscine"));      
+	    routine2.ajouterActivite(17, ville.get("maison2")); 
+	    Sim Genevieve = new Sim("Genevieve", ville.get("maison2").getPosition(), routine2);
+	    add(Genevieve);
+	
+	    //Benjamin 17 ans lycéen
+	    Routine routine3 = new Routine();
+	    routine3.ajouterActivite(8,  ville.get("lycee"));    
+	    routine3.ajouterActivite(17, ville.get("parc"));  
+	    routine3.ajouterActivite(18, ville.get("imm"));
+	    Sim Benjamin = new Sim("Benjamin", ville.get("imm").getPosition(), routine3);
+	    add(Benjamin);
 	}
 	
 	public HashMap<String,Sim>  getSims() {

@@ -82,6 +82,7 @@ public class Ville {
 		Batiment hopital = new Batiment(new Block(15,22), "hopital");
 		this.put(hopital.getNomBatiment(),hopital);
 	}
+	
 	//Retourne une ArrayList de Batiment avec comme clé String->Nom Batiment
 	public HashMap<String, Batiment>  getBatimentsHashMap() {
 		return batiments;
@@ -89,5 +90,8 @@ public class Ville {
 	//Retourne une ArrayList de Batiment
 	public ArrayList<Batiment>  getBatimentsList() {
 		return new ArrayList<Batiment>(batiments.values());
+	}
+	public Batiment get(String nomBatiment) {
+		return batiments.get(nomBatiment);
 	}
 }
