@@ -148,6 +148,28 @@ public class PaintStrategy {
 		}
 
 	}
+	public void paint(Graphics2D g2) {
+		int sizeBlock=GameConfiguration.BLOCK_SIZE;
+		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  5* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  10* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  15* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/imm.png"),11*sizeBlock,  7* sizeBlock, 6*sizeBlock,5*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/piscine.png"),15*sizeBlock,0, 5*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/boulangerie.png"),6*sizeBlock,  8* sizeBlock, 3*sizeBlock,3*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/lycee.png"),0*sizeBlock,   0*sizeBlock, 7*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/parc.png"),6*sizeBlock,  13* sizeBlock, 7*sizeBlock,6*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/usine.png"),22*sizeBlock,  0* sizeBlock, 8*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/mairie.png"),19*sizeBlock,  8* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/cinema.png"),25*sizeBlock,  13* sizeBlock, 4*sizeBlock,6*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/salle.png"),14*sizeBlock,  15* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/hopital.png"),19*sizeBlock,  14* sizeBlock, 5*sizeBlock,5*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/mall.png"),24*sizeBlock,  6* sizeBlock, 5*sizeBlock,6*sizeBlock, null);
+		
+		g2.drawImage(GameUtility.readImage("src/images/lycee.png"),8*sizeBlock,   0*sizeBlock, 6*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/usine.png"),22*sizeBlock,  0* sizeBlock, 8*sizeBlock,4*sizeBlock, null);
+	}
+
+		
 
 //SUPRIMEEEEEEER
 	public void paint(Sim sim, Graphics graphics){
