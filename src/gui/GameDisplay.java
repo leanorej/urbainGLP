@@ -57,11 +57,17 @@ public class GameDisplay extends JPanel {
 		
 		
 		//A REGROUPER DANS UNE METHODE A METTRE DANS PAINT STRATEGY
-		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  5* GameConfiguration.BLOCK_SIZE, 4*GameConfiguration.BLOCK_SIZE,4*GameConfiguration.BLOCK_SIZE, null);
-		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  10* GameConfiguration.BLOCK_SIZE, 4*GameConfiguration.BLOCK_SIZE,4*GameConfiguration.BLOCK_SIZE, null);
-		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  15* GameConfiguration.BLOCK_SIZE, 4*GameConfiguration.BLOCK_SIZE,4*GameConfiguration.BLOCK_SIZE, null);
-		g2.drawImage(GameUtility.readImage("src/images/imm.png"),11*GameConfiguration.BLOCK_SIZE,  7* GameConfiguration.BLOCK_SIZE, 6*GameConfiguration.BLOCK_SIZE,5*GameConfiguration.BLOCK_SIZE, null);
-		g2.drawImage(GameUtility.readImage("src/images/lycee.png"),0,0, 7*GameConfiguration.BLOCK_SIZE,4*GameConfiguration.BLOCK_SIZE, null);
+		int sizeBlock=GameConfiguration.BLOCK_SIZE;
+		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  5* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  10* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  15* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/imm.png"),11*sizeBlock,  7* sizeBlock, 6*sizeBlock,5*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/piscine.png"),15*sizeBlock,0, 5*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/boulangerie.png"),6*sizeBlock,  8* sizeBlock, 3*sizeBlock,3*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/lycee.png"),0*sizeBlock,   0*sizeBlock, 7*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/parc.png"),6*sizeBlock,  13* sizeBlock, 7*sizeBlock,6*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/usine.png"),22*sizeBlock,  0* sizeBlock, 8*sizeBlock,4*sizeBlock, null);
+		
 		//dessin des portes
 		for(Batiment batiment : ville.getBatimentsList()) {
             paintStrategy.paint(batiment, g);
