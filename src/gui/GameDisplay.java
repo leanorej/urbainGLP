@@ -57,5 +57,12 @@ public class GameDisplay extends JPanel {
         	paintStrategy.paint2(sim, g2);
         }
         }
-	}
+
+		public Block getSimPosition(int x, int y) {
+			int line = y / GameConfiguration.BLOCK_SIZE;
+			int column = x / GameConfiguration.BLOCK_SIZE;
+			return map.getBlock(line, column);
+		}
+
+}
 

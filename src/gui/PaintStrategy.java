@@ -180,7 +180,7 @@ public class PaintStrategy {
 		// Attention : don't call trainManager.getId(), because it will return the ID of the thread (not the train).
 		graphics2 .setFont(new Font("Dialog", Font.PLAIN, 20));
 		graphics2.drawString(sim.getNom(), x-blockSize/4, y);
-		graphics2.drawImage(GameUtility.readImage("src/images/train.jpg"),  x+blockSize/8, y+blockSize/4, 40, 20, null);
+		graphics2.drawImage(GameUtility.readImage("src/images/sim.jpg"),  x+blockSize/4, y, 25, 35, null);
 	}
 
 }

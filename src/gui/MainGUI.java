@@ -80,13 +80,17 @@ public class MainGUI extends JFrame implements Runnable {
 		SimMenager = GameBuilder.buildInitMobile(sims);
 		
 		dashboard = new GameDisplay(map, ville, SimMenager);
+
+		MouseControls mouseControls = new MouseControls();
+		dashboard.addMouseListener(mouseControls);
 		
 		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);//je prends la list des nom des sims
 		sidePanel = new SidePanel(chronometer, simsKey, actListener);
 		
 		dashboard.setPreferredSize(new Dimension(GameConfiguration.NUMERO_BLOC_LARGEUR * GameConfiguration.BLOCK_SIZE, GameConfiguration.WINDOW_HEIGHT));
 		sidePanel.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
-		
+
+
 		contentPane.add(dashboard, BorderLayout.WEST);
 		contentPane.add(sidePanel, BorderLayout.EAST);
 
@@ -106,10 +110,9 @@ public class MainGUI extends JFrame implements Runnable {
 				System.out.println(e.getMessage());
 			}
 			//mettre plusieurs fois pour accelerer le temps
-			chronometer.increment();
-			chronometer.increment();
-			chronometer.increment();
-			chronometer.increment();
+			for(int i = 0 ; i<50 ; i++){
+				chronometer.increment();
+			}
 			
 			if (chronometer.getHour().getValue() == 0 && chronometer.getMinute().getValue() == 0 && chronometer.getSecond().getValue() == 0) {
 				sidePanel.incrementDay();
@@ -117,15 +120,57 @@ public class MainGUI extends JFrame implements Runnable {
 			//ON MET à JOUR LA POSITION DE UN SI UNE FOIS PAR HEUR
 			int heureCourante = chronometer.getHour().getValue();
 		    // on vérifie la routine SEULEMENT si l'heure a changé
-		    if (heureCourante != dernierHeure) {
+
+			/*
+			if (heureCourante != dernierHeure) {
 		    	SimMenager.nextMove(heureCourante);
 		        dernierHeure = heureCourante;
 		    }
+			*/
+		    
 		    
 			sidePanel.nextRound();
 			dashboard.repaint();
 		}
 	}
 	
+
+	private class MouseControls implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			int x = e.getX();
+			int y = e.getY();
+
+			System.out.println("clic en position : " + x + ", " + y);
+
+
+			Block nvlPosition = dashboard.getSimPosition(x , y);
+			SimMenager.simMove(nvlPosition);
+			System.out.println(x + " " + y);
+
+			dashboard.repaint();
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+
+		}
+	}
 
 }
