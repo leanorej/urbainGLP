@@ -11,6 +11,7 @@ import engine.map.Batiment;
 import engine.map.Block;
 import engine.map.Map;
 import engine.mobile.Sim;
+import engine.process.GameUtility;
 import engine.process.MobileSimManager;
 import engine.map.Ville;
 
@@ -53,6 +54,17 @@ public class GameDisplay extends JPanel {
         }
         
 		Graphics2D g2 = (Graphics2D) g;
+		
+		
+		
+		
+		//A REGROUPER DANS UNE METHODE A METTRE DANS PAINT STRATEGY
+		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  5* GameConfiguration.BLOCK_SIZE, 4*GameConfiguration.BLOCK_SIZE,4*GameConfiguration.BLOCK_SIZE, null);
+		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  10* GameConfiguration.BLOCK_SIZE, 4*GameConfiguration.BLOCK_SIZE,4*GameConfiguration.BLOCK_SIZE, null);
+		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  15* GameConfiguration.BLOCK_SIZE, 4*GameConfiguration.BLOCK_SIZE,4*GameConfiguration.BLOCK_SIZE, null);
+		g2.drawImage(GameUtility.readImage("src/images/imm.png"),11*GameConfiguration.BLOCK_SIZE,  7* GameConfiguration.BLOCK_SIZE, 6*GameConfiguration.BLOCK_SIZE,5*GameConfiguration.BLOCK_SIZE, null);
+		g2.drawImage(GameUtility.readImage("src/images/lycee.png"),0,0, 7*GameConfiguration.BLOCK_SIZE,4*GameConfiguration.BLOCK_SIZE, null);
+		
 		for(Sim sim : SimManager.getSims().getSims().values()){
         	paintStrategy.paint2(sim, g2);
         }
