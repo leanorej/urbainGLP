@@ -68,7 +68,7 @@ public class Ville {
 		this.put(parc.getNomBatiment(),parc);
 
 		//10
-		Batiment mairie = new Batiment(new Block(9,20), "mairie");
+		Batiment mairie = new Batiment(new Block(8,20), "mairie");
 		this.put(mairie.getNomBatiment(),mairie);
 
 		//11
@@ -80,7 +80,7 @@ public class Ville {
 		this.put(cinema.getNomBatiment(),cinema);
 
 		//13
-		Batiment hopital = new Batiment(new Block(15,22), "hopital");
+		Batiment hopital = new Batiment(new Block(14,22), "hopital");
 		this.put(hopital.getNomBatiment(),hopital);
 	}
 	

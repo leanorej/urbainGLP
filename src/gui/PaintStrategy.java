@@ -130,7 +130,7 @@ public class PaintStrategy {
 				break ;
 			
 			case "hopital" :
-				y = 15 ; x = 19 ; largeur = 5 ; longueur = 5 ;
+				y = 14 ; x = 19 ; largeur = 5 ; longueur = 5 ;
 				break ;
 
 			default :
