@@ -1,69 +1,124 @@
 package gui;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import chrono.Chronometer;
 import config.GameConfiguration;
+import engine.mobile.Sim;
+import engine.mobile.Sims;
 
 public class SidePanel extends JPanel {
-	private static final long serialVersionUID = 1L;
-	private Chronometer chronometer;
-	private JLabel timeLabel;
-	private JLabel dayLabel;
-	private int dayCount = 1;
+    private static final long serialVersionUID = 1L;
+    private Chronometer chronometer;
+    private JLabel timeLabel;
+    private JLabel dayLabel;
+    private int dayCount = 1;
 
-	//menu de selction Sim qui contient uniquement les nome des sims et pas les istances des sims
-	private JComboBox<String> comboBox;
-	
-	
-	//update j'ai ajouté deux parametre un c'est la list des prenom des Sims e l'autre c'est l'action listener
-	public SidePanel(Chronometer chronometer, String[] array, ActionListener actionListener) {
-		this.chronometer = chronometer;
-		this.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
-		
-		this.setLayout(new GridLayout(20, 1));
+    // menu de selction Sim qui contient uniquement les nome des sims et pas les istances des sims
+    private JComboBox<String> comboBox;
+    private JProgressBar globalBar = new JProgressBar(0, 100);
+    private JLabel globalVal = new JLabel("0%");
+    private Sims sims;
 
-		dayLabel = new JLabel("JOUR " + dayCount, SwingConstants.CENTER);
-		dayLabel.setFont(new Font("Monospaced", Font.BOLD, 15));
-		
-		timeLabel = new JLabel("00:00:00", SwingConstants.CENTER);
-		timeLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
-		
-		comboBox = new JComboBox<String>(array);
-		comboBox.addActionListener(actionListener);
-		add(new JLabel("Le nom de la ville"));
-		add(dayLabel);
-		add(timeLabel);
-		
-		//amin
-		add(comboBox);
-		
-		nextRound();
-	}
+    public SidePanel(Chronometer chronometer, String[] array, ActionListener actionListener, Sims sims) {
+        this.chronometer = chronometer;
+        this.sims = sims;
+        this.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
 
-	public void nextRound() {
-		if (chronometer != null) {
-			timeLabel.setText(chronometer.toString());
-		}
-	}
-	
-	public void incrementDay() {
-		dayCount++;
-		dayLabel.setText("JOUR " + dayCount);
-	}
-	//methode pour comboBox qui retourne l'element selectioné
-	public String getSelectedSim() {
-	    return  (String) comboBox.getSelectedItem();
-	}
+        this.setLayout(new GridLayout(20, 1));
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        dayLabel = new JLabel("JOUR " + dayCount, SwingConstants.CENTER);
+        dayLabel.setFont(new Font("Monospaced", Font.BOLD, 15));
+        
+        timeLabel = new JLabel("00:00:00", SwingConstants.CENTER);
+        timeLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
+        
+        comboBox = new JComboBox<String>(array);
+        comboBox.addActionListener(actionListener);
+        
+        add(new JLabel("Le nom de la ville"));
+        add(dayLabel);
+        add(timeLabel);
+        add(comboBox);
+        
+        //nouveaux elts
+        add(new JLabel("État global du Sim"));
+        
+        JPanel globalPanel = new JPanel(new BorderLayout(5, 0));
+        globalBar.setStringPainted(false);
+        globalPanel.add(globalBar, BorderLayout.CENTER);
+        globalPanel.add(globalVal, BorderLayout.EAST);
+        add(globalPanel);
+        
+        globalPanel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                openDetailDialog();
+            }
+        });
+        
+        nextRound();
+    }
+
+    private void openDetailDialog() {
+        Sim s = sims.getSim(getSelectedSim());
+        if (s == null) return;
+
+        JProgressBar faimB = new JProgressBar(0, 100);
+        JProgressBar physB = new JProgressBar(0, 100);
+        JProgressBar mentB = new JProgressBar(0, 100);
+        JLabel faimV = new JLabel(), physV = new JLabel(), mentV = new JLabel();
+
+        Object[] message = {
+            createLine("Faim", faimB, faimV),
+            createLine("Physique", physB, physV),
+            createLine("Mental", mentB, mentV)
+        };
+
+        // mise à jour en temps réel
+        Timer timer = new Timer(100, ae -> {
+            faimB.setValue(s.getFaim().getValue()); faimV.setText(s.getFaim().getValue() + "%");
+            physB.setValue(s.getPhysique().getValue()); physV.setText(s.getPhysique().getValue() + "%");
+            mentB.setValue(s.getMental().getValue()); mentV.setText(s.getMental().getValue() + "%");
+        });
+        timer.start();
+
+        JOptionPane pane = new JOptionPane(message, JOptionPane.PLAIN_MESSAGE);
+        JDialog dialog = pane.createDialog(this, "Détails : " + s.getNom());
+        dialog.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) { timer.stop(); }
+        });
+        dialog.setVisible(true);
+    }
+
+    private JPanel createLine(String name, JProgressBar bar, JLabel val) {
+        JPanel p = new JPanel(new BorderLayout(5, 0));
+        p.add(new JLabel(name), BorderLayout.WEST);
+        p.add(bar, BorderLayout.CENTER);
+        p.add(val, BorderLayout.EAST);
+        return p;
+    }
+
+    public void nextRound() {
+        if (chronometer != null) {
+            timeLabel.setText(chronometer.toString());
+        }
+        Sim s = sims.getSim(getSelectedSim());
+        if (s != null) {
+            int score = s.getScoreGlobal();
+            globalBar.setValue(score);
+            globalVal.setText(score + "%");
+        }
+    }
+    
+    public void incrementDay() {
+        dayCount++;
+        dayLabel.setText("JOUR " + dayCount);
+    }
+    
+    public String getSelectedSim() {
+        return (String) comboBox.getSelectedItem();
+    }
 }

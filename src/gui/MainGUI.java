@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import config.GameConfiguration;
@@ -16,9 +15,7 @@ import engine.map.Ville;
 import engine.mobile.Sim;
 import engine.mobile.Sims;
 import engine.process.GameBuilder;
-
 import engine.process.MobileSimManager;
-
 import chrono.Chronometer;
 
 /**
@@ -28,46 +25,29 @@ import chrono.Chronometer;
 public class MainGUI extends JFrame implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-
 	private Map map;
-
 	private final static Dimension preferredSize = new Dimension(GameConfiguration.WINDOW_WIDTH, GameConfiguration.WINDOW_HEIGHT);
-
 	private Ville ville;
-	
 	private Sims sims;
-	
 	private MobileSimManager SimMenager;
-
 	private GameDisplay dashboard;
-	
 	private SidePanel sidePanel;
 	private Chronometer chronometer;
-	int dernierHeure = -1;//j'en ai besoin pour faire moin de verification que de heure en heure
+	int dernierHeure = -1;
 
 	public MainGUI(String title) {
 		super(title);
 		init();
 	}
 	
-	/*Action listener pour l'instant quand on 
-	*selectionne un sim il bouge vers un block fixé en coord 6,7
-	*donc il faut programmer le actionListener (voir dans AirCraft->MainGui->MouseControls)
-	*
-	*Aussi je dois corriger un bug dans mobile menager ou pas car si on deplace le sim
-	*celui la il va rester jusqua la prochaine heure pui il va reprendre sa routine
-	*ducoup ce action listener est a enlever
-    */
 	private ActionListener actListener = e -> {
-        String selected = sidePanel.getSelectedSim();//en prends le nom du sim selctionné
+        String selected = sidePanel.getSelectedSim();
         if (selected != null) {
-        	//on le place en position 67
-        	SimMenager.getSims().getSim(selected).setPositionCourante(new Block(6,7));;
+        	SimMenager.getSims().getSim(selected).setPositionCourante(new Block(6,7));
         }
     };
     
 	private void init() {
-
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
@@ -75,21 +55,19 @@ public class MainGUI extends JFrame implements Runnable {
 
 		map = GameBuilder.buildMap();
 		ville = GameBuilder.buildVille(map);
-		//je initialise les sims avec leur routine corrispectives
 		sims = GameBuilder.initializeSims(ville);
-		SimMenager = GameBuilder.buildInitMobile(sims);
+		
+		SimMenager = GameBuilder.buildInitMobile(sims, chronometer, ville);
 		
 		dashboard = new GameDisplay(map, ville, SimMenager);
-
 		MouseControls mouseControls = new MouseControls();
 		dashboard.addMouseListener(mouseControls);
 		
-		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);//je prends la list des nom des sims
-		sidePanel = new SidePanel(chronometer, simsKey, actListener);
+		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);
+		sidePanel = new SidePanel(chronometer, simsKey, actListener, sims);
 		
 		dashboard.setPreferredSize(new Dimension(GameConfiguration.NUMERO_BLOC_LARGEUR * GameConfiguration.BLOCK_SIZE, GameConfiguration.WINDOW_HEIGHT));
 		sidePanel.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
-
 
 		contentPane.add(dashboard, BorderLayout.WEST);
 		contentPane.add(sidePanel, BorderLayout.EAST);
@@ -103,74 +81,45 @@ public class MainGUI extends JFrame implements Runnable {
 
 	@Override
 	public void run() {
-		while (true) {
-			try {
-				Thread.sleep(GameConfiguration.GAME_SPEED);
-			} catch (InterruptedException e) {
-				System.out.println(e.getMessage());
-			}
-			//mettre plusieurs fois pour accelerer le temps
-			for(int i = 0 ; i<50 ; i++){
-				chronometer.increment();
-			}
-			
-			if (chronometer.getHour().getValue() == 0 && chronometer.getMinute().getValue() == 0 && chronometer.getSecond().getValue() == 0) {
-				sidePanel.incrementDay();
-			}
-			//ON MET à JOUR LA POSITION DE UN SI UNE FOIS PAR HEUR
-			int heureCourante = chronometer.getHour().getValue();
-		    // on vérifie la routine SEULEMENT si l'heure a changé
+	    while (true) {
+	        try {
+	            Thread.sleep(GameConfiguration.GAME_SPEED);
+	        } catch (InterruptedException e) {
+	            System.out.println(e.getMessage());
+	        }
 
-			/*
-			if (heureCourante != dernierHeure) {
-		    	SimMenager.nextMove(heureCourante);
-		        dernierHeure = heureCourante;
-		    }
-			*/
-		    
-		    
-			sidePanel.nextRound();
-			dashboard.repaint();
-		}
+	        for(int i = 0 ; i < 50 ; i++){
+	            chronometer.increment();
+	            SimMenager.updateBesoins(); 
+	        }
+
+	        if (chronometer.getHour().getValue() == 0 && chronometer.getMinute().getValue() == 0 && chronometer.getSecond().getValue() == 0) {
+	            sidePanel.incrementDay();
+	        }
+
+	        int heureCourante = chronometer.getHour().getValue();
+	        if (heureCourante != dernierHeure) {
+	            SimMenager.nextMove(heureCourante);
+	            dernierHeure = heureCourante;
+	        }
+
+	        sidePanel.nextRound();
+	        dashboard.repaint();
+	    }
 	}
-	
 
 	private class MouseControls implements MouseListener {
-
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			int x = e.getX();
 			int y = e.getY();
-
-			System.out.println("clic en position : " + x + ", " + y);
-
-
 			Block nvlPosition = dashboard.getSimPosition(x , y);
 			SimMenager.simMove(nvlPosition);
-			System.out.println(x + " " + y);
-
 			dashboard.repaint();
 		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-
-		}
+		@Override public void mousePressed(MouseEvent e) {}
+		@Override public void mouseReleased(MouseEvent e) {}
+		@Override public void mouseEntered(MouseEvent e) {}
+		@Override public void mouseExited(MouseEvent e) {}
 	}
-
 }

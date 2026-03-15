@@ -2,13 +2,14 @@ package engine.mobile;
 
 import java.util.HashMap;
 
+import chrono.BoundedCounter;
 import engine.donnee.Routine;
 import engine.map.Batiment;
 import engine.map.Block;
+
 /**
  * Le sim est caractérisé par son nom et son age 
- * 
- * @author Jean
+ * * @author Jean
  *
  */
 public class Sim {
@@ -20,11 +21,19 @@ public class Sim {
 	private Routine routine;
 	
 	private boolean vivant= true;
+
+	private BoundedCounter faim = new BoundedCounter(100, 100, 0);
+	private BoundedCounter physique = new BoundedCounter(100, 100, 0);
+	private BoundedCounter mental = new BoundedCounter(100, 100, 0);
 	
 	public Sim(String nom, Block position, Routine routine){
 		this.nom=nom;
 		this.positionCourante = position;
 		this.routine=routine;
+	}
+	
+	public int getScoreGlobal() {
+		return (faim.getValue() + physique.getValue() + mental.getValue()) / 3;
 	}
 	
 	public Block getPositionCourante() {
@@ -54,12 +63,13 @@ public class Sim {
 	public String getNom() {
 		return nom;
 	}
+	
+	public BoundedCounter getFaim() { return faim; }
+	public BoundedCounter getPhysique() { return physique; }
+	public BoundedCounter getMental() { return mental; }
 
 	@Override
 	public String toString() {
 		return "Sim [nom=" + nom + "]";
 	}
-	
-	
-	
 }
