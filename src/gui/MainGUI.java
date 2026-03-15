@@ -40,12 +40,6 @@ public class MainGUI extends JFrame implements Runnable {
 		init();
 	}
 	
-	private ActionListener actListener = e -> {
-        String selected = sidePanel.getSelectedSim();
-        if (selected != null) {
-        	SimMenager.getSims().getSim(selected).setPositionCourante(new Block(6,7));
-        }
-    };
     
 	private void init() {
 		Container contentPane = getContentPane();
@@ -64,8 +58,8 @@ public class MainGUI extends JFrame implements Runnable {
 		dashboard.addMouseListener(mouseControls);
 		
 		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);
-		sidePanel = new SidePanel(chronometer, simsKey, actListener, sims);
-		
+		sidePanel = new SidePanel(chronometer, simsKey, sims);
+	
 		dashboard.setPreferredSize(new Dimension(GameConfiguration.NUMERO_BLOC_LARGEUR * GameConfiguration.BLOCK_SIZE, GameConfiguration.WINDOW_HEIGHT));
 		sidePanel.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
 

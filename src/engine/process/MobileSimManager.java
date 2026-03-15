@@ -39,14 +39,14 @@ public class MobileSimManager {
     }
 
     public void simMove(Block position) {
-        if (simChoisi == null) {
+        if (simChoisi == null) {//cas ou aucun sims est selectionné
             for (Sim sim : sims.getSims().values()) {
                 if (sim.getPositionCourante().getLine() == position.getLine() &&
                         sim.getPositionCourante().getColumn() == position.getColumn()) {
                     simChoisi = sim;
                 }
             }
-        } else {
+        } else {//cas où on a dejà selectionné un sim e on lui donne une nouvelle position
             simChoisi.setPositionCourante(position);
             simChoisi = null;
         }
@@ -57,7 +57,7 @@ public class MobileSimManager {
         
         int heureCourante = chrono.getHour().getValue();
         int minuteCourante = chrono.getMinute().getValue();
-
+        //updatedBesoin une fois par minute
         if (minuteCourante == derniereMinuteTraitee) return;
 
         for (Sim sim : sims.getSims().values()) {

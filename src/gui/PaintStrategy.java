@@ -98,7 +98,7 @@ public class PaintStrategy {
 				break ;
 
 			case "piscine" :
-				y = 0 ; x = 15 ; largeur = 4 ; longueur = 3 ;
+				y = 0 ; x = 15 ; largeur = 4 ; longueur = 5;
 				break ;
 			
 			case "salle" :

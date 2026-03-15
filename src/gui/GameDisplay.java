@@ -49,9 +49,7 @@ public class GameDisplay extends JPanel {
         }
 
 		
-		for(Batiment batiment : ville.getBatimentsList()) {
-            paintStrategy.paint(batiment, g);
-        }
+		
         
 		Graphics2D g2 = (Graphics2D) g;
 		
@@ -64,6 +62,10 @@ public class GameDisplay extends JPanel {
 		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  15* GameConfiguration.BLOCK_SIZE, 4*GameConfiguration.BLOCK_SIZE,4*GameConfiguration.BLOCK_SIZE, null);
 		g2.drawImage(GameUtility.readImage("src/images/imm.png"),11*GameConfiguration.BLOCK_SIZE,  7* GameConfiguration.BLOCK_SIZE, 6*GameConfiguration.BLOCK_SIZE,5*GameConfiguration.BLOCK_SIZE, null);
 		g2.drawImage(GameUtility.readImage("src/images/lycee.png"),0,0, 7*GameConfiguration.BLOCK_SIZE,4*GameConfiguration.BLOCK_SIZE, null);
+		//dessin des portes
+		for(Batiment batiment : ville.getBatimentsList()) {
+            paintStrategy.paint(batiment, g);
+        }
 		
 		for(Sim sim : SimManager.getSims().getSims().values()){
         	paintStrategy.paint2(sim, g2);

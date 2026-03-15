@@ -22,7 +22,7 @@ public class SidePanel extends JPanel {
     private JLabel globalVal = new JLabel("0%");
     private Sims sims;
 
-    public SidePanel(Chronometer chronometer, String[] array, ActionListener actionListener, Sims sims) {
+    public SidePanel(Chronometer chronometer, String[] array, Sims sims) {
         this.chronometer = chronometer;
         this.sims = sims;
         this.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
@@ -37,8 +37,7 @@ public class SidePanel extends JPanel {
         timeLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
         
         comboBox = new JComboBox<String>(array);
-        comboBox.addActionListener(actionListener);
-        
+                                    
         add(new JLabel("Le nom de la ville"));
         add(dayLabel);
         add(timeLabel);
