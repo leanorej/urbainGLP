@@ -13,7 +13,7 @@ import engine.map.Block;
  *
  */
 public class Sim {
-	//nom? age? genre?
+	
 	private String nom;
 	
 	private Block positionCourante;

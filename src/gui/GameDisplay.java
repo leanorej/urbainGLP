@@ -52,18 +52,18 @@ public class GameDisplay extends JPanel {
 		
         
 		Graphics2D g2 = (Graphics2D) g;
-
-		for(Batiment batiment : ville.getBatimentsList()) {
-            paintStrategy.paint(batiment, g);
-        }
 		
 		//dessine tout les images de batiment
 		paintStrategy.paint(g2);
 		
+		for(Batiment batiment : ville.getBatimentsList()) {
+            paintStrategy.paint(batiment, g);
+        }
+		
 		for(Sim sim : SimManager.getSims().getSims().values()){
         	paintStrategy.paint2(sim, g2);
         }
-        }
+	}
 
 		public Block getSimPosition(int x, int y) {
 			int line = y / GameConfiguration.BLOCK_SIZE;

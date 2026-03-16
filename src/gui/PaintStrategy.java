@@ -158,7 +158,6 @@ public class PaintStrategy {
 		g2.drawImage(GameUtility.readImage("src/images/boulangerie.png"),6*sizeBlock,  8* sizeBlock, 3*sizeBlock,3*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/lycee.png"),0*sizeBlock,   0*sizeBlock, 7*sizeBlock,4*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/parc.png"),6*sizeBlock,  13* sizeBlock, 7*sizeBlock,6*sizeBlock, null);
-		g2.drawImage(GameUtility.readImage("src/images/usine.png"),22*sizeBlock,  0* sizeBlock, 8*sizeBlock,4*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/mairie.png"),19*sizeBlock,  8* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/cinema.png"),25*sizeBlock,  13* sizeBlock, 4*sizeBlock,6*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/salle.png"),14*sizeBlock,  15* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
