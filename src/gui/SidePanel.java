@@ -143,4 +143,5 @@ public class SidePanel extends JPanel {
     public String getSelectedSim() {
         return (String) comboBox.getSelectedItem();
     }
+
 }

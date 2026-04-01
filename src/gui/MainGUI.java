@@ -53,12 +53,12 @@ public class MainGUI extends JFrame implements Runnable {
 		
 		SimMenager = GameBuilder.buildInitMobile(sims, chronometer, ville);
 		
-		dashboard = new GameDisplay(map, ville, SimMenager);
-		MouseControls mouseControls = new MouseControls();
-		dashboard.addMouseListener(mouseControls);
-		
 		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);
 		sidePanel = new SidePanel(chronometer, simsKey, sims);
+
+		dashboard = new GameDisplay(map, ville, SimMenager, sidePanel);
+		MouseControls mouseControls = new MouseControls();
+		dashboard.addMouseListener(mouseControls);
 	
 		dashboard.setPreferredSize(new Dimension(GameConfiguration.NUMERO_BLOC_LARGEUR * GameConfiguration.BLOCK_SIZE, GameConfiguration.WINDOW_HEIGHT));
 		sidePanel.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));

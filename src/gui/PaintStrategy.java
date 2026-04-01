@@ -204,4 +204,27 @@ public class PaintStrategy {
 		graphics2.drawImage(GameUtility.readImage("src/images/sim.jpg"),  x+blockSize/4, y, 25, 35, null);
 	}
 
+
+	public void paintC(Sim sim, Graphics graphics){
+		Block position = sim.getPositionCourante();
+		int blockSize = GameConfiguration.BLOCK_SIZE;
+		
+		int y = position.getLine();
+		int x = position.getColumn();
+
+		graphics.setColor(Color.red);
+		graphics.drawOval(x * blockSize + blockSize/4 - 2, y * blockSize - 2, 29, 39);
+	}
+
+	public void paintS(Sim sim, Graphics graphics){
+		Block position = sim.getPositionCourante();
+		int blockSize = GameConfiguration.BLOCK_SIZE;
+		
+		int y = position.getLine();
+		int x = position.getColumn();
+
+		graphics.setColor(Color.blue);
+		graphics.drawOval(x*blockSize + blockSize/4 - 2, y*blockSize - 2, 29, 39);
+	}
+	
 }

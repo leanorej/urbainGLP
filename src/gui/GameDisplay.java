@@ -30,11 +30,13 @@ public class GameDisplay extends JPanel {
 	private Ville ville;
 	private PaintStrategy paintStrategy = new PaintStrategy();
 	private MobileSimManager SimManager;
+	private SidePanel sidePanel ;
 
-	public GameDisplay(Map map, Ville ville, MobileSimManager SimManager) {
+	public GameDisplay(Map map, Ville ville, MobileSimManager SimManager, SidePanel sidePanel) {
 		this.map = map;
 		this.ville=ville;
 		this.SimManager = SimManager;
+		this.sidePanel = sidePanel ;
 	}
 
 	@Override
@@ -63,6 +65,16 @@ public class GameDisplay extends JPanel {
 		for(Sim sim : SimManager.getSims().getSims().values()){
         	paintStrategy.paint2(sim, g2);
         }
+
+		Sim simChoisi = SimManager.getSimChoisi();
+
+		if (simChoisi != null){
+			paintStrategy.paintC(simChoisi, g2);
+		}
+
+		String nom = sidePanel.getSelectedSim() ;
+		Sim simSelected = SimManager.getSims().getSim(nom) ;
+		paintStrategy.paintS(simSelected, g2);
 	}
 
 		public Block getSimPosition(int x, int y) {

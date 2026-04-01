@@ -30,6 +30,10 @@ public class MobileSimManager {
         return sims;
     }
 
+    public Sim getSimChoisi() {
+        return simChoisi;
+    }
+
     public void nextMove(int heureCourante) {
         for (Sim sim : sims.getSims().values()) {
             if (sim.getRoutine().containsKey(heureCourante)) {
