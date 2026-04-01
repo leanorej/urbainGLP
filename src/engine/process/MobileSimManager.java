@@ -78,12 +78,102 @@ public class MobileSimManager {
 
             //Physique et Mental (1 fois par heure)
             if (heureCourante != derniereHeureTraiteePhysique) {
-                if (lieuActuel.equals("usine")) {
-                    sim.getPhysique().decrement();
-                } else if (lieuActuel.equals("piscine") || lieuActuel.equals("salle")) {
+            	String nomSim = sim.getNom();
+            	switch (lieuActuel) {
+            	case "maison1":
+            		//Maison de Francis, son mental augmente
+            		if(nomSim.equals("Francis")) {
+            			sim.getMental().increment();
+            		}
+            		break;
+            	case "maison2":
+            		//maison de Geneviève donc ça augmente son physique 
+            		if(nomSim.equals("Genevieve")) {
+            			sim.getPhysique().increment();
+            		}
+            		break;
+            	case "maison3":
+            		//Maison d'Emmanuel qui augmente son physique
+            		if(nomSim.equals("Emmanuel")) {
+            			sim.getPhysique().increment();
+            		}
+            		break;
+            	case "imm":
+            		//immeuble avec Francis, Julie et Marie, leur physique augmente
+            		if(nomSim.equals("Francis") || nomSim.equals("Julie") || nomSim.equals("Marie")) {
+            			sim.getPhysique().increment();
+            		}
+            		break;
+            	case "boulangerie":
+            		//lieu de travail de Maris donc physique et mental diminuent
+            		if(nomSim.equals("Marie")) {
+            			sim.getMental().decrement();
+            			sim.getPhysique().decrement();
+            		}
+            		break;
+            	case "usine":
+            		//Francis perd plus vite physiquement que mentalement à l'usine
+            		if(nomSim.equals("Francis")) {
+            			sim.getPhysique().decrement();
+            			sim.getPhysique().decrement();
+            			sim.getMental().decrement();
+            		}
+            		break;
+            	case "piscine":
+            	    //augmente physique et mental de tout le monde
                     sim.getPhysique().increment();
                     sim.getMental().increment();
-                }
+                    break;
+            	case "salle":
+            	    //Physique et mental de Francis et Marie augmentent
+                    if (nomSim.equals("Francis") || nomSim.equals("Marie")) {
+                        sim.getPhysique().increment();
+                        sim.getMental().increment();
+                    }
+                    break;
+            	case "ecole":
+            	    //Physique et mental baissent pour Julie
+                    if (nomSim.equals("Julie")) {
+                        sim.getPhysique().decrement();
+                        sim.getMental().decrement();
+                    }
+                    break;
+            	case "lycee":
+            	    //physique et mental baissent pour Benjamin 
+                    if (nomSim.equals("Benjamin")) {
+                        sim.getPhysique().decrement();
+                        sim.getMental().decrement();
+                    }
+                    break;
+            	case "parc":
+            	    //baisse physique et mental de Emmanuel
+                    if (nomSim.equals("Emmanuel")) {
+                        sim.getPhysique().decrement();
+                        sim.getMental().decrement();
+                    }
+                    break;
+            	case "mall":
+            		//augmente mental de tout le monde
+                    sim.getMental().increment();
+                    break;
+            	case "cinema":
+            	    //augmente mental de tout le monde
+                    sim.getMental().increment();
+                    break;
+            	case "hopital":
+                    //"enlève malade" qui est à implémenter quand l'état malade sera défini
+                    //pour l'instant on remonte le physique si en dessous de 25
+                    if (sim.getPhysique().getValue() < 25) {
+                        sim.getPhysique().increment();
+                        sim.getPhysique().increment();
+                    }
+                    break;
+                default:
+                	//quand on est pas dasn un batiment
+                	break;
+            	}
+            	
+            
             }
 
             //incrémentation faim (si boulangerie/mall)
@@ -92,6 +182,7 @@ public class MobileSimManager {
                     sim.getFaim().increment();
                 }
             }
+            
         }
         
         derniereMinuteTraitee = minuteCourante;
