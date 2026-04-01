@@ -32,7 +32,7 @@ public class MobileSimManager {
 
     public void nextMove(int heureCourante) {
         for (Sim sim : sims.getSims().values()) {
-            if (sim.getRoutine().possedeUneNouvelleTache(heureCourante)) {
+            if (sim.getRoutine().containsKey(heureCourante)) {
                 sim.setPositionCourante(sim.getRoutine().get(heureCourante).getPosition());
             }
         }

@@ -21,6 +21,8 @@ public class SidePanel extends JPanel {
     private JProgressBar globalBar = new JProgressBar(0, 100);
     private JLabel globalVal = new JLabel("0%");
     private Sims sims;
+    
+    private JTextArea detailRoutine = new JTextArea("Routine de: ");
 
     public SidePanel(Chronometer chronometer, String[] array, Sims sims) {
         this.chronometer = chronometer;
@@ -58,6 +60,10 @@ public class SidePanel extends JPanel {
             }
         });
         
+        JButton routineBtn = new JButton("Voir la routine");
+        routineBtn.addActionListener(e -> openRoutineDialog());
+        add(routineBtn);
+        
         nextRound();
     }
 
@@ -91,7 +97,7 @@ public class SidePanel extends JPanel {
         });
         dialog.setVisible(true);
     }
-
+    
     private JPanel createLine(String name, JProgressBar bar, JLabel val) {
         JPanel p = new JPanel(new BorderLayout(5, 0));
         p.add(new JLabel(name), BorderLayout.WEST);
@@ -99,7 +105,22 @@ public class SidePanel extends JPanel {
         p.add(val, BorderLayout.EAST);
         return p;
     }
+    
+    private void openRoutineDialog() {
+        Sim s = sims.getSim(getSelectedSim());
+        if (s == null) return;
 
+        JTextArea textArea = new JTextArea(s.getRoutine().toString());
+        textArea.setEditable(false);
+        textArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
+        
+        JOptionPane pane = new JOptionPane(textArea, JOptionPane.PLAIN_MESSAGE);
+        JDialog dialog = pane.createDialog(this, "Détails : " + s.getNom());
+        
+        dialog.setVisible(true);
+        
+    }
+    
     public void nextRound() {
         if (chronometer != null) {
             timeLabel.setText(chronometer.toString());
@@ -109,6 +130,8 @@ public class SidePanel extends JPanel {
             int score = s.getScoreGlobal();
             globalBar.setValue(score);
             globalVal.setText(score + "%");
+            
+            detailRoutine.setText(s.getRoutine().toString());
         }
     }
     
