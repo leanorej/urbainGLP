@@ -127,15 +127,20 @@ public class SidePanel extends JPanel {
 
     private void openEventDialog() {
 
-        Sim s = sims.getSim(getSelectedSim());
-        if (s == null) return;
+
+        String buffer = "" ;
+
+        for (Sim sim : sims.getSims().values()){
+            if(!sim.getEtats().estVide())
+                buffer+= sim.getNom() + " : " + sim.getEtats().toString() + "\n" ;
+        }
 
         JTextArea textArea ;
-        if (s.getEtats().estVide()){
+        if (buffer.equals("")){
             textArea = new JTextArea("aucun evenement en cours");
         }
         else {
-            textArea = new JTextArea(s.toString());
+            textArea = new JTextArea(buffer);
         }
 
         textArea.setEditable(false);

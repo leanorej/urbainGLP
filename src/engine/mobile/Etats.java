@@ -11,6 +11,10 @@ public class Etats {
 			this.etats.add(etat) ;
 	}
 
+	public ArrayList<String> getEtats(){
+		return etats ;
+	}
+
 	public void supprimerEtat(String etat) {
 		if(etats.contains(etat))
 			this.etats.remove(etat) ;

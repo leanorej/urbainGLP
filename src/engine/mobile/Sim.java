@@ -78,9 +78,6 @@ public class Sim {
 
 	@Override
 	public String toString() {
-		if (etats.estVide())
 			return "Sim [nom=" + nom + "]";
-		else 
-			return "Sim [nom=" + nom + "]" + etats;
 	}
 }

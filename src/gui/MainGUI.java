@@ -16,6 +16,10 @@ import engine.mobile.Sim;
 import engine.mobile.Sims;
 import engine.process.GameBuilder;
 import engine.process.MobileSimManager;
+import engine.process.EtatSimManager;
+import engine.process.EvenementsRepository;
+
+
 import chrono.Chronometer;
 
 /**
@@ -30,9 +34,12 @@ public class MainGUI extends JFrame implements Runnable {
 	private Ville ville;
 	private Sims sims;
 	private MobileSimManager SimMenager;
+	private EtatSimManager EtatManager;
 	private GameDisplay dashboard;
 	private SidePanel sidePanel;
 	private Chronometer chronometer;
+	private EvenementsRepository eventRep = EvenementsRepository.getInstance();;
+
 	int dernierHeure = -1;
 
 	public MainGUI(String title) {
@@ -51,7 +58,11 @@ public class MainGUI extends JFrame implements Runnable {
 		ville = GameBuilder.buildVille(map);
 		sims = GameBuilder.initializeSims(ville);
 		
-		SimMenager = GameBuilder.buildInitMobile(sims, chronometer, ville);
+		SimMenager = GameBuilder.buildInitMobile(sims);
+		EtatManager = GameBuilder.buildInitEtat(sims, chronometer,ville);
+
+		//on initialise le repository avec tout les evenements
+		GameBuilder.buildEvent() ;
 		
 		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);
 		sidePanel = new SidePanel(chronometer, simsKey, sims);
@@ -82,21 +93,38 @@ public class MainGUI extends JFrame implements Runnable {
 	            System.out.println(e.getMessage());
 	        }
 
+			int heureCourante = chronometer.getHour().getValue();
+
+
 	        for(int i = 0 ; i < 50 ; i++){
 	            chronometer.increment();
-	            SimMenager.updateBesoins(); 
-				SimMenager.updateEtats(); 
+				
 	        }
+
+			EtatManager.updateBesoins(); 
+			EtatManager.updateEtats(); 
+
+	        if (heureCourante != dernierHeure) {
+	            SimMenager.nextMove(heureCourante);
+	            dernierHeure = heureCourante;
+
+				if(heureCourante%7==0){
+					EtatManager.generatorRandomEvent() ;
+				}
+	
+				for(Sim sim : sims.getSims().values()){
+					for(String etat : sim.getEtats().getEtats()){
+						if (eventRep.getEvenement(etat)!=null)
+							EtatManager.updateBesoinsEvenement(sim, eventRep.getEvenement(etat)) ;
+					}						
+				}
+			}
+			
 
 	        if (chronometer.getHour().getValue() == 0 && chronometer.getMinute().getValue() == 0 && chronometer.getSecond().getValue() == 0) {
 	            sidePanel.incrementDay();
 	        }
 
-	        int heureCourante = chronometer.getHour().getValue();
-	        if (heureCourante != dernierHeure) {
-	            SimMenager.nextMove(heureCourante);
-	            dernierHeure = heureCourante;
-	        }
 
 	        sidePanel.nextRound();
 	        dashboard.repaint();
