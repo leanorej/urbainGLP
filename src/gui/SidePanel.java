@@ -14,7 +14,6 @@ public class SidePanel extends JPanel {
     private Chronometer chronometer;
     private JLabel timeLabel;
     private JLabel dayLabel;
-    private int dayCount = 1;
 
     // menu de selction Sim qui contient uniquement les nome des sims et pas les istances des sims
     private JComboBox<String> comboBox;
@@ -32,7 +31,7 @@ public class SidePanel extends JPanel {
         this.setLayout(new GridLayout(20, 1));
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        dayLabel = new JLabel("JOUR " + dayCount, SwingConstants.CENTER);
+        dayLabel = new JLabel("JOUR " + chronometer.getDay(), SwingConstants.CENTER);
         dayLabel.setFont(new Font("Monospaced", Font.BOLD, 15));
         
         timeLabel = new JLabel("00:00:00", SwingConstants.CENTER);
@@ -113,8 +112,13 @@ public class SidePanel extends JPanel {
     private void openRoutineDialog() {
         Sim s = sims.getSim(getSelectedSim());
         if (s == null) return;
-
-        JTextArea textArea = new JTextArea(s.getRoutine().toString());
+        String textRoutine;
+        if (chronometer.isWeekend()) {
+        	textRoutine = "ROUTINE WEEKEND\n" + s.getRoutineWeekEnd().toString();
+        } else {
+        	textRoutine = "ROUTINE SEMAINE\n" + s.getRoutine().toString();
+        }
+        JTextArea textArea = new JTextArea(textRoutine);
         textArea.setEditable(false);
         textArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
         
@@ -157,6 +161,7 @@ public class SidePanel extends JPanel {
     public void nextRound() {
         if (chronometer != null) {
             timeLabel.setText(chronometer.toString());
+            dayLabel.setText("JOUR " + chronometer.getDay());
         }
         Sim s = sims.getSim(getSelectedSim());
         if (s != null) {
@@ -167,11 +172,7 @@ public class SidePanel extends JPanel {
             detailRoutine.setText(s.getRoutine().toString());
         }
     }
-    
-    public void incrementDay() {
-        dayCount++;
-        dayLabel.setText("JOUR " + dayCount);
-    }
+
     
     public String getSelectedSim() {
         return (String) comboBox.getSelectedItem();

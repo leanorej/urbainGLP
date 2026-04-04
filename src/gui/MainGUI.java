@@ -53,7 +53,7 @@ public class MainGUI extends JFrame implements Runnable {
 		contentPane.setLayout(new BorderLayout());
 
 		chronometer = new Chronometer();
-
+		chronometer.init();
 		map = GameBuilder.buildMap();
 		ville = GameBuilder.buildVille(map);
 		sims = GameBuilder.initializeSims(ville);
@@ -105,7 +105,11 @@ public class MainGUI extends JFrame implements Runnable {
 			EtatManager.updateEtats(); 
 
 	        if (heureCourante != dernierHeure) {
-	            SimMenager.nextMove(heureCourante);
+	        	if (chronometer.isWeekend()) {
+	                SimMenager.nextMoveWeekEnd(heureCourante);
+	            } else {
+	                SimMenager.nextMove(heureCourante);
+	            }
 	            dernierHeure = heureCourante;
 
 				if(heureCourante%7==0){
@@ -119,13 +123,7 @@ public class MainGUI extends JFrame implements Runnable {
 					}						
 				}
 			}
-			
-
-	        if (chronometer.getHour().getValue() == 0 && chronometer.getMinute().getValue() == 0 && chronometer.getSecond().getValue() == 0) {
-	            sidePanel.incrementDay();
-	        }
-
-
+		
 	        sidePanel.nextRound();
 	        dashboard.repaint();
 	    }

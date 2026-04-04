@@ -20,7 +20,7 @@ public class Sim {
 	private Block positionCourante;
 	//La routine associée au sim
 	private Routine routine;
-
+	private Routine routineWeekEnd;
 	private Etats etats = new Etats() ;
 	
 	private boolean vivant= true;
@@ -29,10 +29,11 @@ public class Sim {
 	private BoundedCounter physique = new BoundedCounter(100, 100, 0);
 	private BoundedCounter mental = new BoundedCounter(100, 100, 0);
 	
-	public Sim(String nom, Block position, Routine routine){
+	public Sim(String nom, Block position, Routine routine, Routine routineWeekEnd){
 		this.nom=nom;
 		this.positionCourante = position;
 		this.routine=routine;
+		this.routineWeekEnd=routineWeekEnd;
 	}
 	
 	public int getScoreGlobal() {
@@ -79,5 +80,13 @@ public class Sim {
 	@Override
 	public String toString() {
 			return "Sim [nom=" + nom + "]";
+	}
+
+	public Routine getRoutineWeekEnd() {
+		return routineWeekEnd;
+	}
+
+	public void setRoutineWeekEnd(Routine routineWend) {
+		this.routineWeekEnd = routineWend;
 	}
 }
