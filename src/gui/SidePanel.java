@@ -63,7 +63,11 @@ public class SidePanel extends JPanel {
         JButton routineBtn = new JButton("Voir la routine");
         routineBtn.addActionListener(e -> openRoutineDialog());
         add(routineBtn);
-        
+
+        JButton eventButton = new JButton("Evenement en cours");
+        eventButton.addActionListener(e -> openEventDialog());
+        add(eventButton);
+
         nextRound();
     }
 
@@ -120,6 +124,30 @@ public class SidePanel extends JPanel {
         dialog.setVisible(true);
         
     }
+
+    private void openEventDialog() {
+
+        Sim s = sims.getSim(getSelectedSim());
+        if (s == null) return;
+
+        JTextArea textArea ;
+        if (s.getEtats().estVide()){
+            textArea = new JTextArea("aucun evenement en cours");
+        }
+        else {
+            textArea = new JTextArea(s.toString());
+        }
+
+        textArea.setEditable(false);
+        textArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
+        
+        JOptionPane pane = new JOptionPane(textArea, JOptionPane.PLAIN_MESSAGE);
+        JDialog dialog = pane.createDialog(this, "Evenements en cours : ");
+        
+        dialog.setVisible(true);
+        
+    }
+
     
     public void nextRound() {
         if (chronometer != null) {

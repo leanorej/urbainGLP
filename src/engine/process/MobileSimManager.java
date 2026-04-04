@@ -188,9 +188,45 @@ public class MobileSimManager {
             }
             
         }
+    }
+
+    public void updateEtats(){
+        if (chrono == null) return;
+    
+        int heureCourante = chrono.getHour().getValue();
+        int minuteCourante = chrono.getMinute().getValue();
+        //updatedBesoin une fois par minute
+        if (minuteCourante == derniereMinuteTraitee) return;
+
+        for (Sim sim : sims.getSims().values()) {
+
+            if(sim.getFaim().getValue() < 25){
+                sim.getEtats().ajouterEtat("faim");
+            }
+            else{
+                sim.getEtats().supprimerEtat("faim");
+            }
+
+            if(sim.getMental().getValue() < 25){
+                sim.getEtats().ajouterEtat("triste");
+            }
+            else{
+                sim.getEtats().supprimerEtat("triste");
+            }
+
+            if(sim.getPhysique().getValue() < 25){
+                sim.getEtats().ajouterEtat("fatigue");
+            }
+            else{
+                sim.getEtats().supprimerEtat("fatigue");
+            }
+
+        }
+        
         
         derniereMinuteTraitee = minuteCourante;
         if (heureCourante != derniereHeureTraiteePhysique) derniereHeureTraiteePhysique = heureCourante;
         if (minuteCourante == 0) derniereHeureTraiteeFaim = heureCourante;
     }
+
 }

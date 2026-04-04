@@ -85,6 +85,7 @@ public class MainGUI extends JFrame implements Runnable {
 	        for(int i = 0 ; i < 50 ; i++){
 	            chronometer.increment();
 	            SimMenager.updateBesoins(); 
+				SimMenager.updateEtats(); 
 	        }
 
 	        if (chronometer.getHour().getValue() == 0 && chronometer.getMinute().getValue() == 0 && chronometer.getSecond().getValue() == 0) {

@@ -170,61 +170,45 @@ public class PaintStrategy {
 
 		
 
-//SUPRIMEEEEEEER
-	public void paint(Sim sim, Graphics graphics){
-		Block position = sim.getPositionCourante();
-		int blockSize = GameConfiguration.BLOCK_SIZE;
-		
-		int y = position.getLine();
-		int x = position.getColumn();
-
-		graphics.setColor(Color.blue);
-		graphics.fillOval(x * blockSize + blockSize/4, y * blockSize + blockSize/4, blockSize/2, blockSize/2);
-	}
-	
 	
 	//Amin
 	public void paint2(Sim sim, Graphics2D graphics2){
-		graphics2.setColor(Color.BLACK);
-		graphics2.setStroke(new BasicStroke(6));
-
 
 		Block position = sim.getPositionCourante();
 		int blockSize = GameConfiguration.BLOCK_SIZE;
 		
 		int y = position.getLine()*blockSize;
 		int x = position.getColumn()*blockSize;
-
-		graphics2.setColor(Color.blue);
-		graphics2.fillOval(x + blockSize/4, y  + blockSize/4, blockSize/2, blockSize/2);
 		
-		// Attention : don't call trainManager.getId(), because it will return the ID of the thread (not the train).
 		graphics2 .setFont(new Font("Dialog", Font.PLAIN, 20));
 		graphics2.drawString(sim.getNom(), x-blockSize/4, y);
 		graphics2.drawImage(GameUtility.readImage("src/images/sim.jpg"),  x+blockSize/4, y, 25, 35, null);
 	}
 
 
-	public void paintC(Sim sim, Graphics graphics){
+	public void paintC(Sim sim, Graphics2D graphics2){
+
 		Block position = sim.getPositionCourante();
 		int blockSize = GameConfiguration.BLOCK_SIZE;
 		
-		int y = position.getLine();
-		int x = position.getColumn();
-
-		graphics.setColor(Color.red);
-		graphics.drawOval(x * blockSize + blockSize/4 - 2, y * blockSize - 2, 29, 39);
+		int y = position.getLine()*blockSize;
+		int x = position.getColumn()*blockSize;
+		
+		graphics2 .setFont(new Font("Dialog", Font.PLAIN, 20));
+		graphics2.drawString(sim.getNom(), x-blockSize/4, y);
+		graphics2.drawImage(GameUtility.readImage("src/images/simc.png"),  x+blockSize/4, y, 25, 35, null);
 	}
 
-	public void paintS(Sim sim, Graphics graphics){
+	public void paintS(Sim sim, Graphics2D graphics2){
 		Block position = sim.getPositionCourante();
 		int blockSize = GameConfiguration.BLOCK_SIZE;
 		
-		int y = position.getLine();
-		int x = position.getColumn();
-
-		graphics.setColor(Color.blue);
-		graphics.drawOval(x*blockSize + blockSize/4 - 2, y*blockSize - 2, 29, 39);
+		int y = position.getLine()*blockSize;
+		int x = position.getColumn()*blockSize;
+		
+		graphics2 .setFont(new Font("Dialog", Font.PLAIN, 20));
+		graphics2.drawString(sim.getNom(), x-blockSize/4, y);
+		graphics2.drawImage(GameUtility.readImage("src/images/sims.png"),  x+blockSize/4, y, 25, 35, null);
 	}
 	
 }

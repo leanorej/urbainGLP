@@ -66,15 +66,16 @@ public class GameDisplay extends JPanel {
         	paintStrategy.paint2(sim, g2);
         }
 
+
+		String nom = sidePanel.getSelectedSim() ;
+		Sim simSelected = SimManager.getSims().getSim(nom) ;
+		paintStrategy.paintS(simSelected, g2);
+
 		Sim simChoisi = SimManager.getSimChoisi();
 
 		if (simChoisi != null){
 			paintStrategy.paintC(simChoisi, g2);
 		}
-
-		String nom = sidePanel.getSelectedSim() ;
-		Sim simSelected = SimManager.getSims().getSim(nom) ;
-		paintStrategy.paintS(simSelected, g2);
 	}
 
 		public Block getSimPosition(int x, int y) {

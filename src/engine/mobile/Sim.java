@@ -1,5 +1,6 @@
 package engine.mobile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import chrono.BoundedCounter;
@@ -19,6 +20,8 @@ public class Sim {
 	private Block positionCourante;
 	//La routine associée au sim
 	private Routine routine;
+
+	private Etats etats = new Etats() ;
 	
 	private boolean vivant= true;
 
@@ -48,6 +51,7 @@ public class Sim {
 		return routine;
 	}
 
+
 	public void setRoutine(Routine routine) {
 		this.routine = routine;
 	}
@@ -63,6 +67,10 @@ public class Sim {
 	public String getNom() {
 		return nom;
 	}
+
+	public Etats getEtats() {
+		return etats;
+	}
 	
 	public BoundedCounter getFaim() { return faim; }
 	public BoundedCounter getPhysique() { return physique; }
@@ -70,6 +78,9 @@ public class Sim {
 
 	@Override
 	public String toString() {
-		return "Sim [nom=" + nom + "]";
+		if (etats.estVide())
+			return "Sim [nom=" + nom + "]";
+		else 
+			return "Sim [nom=" + nom + "]" + etats;
 	}
 }
