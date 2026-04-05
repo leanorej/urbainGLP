@@ -32,6 +32,15 @@ public class MobileSimManager {
             }
         }
     }
+    //si weekend cette fonction est applé
+    public void nextMoveWeekEnd(int heureCourante) {
+        for (Sim sim : sims.getSims().values()) {
+            if (sim.getRoutineWeekEnd().containsKey(heureCourante)) {
+                sim.setPositionCourante(sim.getRoutineWeekEnd().get(heureCourante).getPosition());
+            }
+        }
+    }
+    
 
     public void simMove(Block position) {
         if (simChoisi == null) {//cas ou aucun sims est selectionné

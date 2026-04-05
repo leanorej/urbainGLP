@@ -29,9 +29,6 @@ public class GameBuilder {
 	public static Sims initializeSims(Ville ville) {
 		Sims sims=new Sims();
 		sims.creationSims(ville);
-		for(String nomSim : sims.getSims().keySet()) {
-			System.out.println("Nom: "+nomSim+"\nRoutine:"+sims.getSim(nomSim).getRoutine().toString());
-		}
 		return sims;
 	}
 	
