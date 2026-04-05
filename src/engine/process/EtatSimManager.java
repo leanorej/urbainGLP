@@ -243,13 +243,13 @@ public class EtatSimManager {
 
 	private Sim getRandomSim() {
 		Random r = new Random() ;
-		Sim[] liste = sims.getSims().values().toArray(new Sim[0]) ; //bizarre
+		Sim[] liste = sims.getSims().values().toArray(new Sim[0]) ; 
 		return liste[r.nextInt(liste.length)] ;
 	}
 
 	private Evenement getRandomEvent() {
 		Random r = new Random() ;
-		Evenement[] liste = eventRep.getValues().values().toArray(new Evenement[0]) ; //
+		Evenement[] liste = eventRep.getValues().values().toArray(new Evenement[0]) ;
 		return liste[r.nextInt(liste.length)] ;
 	}
         
