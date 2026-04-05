@@ -56,8 +56,7 @@ public class EtatSimManager {
             //detection du lieu par pos
             String lieuActuel = "rue";
             for (Batiment b : ville.getBatimentsList()) {
-                if (b.getPosition().getLine() == sim.getPositionCourante().getLine() &&
-                    b.getPosition().getColumn() == sim.getPositionCourante().getColumn()) {
+                if (b.contient(sim.getPositionCourante())) {
                     lieuActuel = b.getNomBatiment().toLowerCase().trim();
                     break;
                 }
@@ -255,7 +254,3 @@ public class EtatSimManager {
         
 
 }
-
-    
-
-
