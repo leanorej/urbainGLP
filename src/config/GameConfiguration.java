@@ -7,9 +7,10 @@ package config;
  *
  */
 public class GameConfiguration {
-	
+	//on va mettre 50 dans la version finale
 	public static final int BLOCK_SIZE = 35;
-	public static final int SIDE_PANEL_WIDTH = 300;
+	
+	public static final int SIDE_PANEL_WIDTH = 400;
 	//numèro di ligne
 	public static final int NUMERO_BLOC_HAUTEUR=20;
 	//numèro de colonne

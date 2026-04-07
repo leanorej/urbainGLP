@@ -21,14 +21,14 @@ public class SidePanel extends JPanel {
     private JLabel globalVal = new JLabel("0%");
     private Sims sims;
     
-    private JTextArea detailRoutine = new JTextArea("Routine de: ");
+    private JTextArea detailRoutine = new JTextArea(10,10);
 
     public SidePanel(Chronometer chronometer, String[] array, Sims sims) {
         this.chronometer = chronometer;
         this.sims = sims;
         this.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
 
-        this.setLayout(new GridLayout(20, 1));
+        this.setLayout(new GridLayout(20, 2));
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         dayLabel = new JLabel("JOUR " + chronometer.getDay(), SwingConstants.CENTER);
@@ -66,6 +66,8 @@ public class SidePanel extends JPanel {
         JButton eventButton = new JButton("Evenement en cours");
         eventButton.addActionListener(e -> openEventDialog());
         add(eventButton);
+        
+        add(detailRoutine);
 
         nextRound();
     }
@@ -112,7 +114,7 @@ public class SidePanel extends JPanel {
     private void openRoutineDialog() {
         Sim s = sims.getSim(getSelectedSim());
         if (s == null) return;
-        String textRoutine;
+        String textRoutine= "Détails routine : " + s.getNom();
         if (chronometer.isWeekend()) {
         	textRoutine = "ROUTINE WEEKEND\n" + s.getRoutineWeekEnd().toString();
         } else {

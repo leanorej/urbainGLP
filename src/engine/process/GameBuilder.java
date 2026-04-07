@@ -46,6 +46,10 @@ public class GameBuilder {
 		EvenementsRepository eventRep = EvenementsRepository.getInstance();
 
 		eventRep.register(new Evenement("malade", "physique", 5));
+		
+	    eventRep.register(new Evenement("sautRepas", "faim", 5));
+	    //JE VEUX PAS QUE SA BAISSE TOUT LES TOUR
+	    eventRep.register(new Evenement("urgenceMedicale", "physique", 50));
 
 		//ici on va ajouter tout le reste des evenements possibles, il faudra gérer les evenements qui immpactent deux
 	}

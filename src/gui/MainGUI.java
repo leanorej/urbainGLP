@@ -38,7 +38,7 @@ public class MainGUI extends JFrame implements Runnable {
 	private GameDisplay dashboard;
 	private SidePanel sidePanel;
 	private Chronometer chronometer;
-	private EvenementsRepository eventRep = EvenementsRepository.getInstance();;
+	private EvenementsRepository eventRep = EvenementsRepository.getInstance();
 
 	int dernierHeure = -1;
 
