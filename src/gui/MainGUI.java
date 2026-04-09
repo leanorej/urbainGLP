@@ -103,6 +103,7 @@ public class MainGUI extends JFrame implements Runnable {
 
 			EtatManager.updateBesoins(); 
 			EtatManager.updateEtats(); 
+			EtatManager.updateRelations();
 
 	        if (heureCourante != dernierHeure) {
 	        	if (chronometer.isWeekend()) {

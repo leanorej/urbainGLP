@@ -6,6 +6,8 @@ import engine.donnee.Evenement;
 import engine.map.Batiment;
 import engine.map.Ville;
 import engine.process.EvenementsRepository;
+import engine.process.RelationsRepository;
+import engine.donnee.RelationAmicale;
 
 
 import java.util.Random;
@@ -19,6 +21,7 @@ public class EtatSimManager {
     private Chronometer chrono;
     private Ville ville;
     private EvenementsRepository eventRep = EvenementsRepository.getInstance();;
+    private RelationsRepository relationsRep = RelationsRepository.getInstance();
 
 
     private int derniereMinuteTraitee = -1;
@@ -234,8 +237,69 @@ public class EtatSimManager {
             }
 
     }
+    
+    
+    
+    public void updateRelations() {
+        if (chrono == null) return;
+
+        int heureCourante = chrono.getHour().getValue();
+
+        if (heureCourante == derniereHeureTraiteePhysique) return;
+
+        Sim[] listeSims = sims.getSims().values().toArray(new Sim[0]);
+
+        for (int i = 0; i < listeSims.length; i++) {
+            for (int j = i + 1; j < listeSims.length; j++) {
+                Sim simA = listeSims[i];
+                Sim simB = listeSims[j];
+                //on verifie si ils sont dns le meme batiment (sims par sim)
+                boolean memeEndroit = false;
+                for (Batiment b : ville.getBatimentsList()) {
+                    if (b.contient(simA.getPositionCourante())
+                     && b.contient(simB.getPositionCourante())) {
+                        memeEndroit = true;
+                        break;
+                    }
+                }
+
+                if (memeEndroit) {
+                    RelationAmicale relation = relationsRep.getOuCreer(
+                        simA.getNom(), simB.getNom()
+                    );
+                    relation.incrementerTemps();
+                    //on augment de 5 pourcnts si ils sont amis et dans le memee batiment
+                    if (relation.sontAmis()) {
+                        simA.getMental().increment();
+                        simA.getMental().increment();
+                        simA.getMental().increment();
+                        simA.getMental().increment();
+                        simA.getMental().increment();
+                        simB.getMental().increment();
+                        simB.getMental().increment();
+                        simB.getMental().increment();
+                        simB.getMental().increment();
+                        simB.getMental().increment();
+                    }
+                }
+            }
+        }
+    }
 
 
+    public void declencherDeuil(Sim simMort) {
+        for (RelationAmicale r : relationsRep.getRelationsDe(simMort.getNom())) {
+            if (r.sontAmis()) {
+                String nomAmi = r.getNomSim1().equals(simMort.getNom())
+                              ? r.getNomSim2() : r.getNomSim1();
+                Sim ami = sims.getSim(nomAmi);
+                if (ami != null) {
+                    ami.getEtats().ajouterEtat("deuil");
+                }
+            }
+        }
+    }
+    
     public void generatorRandomEvent() {
 		getRandomSim().getEtats().ajouterEtat(getRandomEvent().getNom());
 	}
