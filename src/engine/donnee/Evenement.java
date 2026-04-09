@@ -12,7 +12,6 @@ public class Evenement {
         this.impact = impact ;
     }
 
-
 	public String getNom() {
 		return nom;
 	}

@@ -9,7 +9,7 @@ import engine.process.EvenementsRepository;
 import engine.process.RelationsRepository;
 import engine.donnee.RelationAmicale;
 
-
+import java.util.ArrayList;
 import java.util.Random;
 
 import chrono.Chronometer;
@@ -22,7 +22,8 @@ public class EtatSimManager {
     private Ville ville;
     private EvenementsRepository eventRep = EvenementsRepository.getInstance();;
     private RelationsRepository relationsRep = RelationsRepository.getInstance();
-
+    
+    private ArrayList<String> derniersEvenements = new ArrayList<>();
 
     private int derniereMinuteTraitee = -1;
     private int derniereHeureTraiteePhysique = -1;
@@ -235,7 +236,6 @@ public class EtatSimManager {
                 }
                 break;
             }
-
     }
     
     
@@ -300,8 +300,16 @@ public class EtatSimManager {
         }
     }
     
-    public void generatorRandomEvent() {
-		getRandomSim().getEtats().ajouterEtat(getRandomEvent().getNom());
+    public void generatorRandomEvent() { 
+    	Sim sim = getRandomSim(); 
+    	Evenement event = getRandomEvent(); 
+    	updateBesoinsEvenement(sim, event); 
+    	derniersEvenements.add(sim.getNom()+":"+event.getNom());
+    }
+
+    
+	public ArrayList<String> getDerniersEvenements() {
+		return derniersEvenements;
 	}
 
 	private Sim getRandomSim() {
@@ -315,6 +323,5 @@ public class EtatSimManager {
 		Evenement[] liste = eventRep.getValues().values().toArray(new Evenement[0]) ;
 		return liste[r.nextInt(liste.length)] ;
 	}
-        
 
 }

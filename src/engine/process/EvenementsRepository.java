@@ -18,7 +18,6 @@ public class EvenementsRepository {
 
 	}
 
-	
     
 	public static EvenementsRepository getInstance() {
 		return instance;
@@ -32,11 +31,7 @@ public class EvenementsRepository {
 
 	public HashMap<String, Evenement> getValues () {
 		return evenements ;
-	}
-
-
-	
-    
+	}    
 	public Evenement getEvenement(String nom) {
 		if (evenements.containsKey(nom)) {
 			return evenements.get(nom);

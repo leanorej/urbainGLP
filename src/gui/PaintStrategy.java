@@ -151,6 +151,7 @@ public class PaintStrategy {
 	public void paint(Graphics2D g2) {
 		int sizeBlock=GameConfiguration.BLOCK_SIZE;
 		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  5* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
+		//g2.drawString("maison1", 2*sizeBlock,5*sizeBlock );
 		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  10* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  15* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/imm.png"),11*sizeBlock,  7* sizeBlock, 6*sizeBlock,5*sizeBlock, null);

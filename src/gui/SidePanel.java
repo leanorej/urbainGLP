@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import chrono.Chronometer;
@@ -21,11 +23,15 @@ public class SidePanel extends JPanel {
     private JLabel globalVal = new JLabel("0%");
     private Sims sims;
     
-    private JTextArea detailRoutine = new JTextArea(10,10);
+    private JTextArea detailRoutine = new JTextArea();
+ 
+    private ArrayList<String> derniersEvenementsList;
+    private JTextArea detailEvenements = new JTextArea(10,10);
 
-    public SidePanel(Chronometer chronometer, String[] array, Sims sims) {
+    public SidePanel(Chronometer chronometer, String[] array, Sims sims, ArrayList<String> derniersEvenements) {
         this.chronometer = chronometer;
         this.sims = sims;
+        this.derniersEvenementsList=derniersEvenements;
         this.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
 
         this.setLayout(new GridLayout(20, 2));
@@ -64,10 +70,11 @@ public class SidePanel extends JPanel {
         add(routineBtn);
 
         JButton eventButton = new JButton("Evenement en cours");
-        eventButton.addActionListener(e -> openEventDialog());
+        eventButton.addActionListener(e -> openEventDialog(derniersEvenements));
         add(eventButton);
         
-        add(detailRoutine);
+        //add(detailRoutine);
+        add(detailEvenements);
 
         nextRound();
     }
@@ -131,7 +138,7 @@ public class SidePanel extends JPanel {
         
     }
 
-    private void openEventDialog() {
+    private void openEventDialog(ArrayList<String> derniersEvenements) {
 
 
         String buffer = "" ;
@@ -140,7 +147,8 @@ public class SidePanel extends JPanel {
             if(!sim.getEtats().estVide())
                 buffer+= sim.getNom() + " : " + sim.getEtats().toString() + "\n" ;
         }
-
+        buffer += "";
+        buffer += derniersEvenements.toString();
         JTextArea textArea ;
         if (buffer.equals("")){
             textArea = new JTextArea("aucun evenement en cours");
@@ -172,6 +180,7 @@ public class SidePanel extends JPanel {
             globalVal.setText(score + "%");
             
             detailRoutine.setText(s.getRoutine().toString());
+            detailEvenements.setText(this.derniersEvenementsList.toString());
         }
     }
 

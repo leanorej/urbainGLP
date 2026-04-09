@@ -65,7 +65,7 @@ public class MainGUI extends JFrame implements Runnable {
 		GameBuilder.buildEvent() ;
 		
 		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);
-		sidePanel = new SidePanel(chronometer, simsKey, sims);
+		sidePanel = new SidePanel(chronometer, simsKey, sims,EtatManager.getDerniersEvenements());
 
 		dashboard = new GameDisplay(map, ville, SimMenager, sidePanel);
 		MouseControls mouseControls = new MouseControls();
@@ -113,15 +113,8 @@ public class MainGUI extends JFrame implements Runnable {
 	            }
 	            dernierHeure = heureCourante;
 
-				if(heureCourante%7==0){
+				if(heureCourante%6==0){
 					EtatManager.generatorRandomEvent() ;
-				}
-	
-				for(Sim sim : sims.getSims().values()){
-					for(String etat : sim.getEtats().getEtats()){
-						if (eventRep.getEvenement(etat)!=null)
-							EtatManager.updateBesoinsEvenement(sim, eventRep.getEvenement(etat)) ;
-					}						
 				}
 			}
 		
