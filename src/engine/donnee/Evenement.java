@@ -1,8 +1,7 @@
 package engine.donnee;
 
 public class Evenement {
-    
-    private String nom ;
+	private String nom ;
     private String barreImpactee ;
     private int impact ;
 
@@ -24,6 +23,9 @@ public class Evenement {
 		return impact;
 	}
 
-
+    @Override
+	public String toString() {
+		return nom +":  perds "+ impact +" de " + barreImpactee;
+	}
 
 }

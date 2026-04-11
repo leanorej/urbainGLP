@@ -49,7 +49,9 @@ public class GameBuilder {
 		eventRep.register(new Evenement("sautRepas", "faim", 20));  
 		eventRep.register(new Evenement("malade", "physique", 15));
 		eventRep.register(new Evenement("urgenceMedicale", "physique", 50)); 
-
+		eventRep.register(new Evenement("dispute", "mental", 20));
+		eventRep.register(new Evenement("Equipe du coeur perd", "mental", 7));
+		
 }
 
 }

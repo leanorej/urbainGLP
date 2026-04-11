@@ -22,8 +22,6 @@ public class EvenementsRepository {
 	public static EvenementsRepository getInstance() {
 		return instance;
 	}
-
-	
     
 	public void register(Evenement event) {
 		evenements.put(event.getNom(), event);

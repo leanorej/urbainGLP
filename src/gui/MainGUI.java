@@ -130,6 +130,13 @@ public class MainGUI extends JFrame implements Runnable {
 			int y = e.getY();
 			Block nvlPosition = dashboard.getSimPosition(x , y);
 			SimMenager.simMove(nvlPosition);
+			
+			//on prends le derenier sim selectioné et on affiche ca barre generale
+			Sim simChoisi = SimMenager.getSimChoisi();
+	        if (simChoisi != null) {
+	            sidePanel.setSelectedSim(simChoisi.getNom());
+	        }
+
 			dashboard.repaint();
 		}
 		@Override public void mousePressed(MouseEvent e) {}

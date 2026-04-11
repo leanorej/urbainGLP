@@ -16,12 +16,14 @@ public class SidePanel extends JPanel {
     private Chronometer chronometer;
     private JLabel timeLabel;
     private JLabel dayLabel;
+    private JLabel globalPannelLabel;
 
     // menu de selction Sim qui contient uniquement les nome des sims et pas les istances des sims
-    private JComboBox<String> comboBox;
+
     private JProgressBar globalBar = new JProgressBar(0, 100);
     private JLabel globalVal = new JLabel("0%");
     private Sims sims;
+    private String selectedSimName;
     
     private JTextArea detailRoutine = new JTextArea();
  
@@ -29,13 +31,16 @@ public class SidePanel extends JPanel {
     private JTextArea detailEvenements = new JTextArea(10,10);
 
     public SidePanel(Chronometer chronometer, String[] array, Sims sims, ArrayList<String> derniersEvenements) {
-        this.chronometer = chronometer;
-        this.sims = sims;
-        this.derniersEvenementsList=derniersEvenements;
         this.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
-
         this.setLayout(new GridLayout(20, 2));
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
+    	
+    	this.chronometer = chronometer;
+        this.sims = sims;
+        this.derniersEvenementsList=derniersEvenements;
+        
+
+        
 
         dayLabel = new JLabel("JOUR " + chronometer.getDay(), SwingConstants.CENTER);
         dayLabel.setFont(new Font("Monospaced", Font.BOLD, 15));
@@ -43,15 +48,19 @@ public class SidePanel extends JPanel {
         timeLabel = new JLabel("00:00:00", SwingConstants.CENTER);
         timeLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
         
-        comboBox = new JComboBox<String>(array);
+
                                     
         add(new JLabel("Le nom de la ville"));
         add(dayLabel);
         add(timeLabel);
-        add(comboBox);
         
-        //nouveaux elts
-        add(new JLabel("État global du Sim"));
+        
+        //Le nom du sim selectioné
+        if (array != null && array.length > 0) {
+            selectedSimName = array[0];
+        }
+        globalPannelLabel=new JLabel("État global de "+ selectedSimName);
+        add(globalPannelLabel);
         
         JPanel globalPanel = new JPanel(new BorderLayout(5, 0));
         globalBar.setStringPainted(false);
@@ -69,12 +78,17 @@ public class SidePanel extends JPanel {
         routineBtn.addActionListener(e -> openRoutineDialog());
         add(routineBtn);
 
-        JButton eventButton = new JButton("Evenement en cours");
-        eventButton.addActionListener(e -> openEventDialog(derniersEvenements));
+        JButton eventButton = new JButton("Alertes Sims en cours");
+        eventButton.addActionListener(e -> openEventDialog());
         add(eventButton);
         
         //add(detailRoutine);
-        add(detailEvenements);
+        detailEvenements.setEditable(false);
+        detailEvenements.setLineWrap(true);
+        detailEvenements.setWrapStyleWord(true);
+        JScrollPane scrollPane = new JScrollPane(detailEvenements);
+        scrollPane.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH - 30, 150));
+        add(scrollPane);
 
         nextRound();
     }
@@ -138,7 +152,7 @@ public class SidePanel extends JPanel {
         
     }
 
-    private void openEventDialog(ArrayList<String> derniersEvenements) {
+    private void openEventDialog() {
 
 
         String buffer = "" ;
@@ -148,10 +162,9 @@ public class SidePanel extends JPanel {
                 buffer+= sim.getNom() + " : " + sim.getEtats().toString() + "\n" ;
         }
         buffer += "";
-        buffer += derniersEvenements.toString();
         JTextArea textArea ;
         if (buffer.equals("")){
-            textArea = new JTextArea("aucun evenement en cours");
+            textArea = new JTextArea("Aucune alerte Sim en cours");
         }
         else {
             textArea = new JTextArea(buffer);
@@ -161,7 +174,7 @@ public class SidePanel extends JPanel {
         textArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
         
         JOptionPane pane = new JOptionPane(textArea, JOptionPane.PLAIN_MESSAGE);
-        JDialog dialog = pane.createDialog(this, "Evenements en cours : ");
+        JDialog dialog = pane.createDialog(this, "Alertes Sims en cours: ");
         
         dialog.setVisible(true);
         
@@ -173,20 +186,38 @@ public class SidePanel extends JPanel {
             timeLabel.setText(chronometer.toString());
             dayLabel.setText("JOUR " + chronometer.getDay());
         }
+        
+        globalPannelLabel.setText("État global de "+ selectedSimName);
+        
         Sim s = sims.getSim(getSelectedSim());
         if (s != null) {
             int score = s.getScoreGlobal();
             globalBar.setValue(score);
             globalVal.setText(score + "%");
             
+            
             detailRoutine.setText(s.getRoutine().toString());
-            detailEvenements.setText(this.derniersEvenementsList.toString());
+            
+            detailEvenements.setText(printEventList());
         }
     }
-
-    
-    public String getSelectedSim() {
-        return (String) comboBox.getSelectedItem();
+    private String printEventList() {
+    	StringBuilder buffer= new StringBuilder("Les dernier evenements: \n");
+    	int dim=derniersEvenementsList.size()-1;
+    	for(int i=dim; i>=0; i-- ) {
+    		buffer.append(derniersEvenementsList.get(i)+"\n");
+    	}
+		return buffer.toString();
+    	
     }
+    
+    public void setSelectedSim(String name) {
+        this.selectedSimName = name;
+    }
+
+    public String getSelectedSim() {
+        return selectedSimName;
+    }
+
 
 }

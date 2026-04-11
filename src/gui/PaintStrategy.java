@@ -39,13 +39,13 @@ public class PaintStrategy {
 			for (int columnIndex = 0; columnIndex < map.getColumnCount(); columnIndex++) {
 				Block block = blocks[lineIndex][columnIndex];
 
-				graphics.setColor(Color.GREEN);
+				graphics.setColor(Color.GREEN.darker());
 				graphics.fillRect(block.getColumn() * blockSize, block.getLine() * blockSize, blockSize, blockSize);
-				
+				/*
 				if ((lineIndex + columnIndex) % 2 == 0) {
 					graphics.setColor(Color.green.darker());
 					graphics.fillRect(block.getColumn() * blockSize, block.getLine() * blockSize, blockSize, blockSize);
-				}
+				}*/
 			}
 		}
 	}
@@ -164,9 +164,8 @@ public class PaintStrategy {
 		g2.drawImage(GameUtility.readImage("src/images/salle.png"),14*sizeBlock,  15* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/hopital.png"),19*sizeBlock,  14* sizeBlock, 5*sizeBlock,5*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/mall.png"),24*sizeBlock,  6* sizeBlock, 5*sizeBlock,6*sizeBlock, null);
-		
-		g2.drawImage(GameUtility.readImage("src/images/lycee.png"),8*sizeBlock,   0*sizeBlock, 6*sizeBlock,4*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/usine.png"),22*sizeBlock,  0* sizeBlock, 8*sizeBlock,4*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/ecole.png"),8*sizeBlock,   0*sizeBlock, 6*sizeBlock,4*sizeBlock, null);
 	}
 
 		

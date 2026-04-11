@@ -41,6 +41,10 @@ public class EtatSimManager {
 
     public Sim getSimChoisi() {
         return simChoisi;
+        
+        
+        
+        
     }
 
     public void updateBesoins() {
@@ -304,7 +308,8 @@ public class EtatSimManager {
     	Sim sim = getRandomSim(); 
     	Evenement event = getRandomEvent(); 
     	updateBesoinsEvenement(sim, event); 
-    	derniersEvenements.add(sim.getNom()+":"+event.getNom());
+    	//j'enregistre les evenement dans un list qui est dans un classe de traitement faut changer ca
+    	derniersEvenements.add(sim.getNom()+"-> "+event.toString());
     }
 
     
