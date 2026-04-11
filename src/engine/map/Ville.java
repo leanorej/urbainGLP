@@ -35,19 +35,19 @@ public class Ville {
 		this.put(maison3.getNomBatiment(),maison3);
 
 		//2
-		Batiment imm= new Batiment(new Block(7,11), "imm", 5, 6);
-		this.put(imm.getNomBatiment(),imm);
+		Batiment immeuble= new Batiment(new Block(7,11), "immeuble", 6, 5);
+		this.put(immeuble.getNomBatiment(),immeuble);
 
 		//3
 		Batiment boulangerie = new Batiment(new Block(8,6), "boulangerie", 3, 3);
 		this.put(boulangerie.getNomBatiment(),boulangerie);
 
 		//4
-		Batiment usine = new Batiment(new Block(0,22), "usine", 4, 8);
+		Batiment usine = new Batiment(new Block(0,22), "usine", 8, 4);
 		this.put(usine.getNomBatiment(),usine);
 
 		//5
-		Batiment piscine = new Batiment(new Block(0,15), "piscine", 4, 5);
+		Batiment piscine = new Batiment(new Block(0,15), "piscine", 5, 4);
 		this.put(piscine.getNomBatiment(),piscine);
 
 		//6
@@ -55,15 +55,15 @@ public class Ville {
 		this.put(salle.getNomBatiment(),salle);
 
 		//7
-		Batiment ecole = new Batiment(new Block(0,8), "ecole", 4, 6);
+		Batiment ecole = new Batiment(new Block(0,8), "ecole", 6, 4);
 		this.put(ecole.getNomBatiment(),ecole);
 
 		//8
-		Batiment lycee = new Batiment(new Block(0,0), "lycee", 4, 7);
+		Batiment lycee = new Batiment(new Block(0,0), "lycee", 7, 4);
 		this.put(lycee.getNomBatiment(),lycee);
 
 		//9
-		Batiment parc = new Batiment(new Block(13,6), "parc", 6, 7);
+		Batiment parc = new Batiment(new Block(13,6), "parc", 7, 6);
 		this.put(parc.getNomBatiment(),parc);
 
 		//10
@@ -71,11 +71,11 @@ public class Ville {
 		this.put(mairie.getNomBatiment(),mairie);
 
 		//11
-		Batiment mall= new Batiment(new Block(6,24), "mall", 6, 5);
+		Batiment mall= new Batiment(new Block(6,24), "mall", 5, 6);
 		this.put(mall.getNomBatiment(),mall);
 		
 		//12
-		Batiment cinema = new Batiment(new Block(13,25), "cinema", 6, 4);
+		Batiment cinema = new Batiment(new Block(13,25), "cinema", 4, 6);
 		this.put(cinema.getNomBatiment(),cinema);
 
 		//13

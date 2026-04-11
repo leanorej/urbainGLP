@@ -93,7 +93,7 @@ public class EtatSimManager {
             			sim.getPhysique().increment();
             		}
             		break;
-            	case "imm":
+            	case "immeuble":
             		//immeuble avec Francis, Julie et Marie, leur physique augmente
             		if(nomSim.equals("Francis") || nomSim.equals("Julie") || nomSim.equals("Marie")) {
             			sim.getPhysique().increment();

@@ -28,6 +28,8 @@ import engine.process.GameUtility;
  */
 
 public class PaintStrategy {
+	
+	private Color textColor= Color.DARK_GRAY;
 
 	//La base de la map est toute verte 
 
@@ -50,7 +52,7 @@ public class PaintStrategy {
 		}
 	}
 		
-	public void paint(Batiment batiment, Graphics graphics) {
+	/*public void paint(Batiment batiment, Graphics graphics) {
 		Block position = batiment.getPosition();
 		int blockSize = GameConfiguration.BLOCK_SIZE;
 
@@ -61,7 +63,8 @@ public class PaintStrategy {
 		graphics.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
 		
 	}
-
+*/
+	
 	public void paint(Map map, Batiment batiment, Graphics graphics){
 		int blockSize = GameConfiguration.BLOCK_SIZE;
 		Block[][] blocks = map.getBlocks();
@@ -85,7 +88,7 @@ public class PaintStrategy {
 				y = 15 ; x = 0 ; largeur = 4 ; longueur = 4 ;
 				break ;
 
-			case "imm" :
+			case "immeuble" :
 				y = 7 ; x = 11 ; largeur = 5 ; longueur = 6 ;
 				break ;
 			
@@ -148,13 +151,24 @@ public class PaintStrategy {
 		}
 
 	}
+	public void paintNomBat(Batiment batiment, Graphics2D graphics2) {
+	Block position = batiment.getPosition();
+	int blockSize = GameConfiguration.BLOCK_SIZE;
+
+	int y = (position.getLine() +  batiment.getLongueur())*blockSize;
+	int x = (position.getColumn() + batiment.getLargeur()/2)*blockSize;
+
+	graphics2 .setFont(new Font("Dialog", Font.BOLD, 25));
+	graphics2.setColor(textColor); 
+	graphics2.drawString(batiment.getNomBatiment(), x-blockSize, y+blockSize);
+	
+}
 	public void paint(Graphics2D g2) {
 		int sizeBlock=GameConfiguration.BLOCK_SIZE;
 		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  5* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
-		//g2.drawString("maison1", 2*sizeBlock,5*sizeBlock );
 		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  10* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  15* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
-		g2.drawImage(GameUtility.readImage("src/images/imm.png"),11*sizeBlock,  7* sizeBlock, 6*sizeBlock,5*sizeBlock, null);
+		g2.drawImage(GameUtility.readImage("src/images/immeuble.png"),11*sizeBlock,  7* sizeBlock, 6*sizeBlock,5*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/piscine.png"),15*sizeBlock,0, 5*sizeBlock,4*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/boulangerie.png"),6*sizeBlock,  8* sizeBlock, 3*sizeBlock,3*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/lycee.png"),0*sizeBlock,   0*sizeBlock, 7*sizeBlock,4*sizeBlock, null);
@@ -181,7 +195,8 @@ public class PaintStrategy {
 		int x = position.getColumn()*blockSize;
 		
 		graphics2 .setFont(new Font("Dialog", Font.PLAIN, 20));
-		graphics2.drawString(sim.getNom(), x-blockSize/4, y);
+		graphics2.setColor(textColor); 
+		graphics2.drawString(sim.getNom(), x-blockSize/4, y+blockSize*3/2);
 		graphics2.drawImage(GameUtility.readImage("src/images/sim.jpg"),  x+blockSize/4, y, 25, 35, null);
 	}
 
@@ -195,7 +210,8 @@ public class PaintStrategy {
 		int x = position.getColumn()*blockSize;
 		
 		graphics2 .setFont(new Font("Dialog", Font.PLAIN, 20));
-		graphics2.drawString(sim.getNom(), x-blockSize/4, y);
+		graphics2.setColor(textColor); 
+		graphics2.drawString(sim.getNom(), x-blockSize/4, y+blockSize*3/2);
 		graphics2.drawImage(GameUtility.readImage("src/images/simc.png"),  x+blockSize/4, y, 25, 35, null);
 	}
 
@@ -207,7 +223,8 @@ public class PaintStrategy {
 		int x = position.getColumn()*blockSize;
 		
 		graphics2 .setFont(new Font("Dialog", Font.PLAIN, 20));
-		graphics2.drawString(sim.getNom(), x-blockSize/4, y);
+		graphics2.setColor(textColor); 
+		graphics2.drawString(sim.getNom(), x-blockSize/4, y+blockSize*3/2);
 		graphics2.drawImage(GameUtility.readImage("src/images/sims.png"),  x+blockSize/4, y, 25, 35, null);
 	}
 	

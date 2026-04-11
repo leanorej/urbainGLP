@@ -96,11 +96,13 @@ public class SidePanel extends JPanel {
         add(relationsScroll);
         
         //add(detailRoutine);
+        //pour les evenements
+        add(new JLabel("Les dernier evenements :"));
         detailEvenements.setEditable(false);
         detailEvenements.setLineWrap(true);
         detailEvenements.setWrapStyleWord(true);
+        detailEvenements.setFont(new Font("Monospaced", Font.PLAIN, 11));
         JScrollPane scrollPane = new JScrollPane(detailEvenements);
-        scrollPane.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH - 30, 150));
         add(scrollPane);
 
         nextRound();
@@ -244,7 +246,7 @@ public class SidePanel extends JPanel {
     }
     
     private String printEventList() {
-    	StringBuilder buffer= new StringBuilder("Les dernier evenements: \n");
+    	StringBuilder buffer= new StringBuilder();
     	int dim=derniersEvenementsList.size()-1;
     	for(int i=dim; i>=0; i-- ) {
     		buffer.append(derniersEvenementsList.get(i)+"\n");

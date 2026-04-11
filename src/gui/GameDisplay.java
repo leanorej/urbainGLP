@@ -45,27 +45,27 @@ public class GameDisplay extends JPanel {
 		super.paintComponent(g);
 		paintStrategy.paint(map, g);
 		
-		
+		/*
 		for(Batiment batiment : ville.getBatimentsList()) {
             paintStrategy.paint(map, batiment, g);
-        }
+		}*/
 
 		
 		
+
         
 		Graphics2D g2 = (Graphics2D) g;
 		
 		//dessine tout les images de batiment
 		paintStrategy.paint(g2);
-		
+		/*
 		for(Batiment batiment : ville.getBatimentsList()) {
             paintStrategy.paint(batiment, g);
-        }
+        }*/
 		
 		for(Sim sim : SimManager.getSims().getSims().values()){
         	paintStrategy.paint2(sim, g2);
         }
-
 
 		String nom = sidePanel.getSelectedSim() ;
 		Sim simSelected = SimManager.getSims().getSim(nom) ;
@@ -76,7 +76,13 @@ public class GameDisplay extends JPanel {
 		if (simChoisi != null){
 			paintStrategy.paintC(simChoisi, g2);
 		}
+		
+		for(Batiment batiment : ville.getBatimentsList()) {
+	        paintStrategy.paintNomBat(batiment, g2);
+	    }
 	}
+	
+	
 
 		public Block getSimPosition(int x, int y) {
 			int line = y / GameConfiguration.BLOCK_SIZE;
