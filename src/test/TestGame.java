@@ -1,6 +1,6 @@
 package test;
 
-import gui.MainGUI;
+import gui.MenuGUI;
 
 /**
  * Copyright SEDAMOP - Software Engineering
@@ -9,9 +9,9 @@ import gui.MainGUI;
  *
  */
 public class TestGame {
-	public static void main(String[] args) {
-		MainGUI gameMainGUI = new MainGUI("URBAIN");
-		Thread gameThread = new Thread(gameMainGUI);
-		gameThread.start();
-	}
+    public static void main(String[] args) {
+        MenuGUI menu = new MenuGUI();
+        Thread menuThread = new Thread(menu);
+        menuThread.start();
+    }
 }

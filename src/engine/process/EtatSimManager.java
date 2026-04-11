@@ -28,6 +28,7 @@ public class EtatSimManager {
     private int derniereMinuteTraitee = -1;
     private int derniereHeureTraiteePhysique = -1;
     private int derniereHeureTraiteeFaim = -1;
+    private int derniereHeureTraiteeRelations = -1;
 
     public EtatSimManager(Sims sims, Chronometer chrono, Ville ville) {
         this.sims = sims;
@@ -249,7 +250,8 @@ public class EtatSimManager {
 
         int heureCourante = chrono.getHour().getValue();
 
-        if (heureCourante == derniereHeureTraiteePhysique) return;
+        if (heureCourante == derniereHeureTraiteeRelations) return;
+        derniereHeureTraiteeRelations = heureCourante;
 
         Sim[] listeSims = sims.getSims().values().toArray(new Sim[0]);
 

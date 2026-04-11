@@ -10,7 +10,7 @@ public class RelationAmicale {
     public RelationAmicale(String nomSim1, String nomSim2) {
     	this.nomSim1 = nomSim1;
         this.nomSim2 = nomSim2;
-        this.heuresPasseesEnsemble = 0;
+        this.heuresPasseesEnsemble = -1;
         this.amis = false;
     }
 
@@ -23,9 +23,14 @@ public class RelationAmicale {
     }
 
     public void incrementerTemps() {
-        heuresPasseesEnsemble++;
-        if (heuresPasseesEnsemble >= 20) {
-            amis = true;
+        if (!amis) {
+            heuresPasseesEnsemble++;
+            if (heuresPasseesEnsemble >= 20) {
+                amis = true;
+                heuresPasseesEnsemble = 1;
+            }
+        } else {
+            heuresPasseesEnsemble++;
         }
     }
 

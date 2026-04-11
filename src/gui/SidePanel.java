@@ -10,6 +10,8 @@ import chrono.Chronometer;
 import config.GameConfiguration;
 import engine.mobile.Sim;
 import engine.mobile.Sims;
+import engine.donnee.RelationAmicale;
+import engine.process.RelationsRepository;
 
 public class SidePanel extends JPanel {
     private static final long serialVersionUID = 1L;
@@ -29,6 +31,8 @@ public class SidePanel extends JPanel {
  
     private ArrayList<String> derniersEvenementsList;
     private JTextArea detailEvenements = new JTextArea(10,10);
+    
+    private JTextArea relationsArea = new JTextArea(4, 10);
 
     public SidePanel(Chronometer chronometer, String[] array, Sims sims, ArrayList<String> derniersEvenements) {
         this.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
@@ -81,6 +85,15 @@ public class SidePanel extends JPanel {
         JButton eventButton = new JButton("Alertes Sims en cours");
         eventButton.addActionListener(e -> openEventDialog());
         add(eventButton);
+        
+        //pour les relations amicales
+        add(new JLabel("Relations :"));
+        relationsArea.setEditable(false);
+        relationsArea.setLineWrap(true);
+        relationsArea.setWrapStyleWord(true);
+        relationsArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
+        JScrollPane relationsScroll = new JScrollPane(relationsArea);
+        add(relationsScroll);
         
         //add(detailRoutine);
         detailEvenements.setEditable(false);
@@ -199,8 +212,37 @@ public class SidePanel extends JPanel {
             detailRoutine.setText(s.getRoutine().toString());
             
             detailEvenements.setText(printEventList());
+            
+            relationsArea.setText(buildRelationsText(s.getNom()));
         }
     }
+
+    private String buildRelationsText(String nomSim) {
+        RelationsRepository relRep = RelationsRepository.getInstance();
+        ArrayList<RelationAmicale> relations = relRep.getRelationsDe(nomSim);
+
+        StringBuilder sb = new StringBuilder();
+
+        for (RelationAmicale r : relations) {
+            int heures = r.getHeuresPasseesEnsemble();
+            // on n'affiche rien si jamais croise
+            if (heures == 0) continue;
+
+            String nomAutre = r.getNomSim1().equals(nomSim) ? r.getNomSim2() : r.getNomSim1();
+
+            if (r.sontAmis()) {
+                sb.append("Amis avec ").append(nomAutre)
+                  .append(" depuis ").append(heures).append("h\n");
+            } else {
+                // relation en cours mais pas encore amis
+                sb.append(nomAutre).append(" : ")
+                  .append(heures).append("h / 20h\n");
+            }
+        }
+
+        return sb.toString();
+    }
+    
     private String printEventList() {
     	StringBuilder buffer= new StringBuilder("Les dernier evenements: \n");
     	int dim=derniersEvenementsList.size()-1;
