@@ -75,6 +75,6 @@ public class Chronometer {
 		hour.setValue(0);
 		minute.setValue(0);
 		second.setValue(0);
-		day.setValue(5);
+		day.setValue(0);
 	}
 }

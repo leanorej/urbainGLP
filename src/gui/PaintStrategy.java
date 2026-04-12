@@ -29,8 +29,8 @@ import engine.process.GameUtility;
 
 public class PaintStrategy {
 	
-	private Color textColor= Color.DARK_GRAY;
-
+	private Color textColor= Color.WHITE;
+/*
 	//La base de la map est toute verte 
 //ON UTILISE PLUS
 	public void paint(Map map, Graphics graphics) {
@@ -43,15 +43,15 @@ public class PaintStrategy {
 
 				graphics.setColor(Color.GREEN.darker());
 				graphics.fillRect(block.getColumn() * blockSize, block.getLine() * blockSize, blockSize, blockSize);
-				/*
+				
 				if ((lineIndex + columnIndex) % 2 == 0) {
 					graphics.setColor(Color.green.darker());
 					graphics.fillRect(block.getColumn() * blockSize, block.getLine() * blockSize, blockSize, blockSize);
-				}*/
+				}
 			}
 		}
 	}
-		
+		*/
 	/*public void paint(Batiment batiment, Graphics graphics) {
 		Block position = batiment.getPosition();
 		int blockSize = GameConfiguration.BLOCK_SIZE;
@@ -152,7 +152,7 @@ public class PaintStrategy {
 
 	}
 
-	//ON UTILISE PLUS
+	/*//ON UTILISE PLUS
 	public void paintNomBat(Batiment batiment, Graphics2D graphics2) {
 	Block position = batiment.getPosition();
 	int blockSize = GameConfiguration.BLOCK_SIZE;
@@ -164,7 +164,7 @@ public class PaintStrategy {
 	graphics2.setColor(textColor); 
 	//graphics2.drawString(batiment.getNomBatiment(), x-blockSize, y+blockSize);
 	
-}
+}*/
 	public void paint(Graphics2D g2) {
 		int sizeBlock=GameConfiguration.BLOCK_SIZE;
 		g2.drawImage(GameUtility.readImage("src/images/fond.jpeg"),0,  0, 30*sizeBlock,20*sizeBlock, null);
@@ -197,7 +197,7 @@ public class PaintStrategy {
 		int y = position.getLine()*blockSize;
 		int x = position.getColumn()*blockSize;
 		
-		graphics2 .setFont(new Font("Dialog", Font.PLAIN, 20));
+		graphics2 .setFont(new Font("Dialog", Font.BOLD, 20));
 		graphics2.setColor(textColor); 
 		graphics2.drawString(sim.getNom(), x-blockSize/4, y+blockSize*3/2);
 		graphics2.drawImage(GameUtility.readImage("src/images/sim.jpg"),  x+blockSize/4, y, 25, 35, null);
@@ -212,7 +212,7 @@ public class PaintStrategy {
 		int y = position.getLine()*blockSize;
 		int x = position.getColumn()*blockSize;
 		
-		graphics2 .setFont(new Font("Dialog", Font.PLAIN, 20));
+		graphics2 .setFont(new Font("Dialog", Font.BOLD, 20));
 		graphics2.setColor(textColor); 
 		graphics2.drawString(sim.getNom(), x-blockSize/4, y+blockSize*3/2);
 		graphics2.drawImage(GameUtility.readImage("src/images/simc.png"),  x+blockSize/4, y, 25, 35, null);
@@ -225,7 +225,7 @@ public class PaintStrategy {
 		int y = position.getLine()*blockSize;
 		int x = position.getColumn()*blockSize;
 		
-		graphics2 .setFont(new Font("Dialog", Font.PLAIN, 20));
+		graphics2 .setFont(new Font("Dialog", Font.BOLD, 20));
 		graphics2.setColor(textColor); 
 		graphics2.drawString(sim.getNom(), x-blockSize/4, y+blockSize*3/2);
 		graphics2.drawImage(GameUtility.readImage("src/images/sims.png"),  x+blockSize/4, y, 25, 35, null);
@@ -234,7 +234,7 @@ public class PaintStrategy {
 	
 	public void paintMenu(Graphics2D graphics2){
         int x = 700 ;
-		int y = 475;
+		int y = 460;
 
 		graphics2.drawImage(GameUtility.readImage("src/images/urbain.png"),0, 0, x, y, null);
 	}

@@ -43,7 +43,7 @@ public class GameDisplay extends JPanel {
 	public void paintComponent(Graphics g) {
 		
 		super.paintComponent(g);
-		paintStrategy.paint(map, g);
+		//paintStrategy.paint(map, g);
 		
 		/*
 		for(Batiment batiment : ville.getBatimentsList()) {
@@ -75,9 +75,9 @@ public class GameDisplay extends JPanel {
 			paintStrategy.paintC(simChoisi, g2);
 		}
 		
-		for(Batiment batiment : ville.getBatimentsList()) {
+		/*for(Batiment batiment : ville.getBatimentsList()) {
 	        paintStrategy.paintNomBat(batiment, g2);
-	    }
+	    }*/
 	}
 	
 	
