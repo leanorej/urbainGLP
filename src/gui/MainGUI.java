@@ -65,7 +65,7 @@ public class MainGUI extends JFrame implements Runnable {
 		GameBuilder.buildEvent() ;
 		
 		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);
-		sidePanel = new SidePanel(chronometer, simsKey, sims,EtatManager.getDerniersEvenements());
+		sidePanel = new SidePanel(chronometer, simsKey, sims,EtatManager.getDerniersEvenements(), EtatManager);
 
 		dashboard = new GameDisplay(map, ville, SimMenager, sidePanel);
 		MouseControls mouseControls = new MouseControls();
@@ -104,6 +104,8 @@ public class MainGUI extends JFrame implements Runnable {
 			EtatManager.updateBesoins(); 
 			EtatManager.updateEtats(); 
 			EtatManager.updateRelations();
+			EtatManager.updateEtatGeneral();
+
 
 	        if (heureCourante != dernierHeure) {
 	        	if (chronometer.isWeekend()) {

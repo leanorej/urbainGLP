@@ -11,7 +11,7 @@ public class MenuGUI extends JFrame implements Runnable {
     private static final int ETAT_JOUER   = 2;
 
     private int etatCourant = ETAT_MENU;
-    private JPanel panneauMenu;
+    private MenuDisplay panneauMenu;
     private JPanel panneauRegles;
     private CardLayout cardLayout;
     private JPanel conteneur;
@@ -75,6 +75,8 @@ public class MenuGUI extends JFrame implements Runnable {
                     return;
             }
 
+            panneauMenu.repaint();
+
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
@@ -83,26 +85,43 @@ public class MenuGUI extends JFrame implements Runnable {
         }
     }
 
-    private JPanel construirePanneauMenu() {
-        JPanel panel = new JPanel();
+    private MenuDisplay construirePanneauMenu() {
+        MenuDisplay panel = new MenuDisplay();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(40, 80, 40, 80));
 
-        JLabel titre = new JLabel("URBAIN");
+        panel.add(Box.createVerticalGlue()); 
+        
+        JLabel titre = new JLabel("");
         titre.setFont(new Font("Arial", Font.PLAIN, 60));
         titre.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(titre);
         panel.add(Box.createVerticalStrut(40));
 
+        Dimension dim = new Dimension(300, 50);
+
         JButton btnJouer = creerBouton("Jouer");
+
+        btnJouer.setPreferredSize(dim);
+        btnJouer.setMaximumSize(dim);
+        btnJouer.setMinimumSize(dim);
+
         btnJouer.addActionListener(e -> etatCourant = ETAT_JOUER);
         panel.add(btnJouer);
         panel.add(Box.createVerticalStrut(20));
 
 
         JButton btnRegles = creerBouton("Règles du jeu");
+        
+        btnRegles.setPreferredSize(dim);
+        btnRegles.setMaximumSize(dim);
+        btnRegles.setMinimumSize(dim);
+
         btnRegles.addActionListener(e -> etatCourant = ETAT_REGLES);
         panel.add(btnRegles);
+
+        panel.add(Box.createVerticalGlue()); 
+
 
         return panel;
     }

@@ -11,6 +11,7 @@ import config.GameConfiguration;
 import engine.mobile.Sim;
 import engine.mobile.Sims;
 import engine.donnee.RelationAmicale;
+import engine.process.EtatSimManager;
 import engine.process.RelationsRepository;
 
 public class SidePanel extends JPanel {
@@ -19,11 +20,17 @@ public class SidePanel extends JPanel {
     private JLabel timeLabel;
     private JLabel dayLabel;
     private JLabel globalPannelLabel;
+    private JLabel globalVillePannelLabel;
+    private EtatSimManager EtatManager;
+
+
 
     // menu de selction Sim qui contient uniquement les nome des sims et pas les istances des sims
 
     private JProgressBar globalBar = new JProgressBar(0, 100);
+    private JProgressBar globalBarVille = new JProgressBar(0, 100);
     private JLabel globalVal = new JLabel("0%");
+    private JLabel globalValVille = new JLabel("0%");
     private Sims sims;
     private String selectedSimName;
     
@@ -34,7 +41,7 @@ public class SidePanel extends JPanel {
     
     private JTextArea relationsArea = new JTextArea(4, 10);
 
-    public SidePanel(Chronometer chronometer, String[] array, Sims sims, ArrayList<String> derniersEvenements) {
+    public SidePanel(Chronometer chronometer, String[] array, Sims sims, ArrayList<String> derniersEvenements,EtatSimManager EtatManager ) {
         this.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
         this.setLayout(new GridLayout(20, 2));
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -42,6 +49,7 @@ public class SidePanel extends JPanel {
     	this.chronometer = chronometer;
         this.sims = sims;
         this.derniersEvenementsList=derniersEvenements;
+        this.EtatManager = EtatManager ;
         
 
         
@@ -58,6 +66,19 @@ public class SidePanel extends JPanel {
         add(dayLabel);
         add(timeLabel);
         
+
+        
+        globalVillePannelLabel=new JLabel("État global de la ville");
+        add(globalVillePannelLabel);
+        
+        JPanel globalPanelVille = new JPanel(new BorderLayout(5, 0));
+        globalBarVille.setStringPainted(false);
+        globalPanelVille.add(globalBarVille, BorderLayout.CENTER);
+        globalPanelVille.add(globalValVille, BorderLayout.EAST);
+        add(globalPanelVille);
+
+
+
         
         //Le nom du sim selectioné
         if (array != null && array.length > 0) {
@@ -201,6 +222,12 @@ public class SidePanel extends JPanel {
             timeLabel.setText(chronometer.toString());
             dayLabel.setText("JOUR " + chronometer.getDay());
         }
+
+        globalVillePannelLabel.setText("État global de la Ville");
+        int scoreGlobal = EtatManager.updateEtatGeneral() ;
+        globalBarVille.setValue(scoreGlobal);
+        globalValVille.setText(scoreGlobal + "%");
+
         
         globalPannelLabel.setText("État global de "+ selectedSimName);
         
@@ -209,6 +236,7 @@ public class SidePanel extends JPanel {
             int score = s.getScoreGlobal();
             globalBar.setValue(score);
             globalVal.setText(score + "%");
+            
             
             
             detailRoutine.setText(s.getRoutine().toString());

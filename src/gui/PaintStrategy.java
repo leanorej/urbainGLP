@@ -32,7 +32,7 @@ public class PaintStrategy {
 	private Color textColor= Color.DARK_GRAY;
 
 	//La base de la map est toute verte 
-
+//ON UTILISE PLUS
 	public void paint(Map map, Graphics graphics) {
 		int blockSize = GameConfiguration.BLOCK_SIZE;
 		Block[][] blocks = map.getBlocks();
@@ -151,6 +151,8 @@ public class PaintStrategy {
 		}
 
 	}
+
+	//ON UTILISE PLUS
 	public void paintNomBat(Batiment batiment, Graphics2D graphics2) {
 	Block position = batiment.getPosition();
 	int blockSize = GameConfiguration.BLOCK_SIZE;
@@ -160,11 +162,12 @@ public class PaintStrategy {
 
 	graphics2 .setFont(new Font("Dialog", Font.BOLD, 25));
 	graphics2.setColor(textColor); 
-	graphics2.drawString(batiment.getNomBatiment(), x-blockSize, y+blockSize);
+	//graphics2.drawString(batiment.getNomBatiment(), x-blockSize, y+blockSize);
 	
 }
 	public void paint(Graphics2D g2) {
 		int sizeBlock=GameConfiguration.BLOCK_SIZE;
+		g2.drawImage(GameUtility.readImage("src/images/fond.jpeg"),0,  0, 30*sizeBlock,20*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  5* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  10* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
 		g2.drawImage(GameUtility.readImage("src/images/maison1.png"),0,  15* sizeBlock, 4*sizeBlock,4*sizeBlock, null);
@@ -228,4 +231,12 @@ public class PaintStrategy {
 		graphics2.drawImage(GameUtility.readImage("src/images/sims.png"),  x+blockSize/4, y, 25, 35, null);
 	}
 	
+	
+	public void paintMenu(Graphics2D graphics2){
+        int x = 700 ;
+		int y = 475;
+
+		graphics2.drawImage(GameUtility.readImage("src/images/urbain.png"),0, 0, x, y, null);
+	}
+
 }

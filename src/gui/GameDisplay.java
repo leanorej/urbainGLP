@@ -50,9 +50,7 @@ public class GameDisplay extends JPanel {
             paintStrategy.paint(map, batiment, g);
 		}*/
 
-		
-		
-
+	
         
 		Graphics2D g2 = (Graphics2D) g;
 		

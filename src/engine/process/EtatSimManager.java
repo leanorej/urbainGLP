@@ -331,4 +331,15 @@ public class EtatSimManager {
 		return liste[r.nextInt(liste.length)] ;
 	}
 
+    public int updateEtatGeneral(){
+        int etatG = 0 ;
+        int nbSim = 0 ;
+        for (Sim sim : sims.getSims().values()) {
+            etatG+=sim.getScoreGlobal() ;
+            nbSim++ ;
+        }   
+
+        return etatG/nbSim ;
+    }
+
 }
