@@ -9,10 +9,13 @@ public class MenuGUI extends JFrame implements Runnable {
     private static final int ETAT_MENU    = 0;
     private static final int ETAT_REGLES  = 1;
     private static final int ETAT_JOUER   = 2;
+    private static final int ETAT_NOM   = 3;
+
 
     private int etatCourant = ETAT_MENU;
     private MenuDisplay panneauMenu;
     private JPanel panneauRegles;
+    private JPanel panneauNom;
     private CardLayout cardLayout;
     private JPanel conteneur;
     public static String nomVille = "Ma Ville";
@@ -44,9 +47,13 @@ public class MenuGUI extends JFrame implements Runnable {
 
         panneauMenu   = construirePanneauMenu();
         panneauRegles = construirePanneauRegles();
+        panneauNom = construirePanneauNom();
+
 
         conteneur.add(panneauMenu,   "menu");
         conteneur.add(panneauRegles, "regles");
+        conteneur.add(panneauNom, "nom");
+
 
         setContentPane(conteneur);
         cardLayout.show(conteneur, "menu");
@@ -73,6 +80,10 @@ public class MenuGUI extends JFrame implements Runnable {
                     Thread gameThread = new Thread(mainGUI);
                     gameThread.start();
                     return;
+
+                case ETAT_NOM:
+                    cardLayout.show(conteneur, "nom");
+                    break;
             }
 
             panneauMenu.repaint();
@@ -120,6 +131,16 @@ public class MenuGUI extends JFrame implements Runnable {
         btnRegles.addActionListener(e -> etatCourant = ETAT_REGLES);
         panel.add(btnRegles);
 
+        JButton btnNom = creerBouton("Modifier le nom");
+        
+        btnNom.setPreferredSize(dim);
+        btnNom.setMaximumSize(dim);
+        btnNom.setMinimumSize(dim);
+
+        btnNom.addActionListener(e -> etatCourant = ETAT_NOM);
+        panel.add(btnNom);
+
+
         panel.add(Box.createVerticalGlue()); 
 
 
@@ -131,7 +152,8 @@ public class MenuGUI extends JFrame implements Runnable {
         panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 
         JLabel titre = new JLabel("Règles du jeu");
-        titre.setFont(new Font("Arial", Font.PLAIN, 22));
+        titre.setFont(new Font("Arial", Font.BOLD, 27));
+        titre.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(titre, BorderLayout.NORTH);
 
         JTextArea texte = new JTextArea();
@@ -158,6 +180,29 @@ public class MenuGUI extends JFrame implements Runnable {
 
         JButton btnRetour = creerBouton("Retour");
         btnRetour.addActionListener(e -> etatCourant = ETAT_MENU);
+        panel.setBackground(new Color(165, 230, 215));
+        panel.add(btnRetour, BorderLayout.SOUTH);
+
+        return panel;
+    }
+
+    private JPanel construirePanneauNom() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+
+        JLabel titre = new JLabel("Modifier le nom de la Ville");
+        titre.setFont(new Font("Arial", Font.BOLD, 27));
+        titre.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(titre, BorderLayout.NORTH);
+
+        JTextField nomChoisi = new JTextField(nomVille);
+        nomChoisi.setFont(new Font("Arial", Font.PLAIN, 22));
+        panel.add(nomChoisi, BorderLayout.CENTER);
+        
+
+        JButton btnRetour = creerBouton("Valider et retour au menu");
+        btnRetour.addActionListener(e -> {nomVille = nomChoisi.getText() ;etatCourant = ETAT_MENU;});
+        panel.setBackground(new Color(165, 230, 215));
         panel.add(btnRetour, BorderLayout.SOUTH);
 
         return panel;

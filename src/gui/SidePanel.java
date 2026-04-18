@@ -40,6 +40,9 @@ public class SidePanel extends JPanel {
     private JTextArea detailEvenements = new JTextArea(10,10);
     
     private JTextArea relationsArea = new JTextArea(4, 10);
+    private JTextArea routineArea = new JTextArea(4, 10);
+
+
 
     public SidePanel(Chronometer chronometer, String[] array, Sims sims, ArrayList<String> derniersEvenements,EtatSimManager EtatManager ) {
         this.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
@@ -61,14 +64,19 @@ public class SidePanel extends JPanel {
         timeLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
         
 
+        JLabel nom = new JLabel(MenuGUI.nomVille, SwingConstants.CENTER);
+        nom.setFont(new Font("Monospaced", Font.BOLD, 40));
+
+
                                     
-        add(new JLabel("Le nom de la ville"));
+        add(nom);
         add(dayLabel);
         add(timeLabel);
         
 
         
         globalVillePannelLabel=new JLabel("État global de la ville");
+        globalVillePannelLabel.setFont(new Font("Monospaced", Font.BOLD, 15));
         add(globalVillePannelLabel);
         
         JPanel globalPanelVille = new JPanel(new BorderLayout(5, 0));
@@ -85,6 +93,7 @@ public class SidePanel extends JPanel {
             selectedSimName = array[0];
         }
         globalPannelLabel=new JLabel("État global de "+ selectedSimName);
+        globalPannelLabel.setFont(new Font("Monospaced", Font.BOLD, 15));
         add(globalPannelLabel);
         
         JPanel globalPanel = new JPanel(new BorderLayout(5, 0));
@@ -98,33 +107,53 @@ public class SidePanel extends JPanel {
                 openDetailDialog();
             }
         });
+
+
+
+        JLabel nomR = new JLabel("Routine :", SwingConstants.LEFT);
+        nomR.setFont(new Font("Monospaced", Font.BOLD, 13));
         
-        JButton routineBtn = new JButton("Voir la routine");
-        routineBtn.addActionListener(e -> openRoutineDialog());
-        add(routineBtn);
+
+        add(nomR);
+        routineArea.setEditable(false);
+        routineArea.setLineWrap(true);
+        routineArea.setWrapStyleWord(true);
+        routineArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
+        JScrollPane routineScroll = new JScrollPane(routineArea);
+
+        add(routineScroll);
 
         JButton eventButton = new JButton("Alertes Sims en cours");
         eventButton.addActionListener(e -> openEventDialog());
         add(eventButton);
         
         //pour les relations amicales
-        add(new JLabel("Relations :"));
+        JLabel nomRe = new JLabel("Relations :", SwingConstants.LEFT);
+        nomRe.setFont(new Font("Monospaced", Font.BOLD, 13));
+        add(nomRe);
         relationsArea.setEditable(false);
         relationsArea.setLineWrap(true);
         relationsArea.setWrapStyleWord(true);
         relationsArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
         JScrollPane relationsScroll = new JScrollPane(relationsArea);
+
         add(relationsScroll);
         
         //add(detailRoutine);
         //pour les evenements
-        add(new JLabel("Les dernier evenements :"));
+        JLabel nomE = new JLabel("Les dernier evenements :", SwingConstants.LEFT);
+        nomE.setFont(new Font("Monospaced", Font.BOLD, 13));
+        add(nomE);
+        
         detailEvenements.setEditable(false);
         detailEvenements.setLineWrap(true);
         detailEvenements.setWrapStyleWord(true);
         detailEvenements.setFont(new Font("Monospaced", Font.PLAIN, 11));
         JScrollPane scrollPane = new JScrollPane(detailEvenements);
+
+     
         add(scrollPane);
+        setBackground(new Color(165, 230, 215));
 
         nextRound();
     }
@@ -227,6 +256,7 @@ public class SidePanel extends JPanel {
         int scoreGlobal = EtatManager.updateEtatGeneral() ;
         globalBarVille.setValue(scoreGlobal);
         globalValVille.setText(scoreGlobal + "%");
+        majCoulBarre(globalBarVille);
 
         
         globalPannelLabel.setText("État global de "+ selectedSimName);
@@ -236,10 +266,12 @@ public class SidePanel extends JPanel {
             int score = s.getScoreGlobal();
             globalBar.setValue(score);
             globalVal.setText(score + "%");
+            majCoulBarre(globalBar);
+
             
             
             
-            detailRoutine.setText(s.getRoutine().toString());
+            routineArea.setText(s.getRoutine().toString());
             
             detailEvenements.setText(printEventList());
             
@@ -271,6 +303,18 @@ public class SidePanel extends JPanel {
         }
 
         return sb.toString();
+    }
+
+    private void majCoulBarre(JProgressBar barreGenerale){
+        if (barreGenerale.getValue()>=50){
+            barreGenerale.setForeground(Color.GREEN);
+        }
+        else if (barreGenerale.getValue()>=25){
+            barreGenerale.setForeground(Color.ORANGE);
+        }
+        else{
+            barreGenerale.setForeground(Color.RED);
+        }
     }
     
     private String printEventList() {
