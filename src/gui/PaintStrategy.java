@@ -200,7 +200,7 @@ public class PaintStrategy {
 		graphics2 .setFont(new Font("Dialog", Font.BOLD, 20));
 		graphics2.setColor(textColor); 
 		graphics2.drawString(sim.getNom(), x-blockSize/4, y+blockSize*3/2);
-		graphics2.drawImage(GameUtility.readImage("src/images/sim.jpg"),  x+blockSize/4, y, 25, 35, null);
+		graphics2.drawImage(GameUtility.readImage("src/images/sim.jpg"),  x+blockSize/4, y, blockSize-5, blockSize, null);
 	}
 
 
@@ -215,7 +215,7 @@ public class PaintStrategy {
 		graphics2 .setFont(new Font("Dialog", Font.BOLD, 20));
 		graphics2.setColor(textColor); 
 		graphics2.drawString(sim.getNom(), x-blockSize/4, y+blockSize*3/2);
-		graphics2.drawImage(GameUtility.readImage("src/images/simc.png"),  x+blockSize/4, y, 25, 35, null);
+		graphics2.drawImage(GameUtility.readImage("src/images/simc.png"),  x+blockSize/4, y, blockSize-5, blockSize, null);
 	}
 
 	public void paintS(Sim sim, Graphics2D graphics2){
@@ -228,7 +228,7 @@ public class PaintStrategy {
 		graphics2 .setFont(new Font("Dialog", Font.BOLD, 20));
 		graphics2.setColor(textColor); 
 		graphics2.drawString(sim.getNom(), x-blockSize/4, y+blockSize*3/2);
-		graphics2.drawImage(GameUtility.readImage("src/images/sims.png"),  x+blockSize/4, y, 25, 35, null);
+		graphics2.drawImage(GameUtility.readImage("src/images/sims.png"),  x+blockSize/4, y, blockSize-5, blockSize, null);
 	}
 	
 	
