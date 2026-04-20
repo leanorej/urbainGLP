@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -61,12 +62,11 @@ public class GameDisplay extends JPanel {
             paintStrategy.paint(batiment, g);
         }*/
 		
-		
-		for(Sim sim : SimManager.getSims().getSims().values()){
-			
-        	paintStrategy.paint2(sim, g2);
-        }
-
+		//copie pour eviter que sa crash quand on kill les sims
+		ArrayList<Sim> simsCopie = new ArrayList<>(SimManager.getSims().getSims().values());
+		for(Sim sim : simsCopie){
+		    paintStrategy.paint2(sim, g2);
+		}
 		String nom = sidePanel.getSelectedSim() ;
 		
 		Sim simSelected = SimManager.getSims().getSim(nom) ;

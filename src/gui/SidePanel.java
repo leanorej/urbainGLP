@@ -21,7 +21,9 @@ public class SidePanel extends JPanel {
     private JLabel dayLabel;
     private JLabel globalPannelLabel;
     private JLabel globalVillePannelLabel;
+    private JLabel nomRoutineLabel;
     private EtatSimManager EtatManager;
+    
 
 
 
@@ -44,117 +46,122 @@ public class SidePanel extends JPanel {
 
 
 
-    public SidePanel(Chronometer chronometer, String[] array, Sims sims, ArrayList<String> derniersEvenements,EtatSimManager EtatManager ) {
+    public SidePanel(Chronometer chronometer, String[] array, Sims sims, ArrayList<String> derniersEvenements, EtatSimManager EtatManager) {
         this.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
-        this.setLayout(new GridLayout(20, 2));
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
-    	
-    	this.chronometer = chronometer;
+
+        this.chronometer = chronometer;
         this.sims = sims;
-        this.derniersEvenementsList=derniersEvenements;
-        this.EtatManager = EtatManager ;
-        
+        this.derniersEvenementsList = derniersEvenements;
+        this.EtatManager = EtatManager;
 
-        
-
-        dayLabel = new JLabel("JOUR " + chronometer.getDay(), SwingConstants.CENTER);
-        dayLabel.setFont(new Font("Monospaced", Font.BOLD, 15));
-        
-        timeLabel = new JLabel("00:00:00", SwingConstants.CENTER);
-        timeLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
-        
-
-        JLabel nom = new JLabel(MenuGUI.nomVille, SwingConstants.CENTER);
+        // Nom ville
+        JLabel nom = new JLabel(MenuGUI.nomVille, SwingConstants.LEFT);
         nom.setFont(new Font("Monospaced", Font.BOLD, 40));
-
-
-                                    
+        nom.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(nom);
-        add(dayLabel);
-        add(timeLabel);
-        
 
-        
-        globalVillePannelLabel=new JLabel("État global de la ville");
+        // Jour
+        dayLabel = new JLabel("JOUR " + chronometer.getDay(), SwingConstants.LEFT);
+        dayLabel.setFont(new Font("Monospaced", Font.BOLD, 15));
+        dayLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(dayLabel);
+
+        // Heure
+        timeLabel = new JLabel("00:00:00", SwingConstants.LEFT);
+        timeLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
+        timeLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(timeLabel);
+
+        // Etat global ville
+        globalVillePannelLabel = new JLabel("État global de la Ville");
         globalVillePannelLabel.setFont(new Font("Monospaced", Font.BOLD, 15));
+        globalVillePannelLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(globalVillePannelLabel);
-        
+
         JPanel globalPanelVille = new JPanel(new BorderLayout(5, 0));
         globalBarVille.setStringPainted(false);
         globalPanelVille.add(globalBarVille, BorderLayout.CENTER);
         globalPanelVille.add(globalValVille, BorderLayout.EAST);
+        globalPanelVille.setMaximumSize(new Dimension(Integer.MAX_VALUE, 15));
+        globalPanelVille.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(globalPanelVille);
 
-
-
-        
-        //Le nom du sim selectioné
-        if (array != null && array.length > 0) {
-            selectedSimName = array[0];
-        }
-        globalPannelLabel=new JLabel("État global de "+ selectedSimName);
+        // Etat global sim
+        if (array != null && array.length > 0) selectedSimName = array[0];
+        globalPannelLabel = new JLabel("État global de " + selectedSimName);
         globalPannelLabel.setFont(new Font("Monospaced", Font.BOLD, 15));
+        globalPannelLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(globalPannelLabel);
-        
+
         JPanel globalPanel = new JPanel(new BorderLayout(5, 0));
         globalBar.setStringPainted(false);
         globalPanel.add(globalBar, BorderLayout.CENTER);
         globalPanel.add(globalVal, BorderLayout.EAST);
-        add(globalPanel);
-        
+        globalPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 15));
+        globalPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         globalPanel.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                openDetailDialog();
-            }
+            public void mouseClicked(MouseEvent e) { openDetailDialog(); }
         });
+        add(globalPanel);
 
+        // Routine
+        nomRoutineLabel = new JLabel("Routine de "+selectedSimName+":");
+        nomRoutineLabel.setFont(new Font("Monospaced", Font.BOLD, 13));
+        nomRoutineLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(nomRoutineLabel);
 
-
-        JLabel nomR = new JLabel("Routine :", SwingConstants.LEFT);
-        nomR.setFont(new Font("Monospaced", Font.BOLD, 13));
-        
-
-        add(nomR);
         routineArea.setEditable(false);
         routineArea.setLineWrap(true);
         routineArea.setWrapStyleWord(true);
         routineArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
         JScrollPane routineScroll = new JScrollPane(routineArea);
-
+        routineScroll.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH - 20, 100));
+        routineScroll.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
+        routineScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(routineScroll);
 
+        // Bouton alertes
         JButton eventButton = new JButton("Alertes Sims en cours");
         eventButton.addActionListener(e -> openEventDialog());
+        eventButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        eventButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(eventButton);
-        
-        //pour les relations amicales
-        JLabel nomRe = new JLabel("Relations :", SwingConstants.LEFT);
+
+        // Relations
+        JLabel nomRe = new JLabel("Relations :");
         nomRe.setFont(new Font("Monospaced", Font.BOLD, 13));
+        nomRe.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(nomRe);
+
         relationsArea.setEditable(false);
         relationsArea.setLineWrap(true);
         relationsArea.setWrapStyleWord(true);
         relationsArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
         JScrollPane relationsScroll = new JScrollPane(relationsArea);
-
+        relationsScroll.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH - 20, 100));
+        relationsScroll.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
+        relationsScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(relationsScroll);
-        
-        //add(detailRoutine);
-        //pour les evenements
-        JLabel nomE = new JLabel("Les dernier evenements :", SwingConstants.LEFT);
+
+        // Evenements
+        JLabel nomE = new JLabel("Les derniers evenements :");
         nomE.setFont(new Font("Monospaced", Font.BOLD, 13));
+        nomE.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(nomE);
-        
+
         detailEvenements.setEditable(false);
         detailEvenements.setLineWrap(true);
         detailEvenements.setWrapStyleWord(true);
         detailEvenements.setFont(new Font("Monospaced", Font.PLAIN, 11));
         JScrollPane scrollPane = new JScrollPane(detailEvenements);
-
-     
+        scrollPane.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH - 20, 200));
+        scrollPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+        scrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(scrollPane);
-        setBackground(new Color(165, 230, 215));
 
+        setBackground(new Color(165, 230, 215));
         nextRound();
     }
 
@@ -266,6 +273,7 @@ public class SidePanel extends JPanel {
 
         
         globalPannelLabel.setText("État global de "+ selectedSimName);
+        nomRoutineLabel.setText("Routine de "+selectedSimName+":");
         
         Sim s = sims.getSim(getSelectedSim());
         if (s != null) {

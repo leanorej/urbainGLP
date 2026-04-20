@@ -253,6 +253,8 @@ public class EtatSimManager {
                 }
                 break;
             }
+        //j'enregistre les evenement dans un list qui est dans un classe de traitement faut changer ca
+    	derniersEvenements.add(sim.getNom()+"-> "+event.toString());
     }
     
     
@@ -309,8 +311,6 @@ public class EtatSimManager {
     	Sim sim = getRandomSim(); 
     	Evenement event = getRandomEvent(); 
     	updateBesoinsEvenement(sim, event); 
-    	//j'enregistre les evenement dans un list qui est dans un classe de traitement faut changer ca
-    	derniersEvenements.add(sim.getNom()+"-> "+event.toString());
     }
 
     
@@ -339,7 +339,7 @@ public class EtatSimManager {
         }   
         return etatG/nbSim ;
     }
-   
+   /*
     public void declencherDeuil(Sim simMort) {
         for (RelationAmicale r : relationsRep.getRelationsDe(simMort.getNom())) {
             if (r.sontAmis()) {
@@ -347,12 +347,25 @@ public class EtatSimManager {
                               ? r.getNomSim2() : r.getNomSim1();
                 Sim ami = sims.getSim(nomAmi);
                 if (ami != null) {
-                    ami.getEtats().ajouterEtat("deuil");
+                	updateBesoinsEvenement(ami,new Evenement("Est en deuil pour "+simMort.getNom(), "mental", 50));
                 }
             }
         }
     }
+*/
     
+    public void declencherDeuil(Sim simMort) {
+        for (RelationAmicale r : relationsRep.getRelationsDe(simMort.getNom())) {
+            if (r.sontAmis()) {
+                String nomAmi = r.getNomSim1().equals(simMort.getNom())
+                              ? r.getNomSim2() : r.getNomSim1();
+                Sim ami = sims.getSim(nomAmi);
+                if (ami != null) {
+                    updateBesoinsEvenement(ami, new Evenement("Est en deuil pour " + simMort.getNom(), "mental", 30));
+                }
+            }
+        }
+    }
     public void updateEtatCritique(Sim sim) {
         int jourCourant = chrono.getDay();
         if (jourCourant != sim.getDernierJourCritique()) {
@@ -366,7 +379,7 @@ public class EtatSimManager {
                 //sims.remove(sim);//on suprime pas directement sinon risque de crash
                 simsToKill.add(sim);
                 declencherDeuil(sim);
-                derniersEvenements.add(sim.getNom() + " est mort.");  
+                derniersEvenements.add(sim.getNom() + " est mort(e).");  
             }
         }
     }
