@@ -26,14 +26,14 @@ public class Sim {
 	private Etats etats = new Etats() ;
 	
 	private boolean vivant= true;
-	
-	private Counter jourRestant = new Counter(1);
+	//initiailisation des 4 jour restant a la mort du sim
+	private Counter jourRestant = new Counter(4);
 	private int dernierJourCritique= -1;
 	
 	
 
 	private BoundedCounter faim = new BoundedCounter(100, 100, 0);
-	private BoundedCounter physique = new BoundedCounter(25, 100, 0);
+	private BoundedCounter physique = new BoundedCounter(100, 100, 0);
 	private BoundedCounter mental = new BoundedCounter(100, 100, 0);
 	
 	public Sim(String nom, Block position, Routine routine, Routine routineWeekEnd){
