@@ -18,5 +18,5 @@ public class GameConfiguration {
 	public static final int WINDOW_WIDTH = (NUMERO_BLOC_LARGEUR * BLOCK_SIZE) + SIDE_PANEL_WIDTH;
 	public static final int WINDOW_HEIGHT = NUMERO_BLOC_HAUTEUR*BLOCK_SIZE;
 	
-	public static final int GAME_SPEED = 50;
+	public static final int GAME_SPEED = 10;
 }

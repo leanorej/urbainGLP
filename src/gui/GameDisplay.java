@@ -61,14 +61,20 @@ public class GameDisplay extends JPanel {
             paintStrategy.paint(batiment, g);
         }*/
 		
+		
 		for(Sim sim : SimManager.getSims().getSims().values()){
+			
         	paintStrategy.paint2(sim, g2);
         }
 
 		String nom = sidePanel.getSelectedSim() ;
+		
 		Sim simSelected = SimManager.getSims().getSim(nom) ;
+		
+		if (simSelected != null) {
 		paintStrategy.paintS(simSelected, g2);
-
+		}
+		
 		Sim simChoisi = SimManager.getSimChoisi();
 
 		if (simChoisi != null){

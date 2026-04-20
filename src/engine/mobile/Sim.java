@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import chrono.BoundedCounter;
+import chrono.Counter;
 import engine.donnee.Routine;
 import engine.map.Batiment;
 import engine.map.Block;
@@ -21,12 +22,18 @@ public class Sim {
 	//La routine associée au sim
 	private Routine routine;
 	private Routine routineWeekEnd;
+	
 	private Etats etats = new Etats() ;
 	
 	private boolean vivant= true;
+	
+	private Counter jourRestant = new Counter(1);
+	private int dernierJourCritique= -1;
+	
+	
 
 	private BoundedCounter faim = new BoundedCounter(100, 100, 0);
-	private BoundedCounter physique = new BoundedCounter(100, 100, 0);
+	private BoundedCounter physique = new BoundedCounter(25, 100, 0);
 	private BoundedCounter mental = new BoundedCounter(100, 100, 0);
 	
 	public Sim(String nom, Block position, Routine routine, Routine routineWeekEnd){
@@ -89,4 +96,17 @@ public class Sim {
 	public void setRoutineWeekEnd(Routine routineWend) {
 		this.routineWeekEnd = routineWend;
 	}
+
+	public Counter getJourRestant() {
+		return jourRestant;
+	}
+
+	public int getDernierJourCritique() {
+		return dernierJourCritique;
+	}
+
+	public void setDernierJourCritique(int dernierJourCritique) {
+		this.dernierJourCritique = dernierJourCritique;
+	}
+
 }

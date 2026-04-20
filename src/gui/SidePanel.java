@@ -225,6 +225,12 @@ public class SidePanel extends JPanel {
         for (Sim sim : sims.getSims().values()){
             if(!sim.getEtats().estVide())
                 buffer+= sim.getNom() + " : " + sim.getEtats().toString() + "\n" ;
+
+            if (sim.getEtats().getEtats().contains("faim") ||
+                sim.getEtats().getEtats().contains("fatigue") ||
+                sim.getEtats().getEtats().contains("triste")) {
+                buffer += " ATTENTION! " + sim.getJourRestant().getValue() + " jour(s) restant(s)\n";
+            }
         }
         buffer += "";
         JTextArea textArea ;

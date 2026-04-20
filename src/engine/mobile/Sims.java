@@ -114,4 +114,11 @@ public class Sims {
 	public Sim getSim(String Nom) {
 		return sims.get(Nom);
 	}
+
+	
+	public void remove(Sim sim) {
+	    Sim removed = sims.remove(sim.getNom());
+	    //System.out.println("Tentative de suppression : " + sim.getNom() + "  résultat : " + (removed != null ? "OK" : "ÉCHEC - non trouvé"));
+
+	}
 }

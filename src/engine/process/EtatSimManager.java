@@ -14,7 +14,6 @@ import java.util.Random;
 
 import chrono.Chronometer;
 
-
 public class EtatSimManager {
     private Sims sims;
     private Sim simChoisi = null;
@@ -29,7 +28,11 @@ public class EtatSimManager {
     private int derniereHeureTraiteePhysique = -1;
     private int derniereHeureTraiteeFaim = -1;
     private int derniereHeureTraiteeRelations = -1;
+    
+    private int dernierjourTraitee = -1;
 
+   //je peux pas souprimer toutesuite sinon la boucle crash
+    ArrayList<Sim> simsToKill = new ArrayList<>();
     public EtatSimManager(Sims sims, Chronometer chrono, Ville ville) {
         this.sims = sims;
         this.chrono = chrono;
@@ -42,15 +45,10 @@ public class EtatSimManager {
 
     public Sim getSimChoisi() {
         return simChoisi;
-        
-        
-        
-        
     }
 
     public void updateBesoins() {
         if (chrono == null) return;
-        
         int heureCourante = chrono.getHour().getValue();
         int minuteCourante = chrono.getMinute().getValue();
         //updatedBesoin une fois par minute
@@ -64,6 +62,7 @@ public class EtatSimManager {
 
             //detection du lieu par pos
             String lieuActuel = "rue";
+            
             for (Batiment b : ville.getBatimentsList()) {
                 if (b.contient(sim.getPositionCourante())) {
                     lieuActuel = b.getNomBatiment().toLowerCase().trim();
@@ -211,15 +210,28 @@ public class EtatSimManager {
             else{
                 sim.getEtats().supprimerEtat("fatigue");
             }
-
+            
+            //Si un de trois etat est activé alors on commance a compter les 3 dernier jour avant la mort
+	        if(sim.getEtats().getEtats().contains("faim") || sim.getEtats().getEtats().contains("triste") || sim.getEtats().getEtats().contains("fatigue")){
+			     updateEtatCritique(sim);
+			 } else {
+			     sim.getJourRestant().reset();
+			     sim.setDernierJourCritique(-1);
+			 }
         }
-        
         
         derniereMinuteTraitee = minuteCourante;
         if (heureCourante != derniereHeureTraiteePhysique) derniereHeureTraiteePhysique = heureCourante;
         if (minuteCourante == 0) derniereHeureTraiteeFaim = heureCourante;
+        
+        for( Sim sim :simsToKill){
+        	if(sim.isVivant()) {
+        	sims.remove(sim);
+        	sim.setVivant(false);}
+        }
     }
-
+    
+    
     public void updateBesoinsEvenement(Sim sim, Evenement event) {
 
         switch(event.getBarreImpactee()){
@@ -292,19 +304,6 @@ public class EtatSimManager {
         }
     }
 
-
-    public void declencherDeuil(Sim simMort) {
-        for (RelationAmicale r : relationsRep.getRelationsDe(simMort.getNom())) {
-            if (r.sontAmis()) {
-                String nomAmi = r.getNomSim1().equals(simMort.getNom())
-                              ? r.getNomSim2() : r.getNomSim1();
-                Sim ami = sims.getSim(nomAmi);
-                if (ami != null) {
-                    ami.getEtats().ajouterEtat("deuil");
-                }
-            }
-        }
-    }
     
     public void generatorRandomEvent() { 
     	Sim sim = getRandomSim(); 
@@ -338,8 +337,37 @@ public class EtatSimManager {
             etatG+=sim.getScoreGlobal() ;
             nbSim++ ;
         }   
-
         return etatG/nbSim ;
     }
+   
+    public void declencherDeuil(Sim simMort) {
+        for (RelationAmicale r : relationsRep.getRelationsDe(simMort.getNom())) {
+            if (r.sontAmis()) {
+                String nomAmi = r.getNomSim1().equals(simMort.getNom())
+                              ? r.getNomSim2() : r.getNomSim1();
+                Sim ami = sims.getSim(nomAmi);
+                if (ami != null) {
+                    ami.getEtats().ajouterEtat("deuil");
+                }
+            }
+        }
+    }
+    
+    public void updateEtatCritique(Sim sim) {
+        int jourCourant = chrono.getDay();
+        if (jourCourant != sim.getDernierJourCritique()) {
+            sim.setDernierJourCritique(jourCourant);
+            
+            //System.out.println("[DEBUG] " + sim.getNom() + " decrement -> " + (sim.getJourRestant().getValue()-1));
+            sim.getJourRestant().decrement();
 
+            if (sim.getJourRestant().getValue() == 0) {
+                //System.out.println("[DEBUG] " + sim.getNom() + " DOIT MOURIR");
+                //sims.remove(sim);//on suprime pas directement sinon risque de crash
+                simsToKill.add(sim);
+                declencherDeuil(sim);
+                derniersEvenements.add(sim.getNom() + " est mort.");  
+            }
+        }
+    }
 }

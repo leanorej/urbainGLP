@@ -9,9 +9,11 @@ package chrono;
  **/
 public class Counter {
 	private int value;
+	private int initialValue;
 
 	public Counter(int value) {
 		this.value = value;
+		this.initialValue = value;
 	}
 
 	public int getValue() {
@@ -28,6 +30,9 @@ public class Counter {
 
 	protected void setValue(int value) {
 		this.value = value;
+	}
+	public void reset() {
+	    this.value = initialValue; 
 	}
 
 }

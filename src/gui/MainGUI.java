@@ -8,6 +8,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 import config.GameConfiguration;
 import engine.map.Block;
 import engine.map.Map;
@@ -27,7 +30,7 @@ import chrono.Chronometer;
  *
  */
 public class MainGUI extends JFrame implements Runnable {
-
+	private volatile boolean running = true;
 	private static final long serialVersionUID = 1L;
 	private Map map;
 	private final static Dimension preferredSize = new Dimension(GameConfiguration.WINDOW_WIDTH, GameConfiguration.WINDOW_HEIGHT);
@@ -86,7 +89,7 @@ public class MainGUI extends JFrame implements Runnable {
 
 	@Override
 	public void run() {
-	    while (true) {
+	    while (running) {
 	        try {
 	            Thread.sleep(GameConfiguration.GAME_SPEED);
 	        } catch (InterruptedException e) {
@@ -119,12 +122,30 @@ public class MainGUI extends JFrame implements Runnable {
 					EtatManager.generatorRandomEvent() ;
 				}
 			}
-		
+	        checkGameOver();
+	        
 	        sidePanel.nextRound();
 	        dashboard.repaint();
 	    }
 	}
-
+	private void checkGameOver() {
+	    int simsMorts = 6 - sims.getSims().size();
+	    if (simsMorts >= 3) {
+	        running = false; 
+	        SwingUtilities.invokeLater(() -> {
+	            JOptionPane.showMessageDialog(
+	                this,
+	                "GameOver 3 sim sont mort",
+	                "Fin de la partie",
+	                JOptionPane.ERROR_MESSAGE
+	            );
+	            dispose();
+	            MenuGUI menu = new MenuGUI();
+	            Thread menuThread = new Thread(menu);
+	            menuThread.start();
+	        });
+	    }
+	}
 	private class MouseControls implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
