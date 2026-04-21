@@ -8,6 +8,9 @@ import engine.mobile.Sims;
 import chrono.Chronometer;
 import engine.process.EvenementsRepository;
 
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
+
 
 /**
  * Copyright SEDAMOP - Software Engineering
@@ -17,17 +20,22 @@ import engine.process.EvenementsRepository;
  */
 public class GameBuilder {
 
+	private static final Logger logger = LoggerUtility.getLogger(GameBuilder.class, "html");
+
 	public static Map buildMap() {
+		logger.info("Construction de la map");
 		return new Map(GameConfiguration.NUMERO_BLOC_HAUTEUR , GameConfiguration.NUMERO_BLOC_LARGEUR);
 	}
 
 	public static Ville buildVille(Map map) {
+		logger.info("Construction de la ville");
 		Ville ville= new Ville(map);
 		ville.creationBatiments();
 		return ville;
 	}
 
 	public static Sims initializeSims(Ville ville) {
+		logger.info("Initialisation des sims");
 		Sims sims=new Sims();
 		sims.creationSims(ville);
 		return sims;

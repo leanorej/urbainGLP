@@ -1,11 +1,17 @@
 package engine.mobile;
 import java.util.HashMap;
+
 import engine.donnee.Routine;
 import engine.map.Ville;
+
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
+
 
 public class Sims {
 
 	private HashMap<String,Sim> sims = new HashMap<String,Sim>();
+	private static final Logger logger = Logger.getLogger(Ville.class);
 	
 	public void add(Sim sim) {
 		sims.put(sim.getNom(),sim);
@@ -29,6 +35,7 @@ public class Sims {
 		
 		Sim Francis = new Sim("Francis", ville.get("maison1").getPosition(), routine1,routine1WE);
 		add(Francis);
+		logger.info("Sim Francis créé.");
 		
 		// Genevieve 74 ans retraitee
 		Routine routine2 = new Routine();
@@ -45,6 +52,8 @@ public class Sims {
 		routine2WE.ajouterActivite(17, ville.get("maison2"));
 		Sim Genevieve = new Sim("Genevieve", ville.get("maison2").getPosition(), routine2, routine2WE);
 		add(Genevieve);
+		logger.info("Sim Genevieve créée.");
+
 		
 		// Benjamin 14 ans lycee
 	    Routine routine3 = new Routine();
@@ -58,6 +67,8 @@ public class Sims {
 	
 	    Sim Benjamin = new Sim("Benjamin", ville.get("immeuble").getPosition(), routine3, routine3WE);
 	    add(Benjamin);
+		logger.info("Sim Benjamin créé.");
+
 
 	    // Julie 8 ans ecoliere
 	    Routine routine4 = new Routine();
@@ -74,6 +85,8 @@ public class Sims {
 
 	    Sim Julie = new Sim("Julie", ville.get("immeuble").getPosition(), routine4, routine4WE);
 	    add(Julie);
+		logger.info("Sim Julie créée.");
+
 		
 	    // Marie 34 ans boulangere
 	    Routine routine5 = new Routine();
@@ -90,6 +103,8 @@ public class Sims {
 
 	    Sim Marie = new Sim("Marie", ville.get("immeuble").getPosition(), routine5, routine5WE);
 	    add(Marie);
+		logger.info("Sim Marie créée.");
+
 
 	    // Emmanuel 50 ans maire
 	    Routine routine6 = new Routine();
@@ -105,6 +120,8 @@ public class Sims {
 		
 		Sim Emmanuel = new Sim("Emmanuel", ville.get("maison3").getPosition(), routine6, routine6WE);
 		add(Emmanuel);
+		logger.info("Sim Emmanuel créé.");
+
 	}
 	
 	public HashMap<String,Sim> getSims() {
