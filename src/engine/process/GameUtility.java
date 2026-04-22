@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 /**
  * This utility class contains unit functions used by the train simulation.
  * 
- * @see 
+ * 
  * @author Loukili
  */
 public class GameUtility {

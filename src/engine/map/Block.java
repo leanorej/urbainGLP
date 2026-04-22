@@ -1,15 +1,19 @@
 package engine.map;
 
 /**
- * Copyright SEDAMOP - Software Engineering
+ * C'est l'ellemet qui compose la mappe avec un longeur et un largeur
  * 
- * @author tianxiao.liu@cyu.fr
- *
+ *  @author LOUKILI
  */
 public class Block {
 	private int line;
 	private int column;
 
+	/**
+	 * Constructeur du bloc
+	 * @param line longuer du bloc
+	 * @param column largeur du bloc
+	 */
 	public Block(int line, int column) {
 		this.line = line;
 		this.column = column;

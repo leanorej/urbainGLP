@@ -6,14 +6,14 @@ import engine.donnee.Routine;
 import engine.map.Block;
 
 /**
- * Représente un Sim, personnage principal du jeu.
- * Un Sim est caractérisé par son nom, sa position sur la carte, ses deux routines
- * et trois barres de statistiques : la faim, la forme physique
- * et la santé mentale et aussi un etat mental.
+ *Représente un Sim, personnage principal du jeu.
+ *Un Sim est caractérisé par son nom, sa position sur la carte, ses deux routines
+ *et trois barres de statistiques : la faim, la forme physique
+ *et la santé mentale et aussi un etat mental.
  * 
- * @author Chouaref
- * @author Jean
- * @author Loukii
+ * @author CHOUAREF
+ * @author JEAN
+ * @author LOUKILI
  * 
  * @version 1.0
  */
@@ -22,11 +22,11 @@ public class Sim {
 	private String nom;
 	
 	private Block positionCourante;
-	//La routine associée au sim
+	/**La routine associée au sim*/
 	private Routine routine;
-	//La routine du weekend associée au sim
+	/**La routine du weekend associée au sim*/
 	private Routine routineWeekEnd;
-	//États courants du Sim. 
+	/**États courants du Sim.*/
 	private Etats etats = new Etats() ;
 	
 	private boolean vivant= true;

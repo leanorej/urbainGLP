@@ -147,12 +147,7 @@ public class MainGUI extends JFrame implements Runnable {
 	    if (simsMorts >= 3) {
 	        running = false; 
 	        SwingUtilities.invokeLater(() -> {
-	            JOptionPane.showMessageDialog(
-	                this,
-	                "GameOver 3 sim sont mort",
-	                "Fin de la partie",
-	                JOptionPane.ERROR_MESSAGE
-	            );
+	            JOptionPane.showMessageDialog(this,"GameOver 3 sim sont mort","Fin de la partie",JOptionPane.ERROR_MESSAGE);
 	            dispose();
 	            MenuGUI menu = new MenuGUI();
 	            Thread menuThread = new Thread(menu);

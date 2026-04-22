@@ -19,7 +19,7 @@ public class Evenement {
      *
      * @param nom			le nom de l'événement
      * @param barreImpactee	le nom de la barre de statistiques affectée
-     * @param impact		la valeur de l'impact appliqué à la barre
+     * @param impact		la valeur de l'impact appliqué à la barre affectée
      */
     public Evenement(String nom, String barreImpactee, int impact){
         this.nom = nom ;

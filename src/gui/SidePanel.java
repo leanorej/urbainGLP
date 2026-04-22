@@ -155,27 +155,44 @@ public class SidePanel extends JPanel {
         relationsScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(relationsScroll);
 
+        
+        
         // Evenements
         JLabel nomE = new JLabel("Les derniers evenements :");
         nomE.setFont(new Font("Monospaced", Font.BOLD, 13));
         nomE.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(nomE);
-
+        
         detailEvenements.setEditable(false);
         detailEvenements.setLineWrap(true);
         detailEvenements.setWrapStyleWord(true);
         detailEvenements.setFont(new Font("Monospaced", Font.PLAIN, 11));
         JScrollPane scrollPane = new JScrollPane(detailEvenements);
         scrollPane.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH - 20, 200));
-        scrollPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+        scrollPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
         scrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(scrollPane);
+        
+        //button retour au menu
+        JButton menuButton = new JButton("Recommencer le jeux");
+        menuButton.addActionListener(e -> returnToMenu());
+        menuButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        menuButton.setBackground(Color.RED);
+        menuButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(menuButton, BorderLayout.SOUTH);
 
         setBackground(new Color(165, 230, 215));
         nextRound();
     }
 
-    private void openDetailDialog() {
+    private void returnToMenu() {
+    		SwingUtilities.getWindowAncestor(this).dispose();
+	        MenuGUI menu = new MenuGUI();
+	        Thread menuThread = new Thread(menu);
+	        menuThread.start();
+	}
+
+	private void openDetailDialog() {
         Sim s = sims.getSim(getSelectedSim());
         if (s == null) return;
 
@@ -213,7 +230,7 @@ public class SidePanel extends JPanel {
         p.add(val, BorderLayout.EAST);
         return p;
     }
-    
+    /*
     private void openRoutineDialog() {
         Sim s = sims.getSim(getSelectedSim());
         if (s == null) return;
@@ -233,7 +250,7 @@ public class SidePanel extends JPanel {
         dialog.setVisible(true);
         
     }
-
+*/
     private void openEventDialog() {
 
 
