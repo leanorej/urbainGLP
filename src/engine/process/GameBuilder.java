@@ -57,6 +57,10 @@ public class GameBuilder {
 		return new EvenementManager(sims);
 	}
 
+	public static NiveauManager buildInitNiv() {
+		return new NiveauManager();
+	}
+
 	public static void buildEvent() {
 		EvenementsRepository eventRep = EvenementsRepository.getInstance();
 
