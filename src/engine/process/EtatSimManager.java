@@ -5,21 +5,23 @@ import engine.mobile.Sims;
 import engine.donnee.Evenement;
 import engine.map.Batiment;
 import engine.map.Ville;
-import engine.process.EvenementsRepository;
-import engine.process.RelationsRepository;
+
 import engine.donnee.RelationAmicale;
 
+
 import java.util.ArrayList;
-import java.util.Random;
 
 import chrono.Chronometer;
+
+import org.apache.log4j.Logger;
+
 
 public class EtatSimManager {
     private Sims sims;
     private Sim simChoisi = null;
     private Chronometer chrono;
     private Ville ville;
-    private EvenementsRepository eventRep = EvenementsRepository.getInstance();;
+    private EvenementManager evenementManager;
     private RelationsRepository relationsRep = RelationsRepository.getInstance();
     
     private ArrayList<String> derniersEvenements = new ArrayList<>();
@@ -27,16 +29,17 @@ public class EtatSimManager {
     private int derniereMinuteTraitee = -1;
     private int derniereHeureTraiteePhysique = -1;
     private int derniereHeureTraiteeFaim = -1;
-    private int derniereHeureTraiteeRelations = -1;
-    
-    private int dernierjourTraitee = -1;
+  
+	private static final Logger logger = Logger.getLogger(EtatSimManager.class);
+
 
    //je peux pas souprimer toutesuite sinon la boucle crash
     ArrayList<Sim> simsToKill = new ArrayList<>();
-    public EtatSimManager(Sims sims, Chronometer chrono, Ville ville) {
+    public EtatSimManager(Sims sims, Chronometer chrono, Ville ville, EvenementManager evenementManager) {
         this.sims = sims;
         this.chrono = chrono;
         this.ville = ville;
+        this.evenementManager= evenementManager;
     }
 
     public Sims getSims() {
@@ -231,104 +234,10 @@ public class EtatSimManager {
         }
     }
     
-    
-    public void updateBesoinsEvenement(Sim sim, Evenement event) {
-
-        switch(event.getBarreImpactee()){
-            case "faim":
-                for(int i=0 ; i<event.getImpact();i++){
-                    sim.getFaim().decrement();
-                }
-                break;
-
-            case "physique":
-                for(int i=0 ; i<event.getImpact();i++){
-                    sim.getPhysique().decrement();
-                }
-                break;
-
-            case "mental":
-                for(int i=0 ; i<event.getImpact();i++){
-                    sim.getMental().decrement();
-                }
-                break;
-            }
-        //j'enregistre les evenement dans un list qui est dans un classe de traitement faut changer ca
-    	derniersEvenements.add(sim.getNom()+"-> "+event.toString());
-    }
-    
-    
-    
-    public void updateRelations() {
-        if (chrono == null) return;
-
-        int heureCourante = chrono.getHour().getValue();
-
-        if (heureCourante == derniereHeureTraiteeRelations) return;
-        derniereHeureTraiteeRelations = heureCourante;
-
-        Sim[] listeSims = sims.getSims().values().toArray(new Sim[0]);
-
-        for (int i = 0; i < listeSims.length; i++) {
-            for (int j = i + 1; j < listeSims.length; j++) {
-                Sim simA = listeSims[i];
-                Sim simB = listeSims[j];
-                //on verifie si ils sont dns le meme batiment (sims par sim)
-                boolean memeEndroit = false;
-                for (Batiment b : ville.getBatimentsList()) {
-                    if (b.contient(simA.getPositionCourante())
-                     && b.contient(simB.getPositionCourante())) {
-                        memeEndroit = true;
-                        break;
-                    }
-                }
-
-                if (memeEndroit) {
-                    RelationAmicale relation = relationsRep.getOuCreer(
-                        simA.getNom(), simB.getNom()
-                    );
-                    relation.incrementerTemps();
-                    //on augment de 5 pourcnts si ils sont amis et dans le memee batiment
-                    if (relation.sontAmis()) {
-                        simA.getMental().increment();
-                        simA.getMental().increment();
-                        simA.getMental().increment();
-                        simA.getMental().increment();
-                        simA.getMental().increment();
-                        simB.getMental().increment();
-                        simB.getMental().increment();
-                        simB.getMental().increment();
-                        simB.getMental().increment();
-                        simB.getMental().increment();
-                    }
-                }
-            }
-        }
-    }
+   
 
     
-    public void generatorRandomEvent() { 
-    	Sim sim = getRandomSim(); 
-    	Evenement event = getRandomEvent(); 
-    	updateBesoinsEvenement(sim, event); 
-    }
-
     
-	public ArrayList<String> getDerniersEvenements() {
-		return derniersEvenements;
-	}
-
-	private Sim getRandomSim() {
-		Random r = new Random() ;
-		Sim[] liste = sims.getSims().values().toArray(new Sim[0]) ; 
-		return liste[r.nextInt(liste.length)] ;
-	}
-
-	private Evenement getRandomEvent() {
-		Random r = new Random() ;
-		Evenement[] liste = eventRep.getValues().values().toArray(new Evenement[0]) ;
-		return liste[r.nextInt(liste.length)] ;
-	}
 
     public int updateEtatGeneral(){
         int etatG = 0 ;
@@ -361,11 +270,12 @@ public class EtatSimManager {
                               ? r.getNomSim2() : r.getNomSim1();
                 Sim ami = sims.getSim(nomAmi);
                 if (ami != null) {
-                    updateBesoinsEvenement(ami, new Evenement("Est en deuil pour " + simMort.getNom(), "mental", 30));
+                    evenementManager.updateBesoinsEvenement(ami, new Evenement("Est en deuil pour " + simMort.getNom(), "mental", 30));
                 }
             }
         }
     }
+
     public void updateEtatCritique(Sim sim) {
         int jourCourant = chrono.getDay();
         if (jourCourant != sim.getDernierJourCritique()) {
@@ -378,6 +288,7 @@ public class EtatSimManager {
                 //System.out.println("[DEBUG] " + sim.getNom() + " DOIT MOURIR");
                 //sims.remove(sim);//on suprime pas directement sinon risque de crash
                 simsToKill.add(sim);
+                logger.warn("Sim "+ sim.getNom() +" est mort.") ;
                 declencherDeuil(sim);
                 derniersEvenements.add(sim.getNom() + " est mort(e).");  
             }

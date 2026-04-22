@@ -3,7 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -20,6 +19,8 @@ import engine.mobile.Sims;
 import engine.process.GameBuilder;
 import engine.process.MobileSimManager;
 import engine.process.EtatSimManager;
+import engine.process.RelationSimManager;
+import engine.process.EvenementManager;
 import engine.process.EvenementsRepository;
 
 
@@ -38,10 +39,11 @@ public class MainGUI extends JFrame implements Runnable {
 	private Sims sims;
 	private MobileSimManager SimMenager;
 	private EtatSimManager EtatManager;
+	private RelationSimManager RelationManager;
+	private EvenementManager EventManager;
 	private GameDisplay dashboard;
 	private SidePanel sidePanel;
 	private Chronometer chronometer;
-	private EvenementsRepository eventRep = EvenementsRepository.getInstance();
 
 	int dernierHeure = -1;
 
@@ -62,13 +64,15 @@ public class MainGUI extends JFrame implements Runnable {
 		sims = GameBuilder.initializeSims(ville);
 		
 		SimMenager = GameBuilder.buildInitMobile(sims);
-		EtatManager = GameBuilder.buildInitEtat(sims, chronometer,ville);
+		EventManager = GameBuilder.buildInitEventMan(sims);
+		EtatManager = GameBuilder.buildInitEtat(sims, chronometer,ville,EventManager);
+		RelationManager = GameBuilder.buildInitRelation(sims, chronometer,ville);
 
 		//on initialise le repository avec tout les evenements
 		GameBuilder.buildEvent() ;
 		
 		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);
-		sidePanel = new SidePanel(chronometer, simsKey, sims,EtatManager.getDerniersEvenements(), EtatManager);
+		sidePanel = new SidePanel(chronometer, simsKey, sims,EventManager.getDerniersEvenements(), EtatManager);
 
 		dashboard = new GameDisplay(map, ville, SimMenager, sidePanel);
 		MouseControls mouseControls = new MouseControls();
@@ -106,7 +110,7 @@ public class MainGUI extends JFrame implements Runnable {
 
 			EtatManager.updateBesoins(); 
 			EtatManager.updateEtats(); 
-			EtatManager.updateRelations();
+			RelationManager.updateRelations();
 			EtatManager.updateEtatGeneral();
 
 
@@ -119,7 +123,7 @@ public class MainGUI extends JFrame implements Runnable {
 	            dernierHeure = heureCourante;
 
 				if(heureCourante%6==0){
-					EtatManager.generatorRandomEvent() ;
+					EventManager.generatorRandomEvent() ;
 				}
 			}
 	        checkGameOver();

@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 public class Sims {
 
 	private HashMap<String,Sim> sims = new HashMap<String,Sim>();
-	private static final Logger logger = Logger.getLogger(Ville.class);
+	private static final Logger logger = Logger.getLogger(Sims.class);
 	
 	public void add(Sim sim) {
 		sims.put(sim.getNom(),sim);
@@ -35,7 +35,7 @@ public class Sims {
 		
 		Sim Francis = new Sim("Francis", ville.get("maison1").getPosition(), routine1,routine1WE);
 		add(Francis);
-		logger.info("Sim Francis créé.");
+		logger.info("Initialisation Sim Francis.");
 		
 		// Genevieve 74 ans retraitee
 		Routine routine2 = new Routine();
@@ -52,7 +52,7 @@ public class Sims {
 		routine2WE.ajouterActivite(17, ville.get("maison2"));
 		Sim Genevieve = new Sim("Genevieve", ville.get("maison2").getPosition(), routine2, routine2WE);
 		add(Genevieve);
-		logger.info("Sim Genevieve créée.");
+		logger.info("Initialisation Sim Genevieve.");
 
 		
 		// Benjamin 14 ans lycee
@@ -67,7 +67,7 @@ public class Sims {
 	
 	    Sim Benjamin = new Sim("Benjamin", ville.get("immeuble").getPosition(), routine3, routine3WE);
 	    add(Benjamin);
-		logger.info("Sim Benjamin créé.");
+		logger.info("Initialisation Sim Benjamin.");
 
 
 	    // Julie 8 ans ecoliere
@@ -85,7 +85,7 @@ public class Sims {
 
 	    Sim Julie = new Sim("Julie", ville.get("immeuble").getPosition(), routine4, routine4WE);
 	    add(Julie);
-		logger.info("Sim Julie créée.");
+		logger.info("Initialisation Sim Julie.");
 
 		
 	    // Marie 34 ans boulangere
@@ -103,7 +103,7 @@ public class Sims {
 
 	    Sim Marie = new Sim("Marie", ville.get("immeuble").getPosition(), routine5, routine5WE);
 	    add(Marie);
-		logger.info("Sim Marie créée.");
+		logger.info("Initialisation Sim Marie.");
 
 
 	    // Emmanuel 50 ans maire
@@ -120,7 +120,7 @@ public class Sims {
 		
 		Sim Emmanuel = new Sim("Emmanuel", ville.get("maison3").getPosition(), routine6, routine6WE);
 		add(Emmanuel);
-		logger.info("Sim Emmanuel créé.");
+		logger.info("Initialisation Sim Emmanuel.");
 
 	}
 	

@@ -8,9 +8,8 @@ import engine.mobile.Sims;
 import chrono.Chronometer;
 import engine.process.EvenementsRepository;
 
-import log.LoggerUtility;
 import org.apache.log4j.Logger;
-
+import log.LoggerUtility;
 
 /**
  * Copyright SEDAMOP - Software Engineering
@@ -46,10 +45,17 @@ public class GameBuilder {
 		return new MobileSimManager(sims);
 	}
 
-	public static EtatSimManager buildInitEtat(Sims sims, Chronometer chrono, Ville ville) {
-		return new EtatSimManager(sims, chrono, ville);
+	public static EtatSimManager buildInitEtat(Sims sims, Chronometer chrono, Ville ville, EvenementManager evenementManager) {
+		return new EtatSimManager(sims, chrono, ville, evenementManager);
 	}
 
+	public static RelationSimManager buildInitRelation(Sims sims, Chronometer chrono, Ville ville) {
+		return new RelationSimManager(sims, chrono, ville);
+	}
+
+	public static EvenementManager buildInitEventMan(Sims sims) {
+		return new EvenementManager(sims);
+	}
 
 	public static void buildEvent() {
 		EvenementsRepository eventRep = EvenementsRepository.getInstance();

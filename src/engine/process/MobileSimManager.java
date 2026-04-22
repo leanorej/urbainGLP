@@ -3,6 +3,8 @@ package engine.process;
 import engine.mobile.Sim;
 import engine.mobile.Sims;
 import engine.map.Block;
+import engine.map.Ville;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -11,6 +13,7 @@ import engine.map.Block;
 public class MobileSimManager {
     private Sims sims;
     private Sim simChoisi = null;
+	private static final Logger logger = Logger.getLogger(MobileSimManager.class);
 
 
     public MobileSimManager(Sims sims) {
@@ -48,10 +51,12 @@ public class MobileSimManager {
                 if (sim.getPositionCourante().getLine() == position.getLine() &&
                         sim.getPositionCourante().getColumn() == position.getColumn()) {
                     simChoisi = sim;
+                    logger.info("Sim "+ simChoisi.getNom() +" selectionne en position : "+ simChoisi.getPositionCourante()) ;
                 }
             }
         } else {//cas où on a dejà selectionné un sim e on lui donne une nouvelle position
             simChoisi.setPositionCourante(position);
+            logger.info("Sim "+ simChoisi.getNom() +" deplace en position : "+ simChoisi.getPositionCourante()) ;
             simChoisi = null;
         }
     }
