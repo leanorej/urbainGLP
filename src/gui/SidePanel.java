@@ -12,6 +12,7 @@ import engine.mobile.Sim;
 import engine.mobile.Sims;
 import engine.donnee.RelationAmicale;
 import engine.process.EtatSimManager;
+import engine.process.NiveauManager;
 import engine.process.RelationsRepository;
 
 public class SidePanel extends JPanel {
@@ -19,10 +20,12 @@ public class SidePanel extends JPanel {
     private Chronometer chronometer;
     private JLabel timeLabel;
     private JLabel dayLabel;
+    private JLabel niveauLabel;
     private JLabel globalPannelLabel;
     private JLabel globalVillePannelLabel;
     private JLabel nomRoutineLabel;
     private EtatSimManager EtatManager;
+    private NiveauManager NiveauManager;
     
 
 
@@ -36,7 +39,6 @@ public class SidePanel extends JPanel {
     private Sims sims;
     private String selectedSimName;
     
-    private JTextArea detailRoutine = new JTextArea();
  
     private ArrayList<String> derniersEvenementsList;
     private JTextArea detailEvenements = new JTextArea(10,10);
@@ -46,7 +48,7 @@ public class SidePanel extends JPanel {
 
 
 
-    public SidePanel(Chronometer chronometer, String[] array, Sims sims, ArrayList<String> derniersEvenements, EtatSimManager EtatManager) {
+    public SidePanel(Chronometer chronometer, String[] array, Sims sims, ArrayList<String> derniersEvenements, EtatSimManager EtatManager, NiveauManager NiveauManager) {
         this.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -55,6 +57,7 @@ public class SidePanel extends JPanel {
         this.sims = sims;
         this.derniersEvenementsList = derniersEvenements;
         this.EtatManager = EtatManager;
+        this.NiveauManager = NiveauManager ;
 
         // Nom ville
         JLabel nom = new JLabel(MenuGUI.nomVille, SwingConstants.LEFT);
@@ -67,6 +70,13 @@ public class SidePanel extends JPanel {
         dayLabel.setFont(new Font("Monospaced", Font.BOLD, 15));
         dayLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(dayLabel);
+
+
+        niveauLabel = new JLabel("Niveau " + NiveauManager.getNiveau(), SwingConstants.LEFT);
+        niveauLabel.setFont(new Font("Monospaced", Font.BOLD, 15));
+        niveauLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(niveauLabel);
+
 
         // Heure
         timeLabel = new JLabel("00:00:00", SwingConstants.LEFT);

@@ -21,7 +21,7 @@ import engine.process.MobileSimManager;
 import engine.process.EtatSimManager;
 import engine.process.RelationSimManager;
 import engine.process.EvenementManager;
-import engine.process.EvenementsRepository;
+import engine.process.NiveauManager;
 
 
 import chrono.Chronometer;
@@ -41,6 +41,7 @@ public class MainGUI extends JFrame implements Runnable {
 	private EtatSimManager EtatManager;
 	private RelationSimManager RelationManager;
 	private EvenementManager EventManager;
+	private NiveauManager NiveauManager;
 	private GameDisplay dashboard;
 	private SidePanel sidePanel;
 	private Chronometer chronometer;
@@ -67,12 +68,13 @@ public class MainGUI extends JFrame implements Runnable {
 		EventManager = GameBuilder.buildInitEventMan(sims);
 		EtatManager = GameBuilder.buildInitEtat(sims, chronometer,ville,EventManager);
 		RelationManager = GameBuilder.buildInitRelation(sims, chronometer,ville);
+		NiveauManager = GameBuilder.buildInitNiv();
 
 		//on initialise le repository avec tout les evenements
 		GameBuilder.buildEvent() ;
 		
 		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);
-		sidePanel = new SidePanel(chronometer, simsKey, sims,EventManager.getDerniersEvenements(), EtatManager);
+		sidePanel = new SidePanel(chronometer, simsKey, sims,EventManager.getDerniersEvenements(), EtatManager, NiveauManager);
 
 		dashboard = new GameDisplay(map, ville, SimMenager, sidePanel);
 		MouseControls mouseControls = new MouseControls();
@@ -120,11 +122,19 @@ public class MainGUI extends JFrame implements Runnable {
 	            } else {
 	                SimMenager.nextMove(heureCourante);
 	            }
+
 	            dernierHeure = heureCourante;
 
-				if(heureCourante%6==0){
-					EventManager.generatorRandomEvent() ;
+				if(heureCourante==0){
+					NiveauManager.majNiveau(SimMenager.getSims().getSims().size());
+					
+					if(heureCourante%6==0){
+						for (int i = 0 ; i<NiveauManager.getNbEventJour() ; i++)
+							EventManager.generatorRandomEvent() ;
+					}
 				}
+
+				
 			}
 	        checkGameOver();
 	        
