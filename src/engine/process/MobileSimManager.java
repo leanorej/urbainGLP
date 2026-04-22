@@ -3,7 +3,6 @@ package engine.process;
 import engine.mobile.Sim;
 import engine.mobile.Sims;
 import engine.map.Block;
-import engine.map.Ville;
 import org.apache.log4j.Logger;
 
 

@@ -1,18 +1,21 @@
 package engine.mobile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import chrono.BoundedCounter;
 import chrono.Counter;
 import engine.donnee.Routine;
-import engine.map.Batiment;
 import engine.map.Block;
 
 /**
- * Le sim est caractérisé par son nom et son age 
- * * @author Jean
- *
+ * Représente un Sim, personnage principal du jeu.
+ * Un Sim est caractérisé par son nom, sa position sur la carte, ses deux routines
+ * et trois barres de statistiques : la faim, la forme physique
+ * et la santé mentale et aussi un etat mental.
+ * 
+ * @author Chouaref
+ * @author Jean
+ * @author Loukii
+ * 
+ * @version 1.0
  */
 public class Sim {
 	
@@ -21,16 +24,22 @@ public class Sim {
 	private Block positionCourante;
 	//La routine associée au sim
 	private Routine routine;
+	//La routine du weekend associée au sim
 	private Routine routineWeekEnd;
-	
+	//États courants du Sim. 
 	private Etats etats = new Etats() ;
 	
 	private boolean vivant= true;
-	//initiailisation des 4 jour restant a la mort du sim
+	/**
+     * Compteur du nombre de jours restants avant la mort du Sim
+     * lorsqu'il est en état critique (initialisé à 4 jours).
+     */
 	private Counter jourRestant = new Counter(4);
+	 /**
+     * Numéro du dernier jour où le Sim était en état critique.
+     * Initialisé à -1} si aucun jour critique n'a encore été enregistré.
+     */
 	private int dernierJourCritique= -1;
-	
-	
 
 	private BoundedCounter faim = new BoundedCounter(100, 100, 0);
 	private BoundedCounter physique = new BoundedCounter(100, 100, 0);
