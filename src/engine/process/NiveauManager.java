@@ -15,6 +15,10 @@ public class NiveauManager {
     private int nbEventJour ;
     private int cptJour ;
 
+    /**
+     * Constructeur initialise au niveau 1 et le nombre de evenment par 
+     * jour vaux 1 et le compteur de jour zero
+     */
     public NiveauManager(){
         this.niveau = 1 ;
         this.nbEventJour = 1 ;
