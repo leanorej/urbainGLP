@@ -64,7 +64,7 @@ public class Ville {
 		logger.info("creation boulangerie");
 
 		//4
-		Batiment usine = new Batiment(new Block(0,22), "usine", 8, 4);
+		Batiment usine = new Batiment(new Block(0,22), "usine", 4, 8);
 		this.put(usine.getNomBatiment(),usine);
 		logger.info("creation usine");
 

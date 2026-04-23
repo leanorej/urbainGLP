@@ -108,6 +108,10 @@ public class RelationSimManager {
         }
     }
 
+	public void resetDerniereHeure() {
+		this.derniereHeureTraiteeRelations = -1;
+	}
+
    
 
 }

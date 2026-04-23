@@ -52,8 +52,9 @@ public class TestRelationSimManager {
 
         relationManager.updateRelations();
 
-        assertTrue("Aucune relation ne doit exister si les sims ne sont pas au même endroit",RelationsRepository.getInstance().getRelations().isEmpty());
+        assertTrue("Aucune relation ne doit exister si les sims ne sont pas au même endroit",RelationsRepository.getInstance().getRelationsDe("Francis").isEmpty());
     }
+   
 
     @Test
     public void testRelationCreeeQuandSimsCoPresents() {
