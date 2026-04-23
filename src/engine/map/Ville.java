@@ -11,14 +11,16 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 import org.apache.log4j.Logger;
+import log.LoggerUtility;
 
 
 import engine.mobile.Sims;
+import engine.process.EtatSimManager;
 
 public class Ville {
 	private Map map;
 	private HashMap<String,Batiment> batiments = new HashMap<String,Batiment>();
-	private static final Logger logger = Logger.getLogger(Ville.class);
+	private static Logger logger = LoggerUtility.getLogger(Ville.class, "html");
 
 	
 	public Ville(Map map) {

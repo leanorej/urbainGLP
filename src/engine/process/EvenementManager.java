@@ -7,6 +7,10 @@ import engine.donnee.Evenement;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
+
 
 public class EvenementManager {
     private Sims sims;
@@ -14,6 +18,8 @@ public class EvenementManager {
     private EvenementsRepository eventRep = EvenementsRepository.getInstance();;
      
     private ArrayList<String> derniersEvenements = new ArrayList<>();
+	private static Logger logger = LoggerUtility.getLogger(EvenementManager.class, "html");
+
 
    //je peux pas souprimer toutesuite sinon la boucle crash
     ArrayList<Sim> simsToKill = new ArrayList<>();
@@ -55,6 +61,7 @@ public class EvenementManager {
             }
         //j'enregistre les evenement dans un list qui est dans un classe de traitement faut changer ca
     	derniersEvenements.add(sim.getNom()+"-> "+event.toString());
+        logger.info("Nouvel evenement : " + event.toString() + " qui impacte " + sim.getNom());
     }
     
 

@@ -4,6 +4,7 @@ import engine.mobile.Sim;
 import engine.mobile.Sims;
 import engine.map.Block;
 import org.apache.log4j.Logger;
+import log.LoggerUtility;
 
 
 /**
@@ -12,7 +13,7 @@ import org.apache.log4j.Logger;
 public class MobileSimManager {
     private Sims sims;
     private Sim simChoisi = null;
-	private static final Logger logger = Logger.getLogger(MobileSimManager.class);
+	private static Logger logger = LoggerUtility.getLogger(MobileSimManager.class, "html");
 
 
     public MobileSimManager(Sims sims) {

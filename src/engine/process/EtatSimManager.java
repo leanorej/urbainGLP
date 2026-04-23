@@ -2,6 +2,7 @@ package engine.process;
 
 import engine.mobile.Sim;
 import engine.mobile.Sims;
+import log.LoggerUtility;
 import engine.donnee.Evenement;
 import engine.map.Batiment;
 import engine.map.Ville;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import chrono.Chronometer;
 
 import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
 
 
 public class EtatSimManager {
@@ -30,7 +33,7 @@ public class EtatSimManager {
     private int derniereHeureTraiteePhysique = -1;
     private int derniereHeureTraiteeFaim = -1;
   
-	private static final Logger logger = Logger.getLogger(EtatSimManager.class);
+	private static Logger logger = LoggerUtility.getLogger(EtatSimManager.class, "html");
 
 
    //je peux pas souprimer toutesuite sinon la boucle crash
@@ -69,6 +72,7 @@ public class EtatSimManager {
             for (Batiment b : ville.getBatimentsList()) {
                 if (b.contient(sim.getPositionCourante())) {
                     lieuActuel = b.getNomBatiment().toLowerCase().trim();
+                    logger.debug(sim.getNom() + " se trouve dans le batiment " + lieuActuel) ;
                     break;
                 }
             }
@@ -195,6 +199,7 @@ public class EtatSimManager {
 
             if(sim.getFaim().getValue() < 25){
                 sim.getEtats().ajouterEtat("faim");
+                logger.debug(sim.getNom() + " a très faim !") ;
             }
             else{
                 sim.getEtats().supprimerEtat("faim");
@@ -202,6 +207,7 @@ public class EtatSimManager {
 
             if(sim.getMental().getValue() < 25){
                 sim.getEtats().ajouterEtat("triste");
+                logger.debug(sim.getNom() + " est très triste !") ;
             }
             else{
                 sim.getEtats().supprimerEtat("triste");
@@ -209,6 +215,7 @@ public class EtatSimManager {
 
             if(sim.getPhysique().getValue() < 25){
                 sim.getEtats().ajouterEtat("fatigue");
+                logger.debug(sim.getNom() + " est très fatigue !") ;
             }
             else{
                 sim.getEtats().supprimerEtat("fatigue");
@@ -271,6 +278,7 @@ public class EtatSimManager {
                 Sim ami = sims.getSim(nomAmi);
                 if (ami != null) {
                     evenementManager.updateBesoinsEvenement(ami, new Evenement("Est en deuil pour " + simMort.getNom(), "mental", 30));
+                    logger.info(ami.getNom() + "est en deuil suite au deces de "+ simMort.getNom()) ;
                 }
             }
         }
@@ -280,6 +288,7 @@ public class EtatSimManager {
         int jourCourant = chrono.getDay();
         if (jourCourant != sim.getDernierJourCritique()) {
             sim.setDernierJourCritique(jourCourant);
+            logger.warn("Attention ! " + sim.getNom()+ " est dans un etat critique !") ;
             
             //System.out.println("[DEBUG] " + sim.getNom() + " decrement -> " + (sim.getJourRestant().getValue()-1));
             sim.getJourRestant().decrement();

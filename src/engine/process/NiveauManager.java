@@ -1,11 +1,17 @@
 package engine.process;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
 
 public class NiveauManager {
     
     private int niveau ;
     private int nbEventJour ;
     private int cptJour ;
+
+	private static Logger logger = LoggerUtility.getLogger(NiveauManager.class, "html");
+
 
     public NiveauManager(){
         this.niveau = 1 ;
@@ -34,6 +40,7 @@ public class NiveauManager {
         if (cptJour%3==0 && nbSimVivant==6){
             niveau++ ;
             nbEventJour++ ;
+            logger.info("Passage au niveau "+ niveau) ;
         }
     }
 

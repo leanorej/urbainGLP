@@ -10,6 +10,7 @@ import engine.map.Ville;
 
 
 import org.apache.log4j.Logger;
+import log.LoggerUtility;
 
 /**
  * This utility class contains unit functions used by the train simulation.
@@ -26,7 +27,7 @@ public class GameUtility {
 	 * @return the read file
 	 */
 
-	private static final Logger logger = Logger.getLogger(GameUtility.class);
+	private static Logger logger = LoggerUtility.getLogger(GameUtility.class, "html");
 
 	public static Image readImage(String filePath) {
 		try {
