@@ -68,15 +68,14 @@ public class GameBuilder {
 	}
 	
 	/**
-     * Construit et retourne un {@link EtatSimManager} chargé de gérer
-     * l'état (santé, faim, humeur, etc.) des Sims au fil du temps.
+     * Construit et retourne un EtatSimManager chargé de gérer
+     * l'état physique, faim, mental des Sims au fil du temps.
      *
-     * @param sims             l'instance {@link Sims} dont les états seront gérés ; ne doit pas être {@code null}
-     * @param chrono           le {@link Chronometer} utilisé pour suivre le temps en jeu ; ne doit pas être {@code null}
-     * @param ville            la {@link Ville} fournissant le contexte des changements d'état ; ne doit pas être {@code null}
-     * @param evenementManager le {@link EvenementManager} utilisé pour déclencher les événements
-     *                         affectant les états des Sims ; ne doit pas être {@code null}
-     * @return un nouveau {@link EtatSimManager} initialisé avec les composants fournis
+     * @param sims            
+     * @param chrono         
+     * @param ville            
+     * @param evenementManager
+     * @return un nouveau EtatSimManager 
      */
 	public static EtatSimManager buildInitEtat(Sims sims, Chronometer chrono, Ville ville, EvenementManager evenementManager ) {
 		return new EtatSimManager(sims, chrono, ville, evenementManager);
@@ -97,39 +96,24 @@ public class GameBuilder {
 	}
 	
 	/**
-     * Construit et retourne un {@link EvenementManager} chargé de gérer
-     * les événements en jeu affectant les Sims.
-     *
-     * @param sims l'instance {@link Sims} qui sera affectée par les événements gérés ;
-     *             ne doit pas être {@code null}
-     * @return un nouveau {@link EvenementManager} initialisé avec les {@link Sims} fournis
+     * Construit et retourne un EvenementManager chargé de gérer les événements en jeu affectant les Sims.
+     * @param sims 
+     * @return EvenementManager initialisé
      */
 	public static EvenementManager buildInitEventMan(Sims sims) {
 		return new EvenementManager(sims);
 	}
 	
 	/**
-     * Construit et retourne un {@link NiveauManager} chargé de gérer
-     * les niveaux de difficulté ou les étapes de progression de la simulation.
-     *
-     * @return une nouvelle instance de {@link NiveauManager}
+     * Construit et retourne un NivenauManager chargé de gérer les niveaux de difficulté
+     * @return une nouvelle instance de NiveauManager
      */
 	public static NiveauManager buildInitNiv() {
 		return new NiveauManager();
 	}
 
 	/**
-    * Enregistre tous les événements prédéfinis du jeu dans le singleton {@link EvenementsRepository}.
-    *
-    * <p>Les événements suivants sont enregistrés avec leur catégorie de statistique
-    * associée et leur valeur d'impact :</p>
-    * <ul>
-    *   <li>{@code sautRepas}            — affecte {@code faim} (faim) de 20</li>
-    *   <li>{@code malade}               — affecte {@code physique} (santé physique) de 15</li>
-    *   <li>{@code urgenceMedicale}      — affecte {@code physique} (santé physique) de 50</li>
-    *   <li>{@code dispute}              — affecte {@code mental} (santé mentale) de 20</li>
-    *   <li>{@code Equipe du coeur perd} — affecte {@code mental} (santé mentale) de 7</li>
-    * </ul>
+    * Enregistre tous les événements prédéfinis du jeu dans EvenementsRepository.
     */
 	public static void buildEvent() {
 		EvenementsRepository eventRep = EvenementsRepository.getInstance();
