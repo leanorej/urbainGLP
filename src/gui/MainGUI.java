@@ -138,6 +138,8 @@ public class MainGUI extends JFrame implements Runnable {
 
 				
 			}
+
+			
 	        checkGameOver();
 	        
 	        sidePanel.nextRound();

@@ -10,6 +10,10 @@ import engine.donnee.RelationAmicale;
 import java.util.ArrayList;
  
 import chrono.Chronometer;
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
+
 
 /**
  * @author JEAN
@@ -23,6 +27,8 @@ public class RelationSimManager {
 
     private int derniereHeureTraiteeRelations = -1;
     
+	private static Logger logger = LoggerUtility.getLogger(RelationSimManager.class, "html");
+
 
    //je peux pas souprimer toutesuite sinon la boucle crash
     ArrayList<Sim> simsToKill = new ArrayList<>();
@@ -67,6 +73,7 @@ public class RelationSimManager {
                 }
 
                 if (memeEndroit) {
+                    logger.debug(simA.getNom() +" et "+ simB.getNom() + " passent du temps ensemble.") ;
                     RelationAmicale relation = relationsRep.getOuCreer(
                         simA.getNom(), simB.getNom()
                     );

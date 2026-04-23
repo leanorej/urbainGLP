@@ -1,5 +1,8 @@
 package engine.process;
 
+import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
 /**
  * Cette classe gère la progression des niveaux en fonction du nombre de
  * sims vivants et du nombre de jours écoulés. Le niveau augmente
@@ -11,11 +14,7 @@ public class NiveauManager {
     private int niveau ;
     private int nbEventJour ;
     private int cptJour ;
-    
-    /**
-     * Constructeur initialise au niveau 1 et le nombre de evenment par 
-     * jour vaux 1 et le compteur de jour zero
-     */
+
     public NiveauManager(){
         this.niveau = 1 ;
         this.nbEventJour = 1 ;
@@ -52,6 +51,7 @@ public class NiveauManager {
         if (cptJour%3==0 && nbSimVivant==6){
             niveau++ ;
             nbEventJour++ ;
+            logger.info("Passage au niveau "+ niveau) ;
         }
     }
 

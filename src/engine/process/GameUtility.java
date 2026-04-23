@@ -10,6 +10,7 @@ import engine.map.Ville;
 
 
 import org.apache.log4j.Logger;
+import log.LoggerUtility;
 
 /**
  * Cette classe utilty contient fonctions utile pour le jeux.
@@ -27,6 +28,9 @@ public class GameUtility {
 	 * @param filePath the path (from "src") of the image file
 	 * @return the read file
 	 */
+
+	private static Logger logger = LoggerUtility.getLogger(GameUtility.class, "html");
+
 	public static Image readImage(String filePath) {
 		try {
 			return ImageIO.read(new File(filePath));

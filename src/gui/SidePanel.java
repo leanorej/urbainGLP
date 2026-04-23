@@ -290,6 +290,7 @@ public class SidePanel extends JPanel {
         if (chronometer != null) {
             timeLabel.setText(chronometer.toString());
             dayLabel.setText("JOUR " + chronometer.getDay());
+            niveauLabel.setText("Niveau " + NiveauManager.getNiveau());
         }
 
         globalVillePannelLabel.setText("État global de la Ville");

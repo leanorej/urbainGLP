@@ -3,9 +3,10 @@ import java.util.HashMap;
 
 import engine.donnee.Routine;
 import engine.map.Ville;
+import engine.process.EtatSimManager;
 
-import log.LoggerUtility;
 import org.apache.log4j.Logger;
+import log.LoggerUtility;
 
 /**
  * Gère la cration de tout les {@link engine.mobile.Sim}s présents dans la jeu.
@@ -16,7 +17,7 @@ import org.apache.log4j.Logger;
 public class Sims {
 
 	private HashMap<String,Sim> sims = new HashMap<String,Sim>();
-	private static final Logger logger = Logger.getLogger(Sims.class);
+	private static Logger logger = LoggerUtility.getLogger(Sims.class, "html");
 	
 	public void add(Sim sim) {
 		sims.put(sim.getNom(),sim);

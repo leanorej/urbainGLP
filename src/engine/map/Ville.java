@@ -1,27 +1,28 @@
 package engine.map;
 /**
- * Creation de tout les {@link engine.map.Batiment}s et regroupe dans 
- * une hashMap tout les bâtiment avec la clé le nom du bâtiment.
- * Donc on peut acceder a tout les bâtiments de la ville.
+ * regroupe tout les batiments
  * 
- * @author JEAN
- * @author CHOUAREF
+ * @author Loukili
+ *
  */
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 import org.apache.log4j.Logger;
+import log.LoggerUtility;
+
+
+import engine.mobile.Sims;
+import engine.process.EtatSimManager;
 
 public class Ville {
 	private Map map;
 	private HashMap<String,Batiment> batiments = new HashMap<String,Batiment>();
-	private static final Logger logger = Logger.getLogger(Ville.class);
+	private static Logger logger = LoggerUtility.getLogger(Ville.class, "html");
 
-	/**
-	 * Contructeur ville après faudra créer les bâtiments
-	 * @param map la map de jeux sur la quelle on va poser les bâtiments
-	 */
+	
 	public Ville(Map map) {
 		this.map = map;
 	}
@@ -106,29 +107,14 @@ public class Ville {
 
 	}
 	
-	/**
-	 * Retourne HashMap de tous les bâtiments comme clé le nom du bâtiment associé
-	 * @return une HashMap de tous les bâtiments
-	 */
+	//Retourne une ArrayList de Batiment avec comme clé String->Nom Batiment
 	public HashMap<String, Batiment>  getBatimentsHashMap() {
 		return batiments;
 	}
- 
-	/**
-	 * Retourne l'ArrayList de tous les bâtiments
-	 * @return une ArrayList de tous les bâtiments
-	 */
+	//Retourne une ArrayList de Batiment
 	public ArrayList<Batiment>  getBatimentsList() {
 		return new ArrayList<Batiment>(batiments.values());
 	}
-	
-	/**
-     * Recherche et retourne le bâtiment correspondant au nom donné.
-     *
-     * @param nomBatiment le nom du bâtiment recherché
-     * @return le bâtiment associé à ce nom
-     * @throws NoSuchElementException si aucun bâtiment portant ce nom n'existe dans la ville
-     */
 	public Batiment get(String nomBatiment){
 		if (batiments.containsKey(nomBatiment)) {
 			return batiments.get(nomBatiment);
