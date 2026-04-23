@@ -20,7 +20,6 @@ import log.LoggerUtility;
 public class GameUtility {
 	
 	
-	private static final Logger logger = Logger.getLogger(GameUtility.class);
 	
 	/**
 	 * Reads a image from an image file.

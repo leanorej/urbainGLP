@@ -14,7 +14,8 @@ public class NiveauManager {
     private int niveau ;
     private int nbEventJour ;
     private int cptJour ;
-
+    
+	private static Logger logger = LoggerUtility.getLogger(NiveauManager.class, "html");
     /**
      * Constructeur initialise au niveau 1 et le nombre de evenment par 
      * jour vaux 1 et le compteur de jour zero
