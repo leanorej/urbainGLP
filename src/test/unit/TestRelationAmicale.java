@@ -20,13 +20,24 @@ public class TestRelationAmicale {
     }
 
     @Test
-    public void testHeuresZeroAuDebut() {
-        assertEquals(0, relation.getHeuresPasseesEnsemble());
+    public void testHeuresInitialesNegatif() {
+        assertEquals(-1, relation.getHeuresPasseesEnsemble());
     }
 
     @Test
-    public void testDevenirAmiApres20h() {
-        for (int i = 0; i < 20; i++) {
+    public void testPasAmiAvant20h() {
+        //car amis à 20h
+        for (int i = 0; i < 19; i++) {
+            relation.incrementerTemps();
+        }
+        assertFalse(relation.sontAmis());
+    }
+
+    @Test
+    public void testDevenirAmiApres20Appels() {
+        // 20 appels : amis et il faut 21 apl pour que heures == 20
+ 
+        for (int i = 0; i < 21; i++) {
             relation.incrementerTemps();
         }
         assertTrue(relation.sontAmis());
@@ -34,34 +45,49 @@ public class TestRelationAmicale {
 
     @Test
     public void testCompteurRedemarre() {
-        //après 20h (le seuil) amis=true et conpteur repart à 1
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 21; i++) {
             relation.incrementerTemps();
         }
         assertEquals(1, relation.getHeuresPasseesEnsemble());
     }
 
     @Test
-    public void testCompteurApresAmitie() {
-        for (int i = 0; i < 20; i++) {
+    public void testCompteurContinueApresAmitie() {
+        for (int i = 0; i < 21; i++) {
             relation.incrementerTemps();
         }
-        //une heure de + après amitié donc cpt à 2
         relation.incrementerTemps();
         assertEquals(2, relation.getHeuresPasseesEnsemble());
     }
 
     @Test
-    public void testImplique() {
+    public void testImpliqueSim1() {
         assertTrue(relation.implique("Francis"));
+    }
+
+    @Test
+    public void testImpliqueSim2() {
         assertTrue(relation.implique("Marie"));
+    }
+
+    @Test
+    public void testImpliqueTiersExclu() {
         assertFalse(relation.implique("Benjamin"));
     }
 
     @Test
-    public void testImpliqueLesDeuxSimsSymetrie() {
+    public void testImpliqueLesDeuxSimsDansOrdre() {
         assertTrue(relation.impliqueLesDeuxSims("Francis", "Marie"));
+    }
+
+    @Test
+    public void testImpliqueLesDeuxSimsSymetrie() {
+        //relation est symétrique
         assertTrue(relation.impliqueLesDeuxSims("Marie", "Francis"));
+    }
+
+    @Test
+    public void testImpliqueLesDeuxSimsMauvairesPaire() {
         assertFalse(relation.impliqueLesDeuxSims("Francis", "Benjamin"));
     }
 }
