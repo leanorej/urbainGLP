@@ -24,13 +24,13 @@ public class DerniersEvenementsRepository {
     private static DerniersEvenementsRepository instance = new DerniersEvenementsRepository();
 
     /**
-     * Constructeur privé — empêche l'instanciation externe.
+     * Constructeur privé.
      */
     private DerniersEvenementsRepository() {
     }
 
     /**
-     * Retourne l'instance unique de {@link derniersEvenements}.
+     * Retourne l'instance unique de DerniersEvenementsRepository.
      *
      * @return l'instance singleton de la classe.
      */

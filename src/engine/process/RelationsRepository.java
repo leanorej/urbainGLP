@@ -26,6 +26,7 @@ public class RelationsRepository {
 
     /**
      * Instance unique (pattern Singleton).
+     * @return l'instance unique deRelationsRepository
      */
     public static RelationsRepository getInstance() {
         return instance;
