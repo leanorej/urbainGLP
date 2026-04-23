@@ -7,16 +7,14 @@ import engine.donnee.Evenement;
 import java.util.ArrayList;
 import java.util.Random;
 
-
+/**
+ * @author CHOUAREF
+ */
 public class EvenementManager {
     private Sims sims;
     private Sim simChoisi = null;
     private EvenementsRepository eventRep = EvenementsRepository.getInstance();;
-     
-    private ArrayList<String> derniersEvenements = new ArrayList<>();
 
-   //je peux pas souprimer toutesuite sinon la boucle crash
-    ArrayList<Sim> simsToKill = new ArrayList<>();
     public EvenementManager(Sims sims) {
         this.sims = sims;
     }
@@ -54,7 +52,7 @@ public class EvenementManager {
                 break;
             }
         //j'enregistre les evenement dans un list qui est dans un classe de traitement faut changer ca
-    	derniersEvenements.add(sim.getNom()+"-> "+event.toString());
+        DerniersEvenementsRepository.getInstance().add(sim.getNom()+"-> "+event.toString());
     }
     
 
@@ -66,10 +64,6 @@ public class EvenementManager {
     }
 
     
-	public ArrayList<String> getDerniersEvenements() {
-		return derniersEvenements;
-	}
-
 	private Sim getRandomSim() {
 		Random r = new Random() ;
 		Sim[] liste = sims.getSims().values().toArray(new Sim[0]) ; 

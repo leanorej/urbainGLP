@@ -5,9 +5,11 @@ import engine.mobile.Sims;
 import engine.map.Block;
 import org.apache.log4j.Logger;
 
-
 /**
+ * Gestion de tout les deplacement automatique donc par les deux routines et manuel donc par l'utilisateur
+ * @author CHOUAREF
  * @author JEAN
+ * @author LOUKILI
  */
 public class MobileSimManager {
     private Sims sims;

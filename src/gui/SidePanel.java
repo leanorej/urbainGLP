@@ -313,11 +313,9 @@ public class SidePanel extends JPanel {
             
             
             routineArea.setText(s.getRoutine().toString());
-            
-            detailEvenements.setText(printEventList());
-            
             relationsArea.setText(buildRelationsText(s.getNom()));
         }
+        detailEvenements.setText(printEventList());
     }
 
     private String buildRelationsText(String nomSim) {

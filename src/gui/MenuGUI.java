@@ -165,16 +165,16 @@ public class MenuGUI extends JFrame implements Runnable {
         texte.setText(
             "But du jeu : maintenir tous vos Sims en bonne santé physique et mentale.\n\n" +
             "Chaque Sim possède 3 barres : Faim, Physique, Mental (0 à 100%).\n\n" +
-            "75-100% : le Sim est efficace.\n" +
-            "50-75%  : le Sim est normal.\n" +
-            "25-50%  : le Sim est fatigué et lent.\n" +
-            "0-25%   : maladie physique ou psychologique.\n\n" +
+            "-0-25%   : maladie physique ou psychologique.\n\n" +
             "Si les deux barres physique et mental sont sous 25% pendant 3 jours : mort.\n" +
             "Si 3 Sims meurent : fin de partie.\n\n" +
             "Vous pouvez déplacer les Sims en cliquant d'abord sur le Sim,\n" +
             "puis sur la case de destination.\n\n" +
             "Les relations amicales se forment après 20h passées ensemble\n" +
-            "dans le même bâtiment. Un ami booste le mental de +5% par heure."
+            "dans le même bâtiment. Un ami booste le mental de +5% par heure.\n"+
+            "Le niveau augmente tous les 3 jours si les 6  Sims sont en vie.\n"+
+            "À chaque niveau, le nombre d'événements par jour augmente de 1"+
+            " rendant la partie progressivement plus difficile à gérer."
         );
         panel.add(new JScrollPane(texte), BorderLayout.CENTER);
 

@@ -37,7 +37,7 @@ public class Sim {
 	private Counter jourRestant = new Counter(4);
 	 /**
      * Numéro du dernier jour où le Sim était en état critique.
-     * Initialisé à -1} si aucun jour critique n'a encore été enregistré.
+     * Initialisé à -1 si aucun jour critique n'a encore été enregistré.
      */
 	private int dernierJourCritique= -1;
 

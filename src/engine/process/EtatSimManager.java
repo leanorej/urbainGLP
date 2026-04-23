@@ -15,41 +15,73 @@ import chrono.Chronometer;
 
 import org.apache.log4j.Logger;
 
-
+/**
+ * Gère les besoin des sim, précisément elle gère les trois barre de vie du {@link engine.mobile.Sim},
+ * gère la mort et la déclenche et aussi si le sim mort est ami avec quelqu'un il declanche le deuil.
+ * 
+ * @author CHOUAREF
+ * @author JEAN
+ * @author LOUKILI
+ */
 public class EtatSimManager {
     private Sims sims;
-    private Sim simChoisi = null;
     private Chronometer chrono;
     private Ville ville;
-    private EvenementManager evenementManager;
     private RelationsRepository relationsRep = RelationsRepository.getInstance();
     
-    private ArrayList<String> derniersEvenements = new ArrayList<>();
-
+    /** Gère l'application des modificateurs de besoins liés aux événements (ici le deuil pert de 30d de mentale) */
+    private EvenementManager evenementManager;
+    /**
+     * Pour éviter un double traitement dans la même minute.
+     */
     private int derniereMinuteTraitee = -1;
+    /**
+     * Pour éviter un double traitement dans la même heure.
+     */
     private int derniereHeureTraiteePhysique = -1;
+    /**
+     * Pour éviter un double traitement dans la même heure.
+     */
     private int derniereHeureTraiteeFaim = -1;
   
 	private static final Logger logger = Logger.getLogger(EtatSimManager.class);
 
-
-   //je peux pas souprimer toutesuite sinon la boucle crash
+	
+	/**
+    * Sims à supprimer à la fin du cycle de mise à jour en cours.
+    * Une suppression directe pendant l'itération provoquerait un crash.
+    */
     ArrayList<Sim> simsToKill = new ArrayList<>();
-    public EtatSimManager(Sims sims, Chronometer chrono, Ville ville, EvenementManager evenementManager) {
+    
+    /**
+     * Constructeur de EtatSimManager
+     * 
+     * @param sims les sims a gèrer
+     * @param chrono le chronometre du jeux
+     * @param ville	la ville pour prendre les batiments
+     * @param evenementManager le menager utilisé pour appliquer les evenents generer par cette classe dans ce cas le deuil
+     */
+    public EtatSimManager(Sims sims, Chronometer chrono, Ville ville,EvenementManager evenementManager) {
         this.sims = sims;
         this.chrono = chrono;
         this.ville = ville;
-        this.evenementManager= evenementManager;
+        this.evenementManager = evenementManager;
     }
-
+    /**
+     * Retourne la classe {@link engine.mobile.Sims}
+     * @return Retourne tout les sims
+     */
     public Sims getSims() {
         return sims;
     }
-
-    public Sim getSimChoisi() {
-        return simChoisi;
-    }
-
+    /**
+     * Met à jour les besoins (faim, physique, mental) de chaque Sim actif, une fois par minute de simulation.
+     *  Faim: décrémente une fois par heure pour tous les Sims.
+     *  Elle s'incrémente toutes les 20 minutes lorsqu'un Sim se trouve à la boulangerie} ou au mall.
+     *  Physique et Mental: mis à jour une fois par heure selon des règles propres à chaque lieu
+     *       et à chaque Sim (ex. : Francis perd plus vite du physique à l'usine,
+     *       la piscine booste tout le monde, l'école diminue les stats de Julie, etc.).
+     */
     public void updateBesoins() {
         if (chrono == null) return;
         int heureCourante = chrono.getHour().getValue();
@@ -72,7 +104,6 @@ public class EtatSimManager {
                     break;
                 }
             }
-
             //Physique et Mental (1 fois par heure)
             if (heureCourante != derniereHeureTraiteePhysique) {
             	String nomSim = sim.getNom();
@@ -182,7 +213,9 @@ public class EtatSimManager {
             
         }
     }
-
+    /**
+     * Gère les états de tout les sims ejoute un etat faim, triste ou fatigue en fonction si une des trois barre de vie descend en desous de 25%
+     */
     public void updateEtats(){
         if (chrono == null) return;
     
@@ -214,7 +247,7 @@ public class EtatSimManager {
                 sim.getEtats().supprimerEtat("fatigue");
             }
             
-            //Si un de trois etat est activé alors on commance a compter les 3 dernier jour avant la mort
+            //Si un de trois etat est activé alors on commance a compter les 4 dernier jour avant la mort
 	        if(sim.getEtats().getEtats().contains("faim") || sim.getEtats().getEtats().contains("triste") || sim.getEtats().getEtats().contains("fatigue")){
 			     updateEtatCritique(sim);
 			 } else {
@@ -234,11 +267,10 @@ public class EtatSimManager {
         }
     }
     
-   
-
-    
-    
-
+   /**
+    * Retourne la moyenne de l'etata global de chaque Sim
+    * @return la moyenne  du ScoreGlobal pour tous les Sims actifs
+    */
     public int updateEtatGeneral(){
         int etatG = 0 ;
         int nbSim = 0 ;
@@ -248,21 +280,12 @@ public class EtatSimManager {
         }   
         return etatG/nbSim ;
     }
-   /*
-    public void declencherDeuil(Sim simMort) {
-        for (RelationAmicale r : relationsRep.getRelationsDe(simMort.getNom())) {
-            if (r.sontAmis()) {
-                String nomAmi = r.getNomSim1().equals(simMort.getNom())
-                              ? r.getNomSim2() : r.getNomSim1();
-                Sim ami = sims.getSim(nomAmi);
-                if (ami != null) {
-                	updateBesoinsEvenement(ami,new Evenement("Est en deuil pour "+simMort.getNom(), "mental", 50));
-                }
-            }
-        }
-    }
-*/
     
+    /**
+     * Déclenche un événement de deuil pour tous les Sims qui étaient amis avec le Sim décédé.
+     *
+     * @param simMort le Sim qui vient de mourir
+     */
     public void declencherDeuil(Sim simMort) {
         for (RelationAmicale r : relationsRep.getRelationsDe(simMort.getNom())) {
             if (r.sontAmis()) {
@@ -275,7 +298,12 @@ public class EtatSimManager {
             }
         }
     }
-
+    
+    /**
+     * Avance le compte à (rebours de mort) pour un Sim se trouvant dans un état critique.
+     *
+     * @param sim le Sim dont l'état critique doit être évalué
+     */
     public void updateEtatCritique(Sim sim) {
         int jourCourant = chrono.getDay();
         if (jourCourant != sim.getDernierJourCritique()) {
@@ -285,12 +313,11 @@ public class EtatSimManager {
             sim.getJourRestant().decrement();
 
             if (sim.getJourRestant().getValue() == 0) {
-                //System.out.println("[DEBUG] " + sim.getNom() + " DOIT MOURIR");
-                //sims.remove(sim);//on suprime pas directement sinon risque de crash
+                //sims.remove(sim);//on suprime pas directement sinon risque de crash car boucle en cours
                 simsToKill.add(sim);
-                logger.warn("Sim "+ sim.getNom() +" est mort.") ;
+                logger.info("Sim "+ sim.getNom() +" est mort.");
                 declencherDeuil(sim);
-                derniersEvenements.add(sim.getNom() + " est mort(e).");  
+                DerniersEvenementsRepository.getInstance().add(sim.getNom() + " est mort(e).");  
             }
         }
     }

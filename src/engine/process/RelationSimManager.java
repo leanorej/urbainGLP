@@ -11,6 +11,9 @@ import java.util.ArrayList;
  
 import chrono.Chronometer;
 
+/**
+ * @author JEAN
+ */
 public class RelationSimManager {
     private Sims sims;
     private Sim simChoisi = null;

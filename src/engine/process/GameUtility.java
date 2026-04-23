@@ -12,12 +12,14 @@ import engine.map.Ville;
 import org.apache.log4j.Logger;
 
 /**
- * This utility class contains unit functions used by the train simulation.
- * 
- * 
+ * Cette classe utilty contient fonctions utile pour le jeux.
+ *
  * @author Loukili
  */
 public class GameUtility {
+	
+	
+	private static final Logger logger = Logger.getLogger(GameUtility.class);
 	
 	/**
 	 * Reads a image from an image file.
@@ -25,9 +27,6 @@ public class GameUtility {
 	 * @param filePath the path (from "src") of the image file
 	 * @return the read file
 	 */
-
-	private static final Logger logger = Logger.getLogger(GameUtility.class);
-
 	public static Image readImage(String filePath) {
 		try {
 			return ImageIO.read(new File(filePath));
@@ -37,9 +36,13 @@ public class GameUtility {
 			return null;
 		}
 	}
+	/**
+	 * Retourne un entier aléatoire dans intervalle
+	 * @param min numero minimun de l'intervalle
+	 * @param max numero maximum de l'intervalle
+	 * @return un entier aléatoire entre le min et le max
+	 */
 	private static int getRandom(int min, int max) {
 		return (int) (Math.random() * (max + 1 - min)) + min;
 	}
-	
-	//ca peut etre utile unitTime() et windowRefreshTime() dans simulation simulationutility de train
 }

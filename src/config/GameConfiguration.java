@@ -23,5 +23,5 @@ public class GameConfiguration {
 	/**Longueur fenêtre.*/
 	public static final int WINDOW_HEIGHT = NUMERO_BLOC_HAUTEUR*BLOCK_SIZE;
 	/**Vitesse de rafraîchissement du jeu (en millisecondes).*/
-	public static final int GAME_SPEED = 50;
+	public static final int GAME_SPEED = 10;
 }

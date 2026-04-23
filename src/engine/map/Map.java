@@ -3,7 +3,7 @@ package engine.map;
 import java.util.HashMap;
 
 /**
- * Représente la map du jeu sous forme d'une grille de {@link engine.donne.Block}.
+ * Représente la map du jeu sous forme d'une grille de {@link engine.map.Block}.
  *
  * @author tianxiao.liu@cyu.fr
  * @author LOUKILI
