@@ -63,13 +63,26 @@ public class GameBuilder {
 
 	public static void buildEvent() {
 		EvenementsRepository eventRep = EvenementsRepository.getInstance();
-
+	
 		eventRep.register(new Evenement("sautRepas", "faim", 20));  
 		eventRep.register(new Evenement("malade", "physique", 15));
 		eventRep.register(new Evenement("urgenceMedicale", "physique", 50)); 
 		eventRep.register(new Evenement("dispute", "mental", 20));
 		eventRep.register(new Evenement("Equipe du coeur perd", "mental", 7));
+	
+		eventRep.register(new Evenement("Burn-out", "mental", 40));
+		eventRep.register(new Evenement("Panne d'Internet", "mental", 15));
+		eventRep.register(new Evenement("Amende de stationnement", "mental", 10));
+		eventRep.register(new Evenement("Cambriolage", "mental", 55));
 		
-}
+		eventRep.register(new Evenement("Grosse insomnie", "physique", 30));
+		eventRep.register(new Evenement("Canicule urbaine", "physique", 20));
+		eventRep.register(new Evenement("Intoxication alimentaire", "physique", 35));
+		eventRep.register(new Evenement("Séance de sport intense", "physique", 10));
+	
+		eventRep.register(new Evenement("Frigo vide", "faim", 25));
+		eventRep.register(new Evenement("Grève des livraisons", "faim", 15));
+		eventRep.register(new Evenement("Régime forcé", "faim", 10));
+	}
 
 }
