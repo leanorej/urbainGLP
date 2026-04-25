@@ -18,6 +18,7 @@ import engine.mobile.Sim;
 import engine.mobile.Sims;
 import engine.process.GameBuilder;
 import engine.process.MobileSimManager;
+import engine.process.DerniersEvenementsRepository;
 import engine.process.EtatSimManager;
 import engine.process.RelationSimManager;
 import engine.process.EvenementManager;
@@ -67,6 +68,7 @@ public class MainGUI extends JFrame implements Runnable {
 		SimMenager = GameBuilder.buildInitMobile(sims);
 		EventManager = GameBuilder.buildInitEventMan(sims);
 		EtatManager = GameBuilder.buildInitEtat(sims, chronometer,ville,EventManager);
+		
 		RelationManager = GameBuilder.buildInitRelation(sims, chronometer,ville);
 		NiveauManager = GameBuilder.buildInitNiv();
 
@@ -74,7 +76,7 @@ public class MainGUI extends JFrame implements Runnable {
 		GameBuilder.buildEvent() ;
 		
 		String[] simsKey = sims.getSims().keySet().toArray(new String[0]);
-		sidePanel = new SidePanel(chronometer, simsKey, sims,EventManager.getDerniersEvenements(), EtatManager, NiveauManager);
+		sidePanel = new SidePanel(chronometer, simsKey, sims,/*DerniersEvenementsRepository.getInstance().getListEvenementPasse(), */EtatManager, NiveauManager);
 
 		dashboard = new GameDisplay(map, ville, SimMenager, sidePanel);
 		MouseControls mouseControls = new MouseControls();
@@ -149,12 +151,7 @@ public class MainGUI extends JFrame implements Runnable {
 	    if (simsMorts >= 3) {
 	        running = false; 
 	        SwingUtilities.invokeLater(() -> {
-	            JOptionPane.showMessageDialog(
-	                this,
-	                "GameOver 3 sim sont mort",
-	                "Fin de la partie",
-	                JOptionPane.ERROR_MESSAGE
-	            );
+	            JOptionPane.showMessageDialog(this,"GameOver! 3 Sims sont morts","Fin de la partie",JOptionPane.ERROR_MESSAGE);
 	            dispose();
 	            MenuGUI menu = new MenuGUI();
 	            Thread menuThread = new Thread(menu);

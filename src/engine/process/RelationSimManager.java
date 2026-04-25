@@ -15,6 +15,16 @@ import log.LoggerUtility;
 
 
 
+/**
+ * Gère relations amicales entre Sims.
+ * Cette classe analyse la position des Sims présents
+ * dans la ville afin de déterminer lesquels passent du temps dans le meme batiment.
+ * Lorsqu'au moins deux Sims se trouvent dans un même bâtiment, leur
+ * relation amicale est mise à jour.
+ * Si deux Sims déjà amis restent ensemble, leur moral augmente de 5.
+ *
+ * @author JEAN
+ */
 public class RelationSimManager {
     private Sims sims;
     private Sim simChoisi = null;
@@ -26,9 +36,6 @@ public class RelationSimManager {
     
 	private static Logger logger = LoggerUtility.getLogger(RelationSimManager.class, "html");
 
-
-   //je peux pas souprimer toutesuite sinon la boucle crash
-    ArrayList<Sim> simsToKill = new ArrayList<>();
     public RelationSimManager(Sims sims, Chronometer chrono, Ville ville) {
         this.sims = sims;
         this.chrono = chrono;
@@ -44,7 +51,15 @@ public class RelationSimManager {
     }
     
     
-    
+
+    /**
+     * Met à jour les relations sociales entre tous les Sims.
+     *
+     * Realisé une fois par heure,
+     * recherche des paires de Sims présentes dans un même bâtiment,
+     * augmentation du temps passé ensemble,
+     * si les deux Sims sont amis, augmentation du moral pour chaque heure.
+     */
     public void updateRelations() {
         if (chrono == null) return;
 
@@ -92,6 +107,10 @@ public class RelationSimManager {
             }
         }
     }
+
+	public void resetDerniereHeure() {
+		this.derniereHeureTraiteeRelations = -1;
+	}
 
    
 

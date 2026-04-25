@@ -8,7 +8,12 @@ import engine.process.EtatSimManager;
 import org.apache.log4j.Logger;
 import log.LoggerUtility;
 
-
+/**
+ * Gère la cration de tout les {@link engine.mobile.Sim}s présents dans la jeu.
+ * Elle permet d'ajouter, de récupérer et de supprimer les sims.
+ *
+ * @author LOUKILI
+ */
 public class Sims {
 
 	private HashMap<String,Sim> sims = new HashMap<String,Sim>();
@@ -18,6 +23,14 @@ public class Sims {
 		sims.put(sim.getNom(),sim);
 	} 
 
+    /**
+     * Instancie et enregistre l'ensemble des sims..
+     * Chaque sim est créé avec une {@link engine.donnee.Routine} de semaine et une
+     * de week-end, définissant ses déplacements horaires dans la {@link Ville}. 
+     * Les personnages créés sont:Francis, Geneviève, Benjamin, Julie, Marie et Emmanuel
+     *
+     * @param ville la ville depuis laquelle sont récupérés les {@link engine.map.Batiment}s utilisés dans les routines
+     */
 	public void creationSims(Ville ville) {
 		// Francis 37 ans ouvrier
 		Routine routine1 = new Routine();
@@ -122,7 +135,6 @@ public class Sims {
 		Sim Emmanuel = new Sim("Emmanuel", ville.get("maison3").getPosition(), routine6, routine6WE);
 		add(Emmanuel);
 		logger.info("Initialisation Sim Emmanuel.");
-
 	}
 	
 	public HashMap<String,Sim> getSims() {
@@ -133,10 +145,13 @@ public class Sims {
 		return sims.get(Nom);
 	}
 
-	
+	 /**
+     * Supprime un sim de la HashMap.
+     *
+     * @param sim le sim à supprimer
+     */
 	public void remove(Sim sim) {
 	    Sim removed = sims.remove(sim.getNom());
-	    //System.out.println("Tentative de suppression : " + sim.getNom() + "  résultat : " + (removed != null ? "OK" : "ÉCHEC - non trouvé"));
-
+	    logger.info("Elimination de "+removed+" car mort");
 	}
 }

@@ -6,9 +6,11 @@ import engine.map.Block;
 import org.apache.log4j.Logger;
 import log.LoggerUtility;
 
-
 /**
+ * Gestion de tout les deplacement automatique donc par les deux routines et manuel donc par l'utilisateur
+ * @author CHOUAREF
  * @author JEAN
+ * @author LOUKILI
  */
 public class MobileSimManager {
     private Sims sims;
@@ -28,6 +30,11 @@ public class MobileSimManager {
         return simChoisi;
     }
 
+    /**
+     * Applique les déplacements automatiques selon la routine normale.
+     *
+     * @param heureCourante heure courante
+     */
     public void nextMove(int heureCourante) {
         for (Sim sim : sims.getSims().values()) {
             if (sim.getRoutine().containsKey(heureCourante)) {
@@ -35,7 +42,13 @@ public class MobileSimManager {
             }
         }
     }
-    //si weekend cette fonction est applé
+
+
+    /**
+     * Applique les déplacements automatiques selon la routine normale.
+     *
+     * @param heureCourante heure courante
+     */
     public void nextMoveWeekEnd(int heureCourante) {
         for (Sim sim : sims.getSims().values()) {
             if (sim.getRoutineWeekEnd().containsKey(heureCourante)) {
@@ -45,6 +58,15 @@ public class MobileSimManager {
     }
     
 
+    /**
+     * Gère un déplacement manuel par clic utilisateur.
+     *
+     * Fonctionnement :si aucun Sim n'est sélectionné, 
+     * l'apelle de cette methode sélectionne celui situé sur la case indiquée ;
+     * sinon si  un Sim est déjà sélectionné, le déplace vers la case choisie
+     * puis annule la sélection.
+     * @param position du Block choisi par l'utilisateur
+     */
     public void simMove(Block position) {
         if (simChoisi == null) {//cas ou aucun sims est selectionné
             for (Sim sim : sims.getSims().values()) {

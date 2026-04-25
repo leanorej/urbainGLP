@@ -2,13 +2,11 @@ package engine.map;
 
 import java.util.HashMap;
 
-
-
 /**
- * Copyright SEDAMOP - Software Engineering
- * 
- * @author tianxiao.liu@cyu.fr Loukili
+ * Représente la map du jeu sous forme d'une grille de {@link engine.map.Block}.
  *
+ * @author tianxiao.liu@cyu.fr
+ * @author LOUKILI
  */
 public class Map {
 	private Block[][] blocks;
@@ -20,7 +18,12 @@ public class Map {
 	private HashMap<Block, Batiment> batiments = new HashMap<Block, Batiment>();
 
 
-
+	/**
+	 * Contruction de la map.
+	 * 
+	 * @param lineCount nombre de ligne donc longeur
+	 * @param columnCount nombre de colonne donc largeur
+	 */
 	public Map(int lineCount, int columnCount) {
 		init(lineCount, columnCount);
 
@@ -31,6 +34,13 @@ public class Map {
 		}
 	}
 	
+    /**
+     * Initialise les dimensions de la carte et alloue la grille de blocs.
+     * Cette méthode est appelée par par le constructeur.
+     * 
+     * @param lineCount   le nombre de lignes
+     * @param columnCount le nombre de colonnes
+     */
 	private void init(int lineCount, int columnCount) {
 		this.lineCount = lineCount;	
 		this.columnCount = columnCount;

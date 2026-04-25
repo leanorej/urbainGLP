@@ -13,12 +13,13 @@ import org.apache.log4j.Logger;
 import log.LoggerUtility;
 
 /**
- * This utility class contains unit functions used by the train simulation.
- * 
- * @see 
+ * Cette classe utilty contient fonctions utile pour le jeux.
+ *
  * @author Loukili
  */
 public class GameUtility {
+	
+	
 	
 	/**
 	 * Reads a image from an image file.
@@ -38,9 +39,13 @@ public class GameUtility {
 			return null;
 		}
 	}
+	/**
+	 * Retourne un entier aléatoire dans intervalle
+	 * @param min numero minimun de l'intervalle
+	 * @param max numero maximum de l'intervalle
+	 * @return un entier aléatoire entre le min et le max
+	 */
 	private static int getRandom(int min, int max) {
 		return (int) (Math.random() * (max + 1 - min)) + min;
 	}
-	
-	//ca peut etre utile unitTime() et windowRefreshTime() dans simulation simulationutility de train
 }
