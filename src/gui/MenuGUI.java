@@ -38,7 +38,7 @@ public class MenuGUI extends JFrame implements Runnable {
     
     private void init() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(700, 500);
+        setSize(700, 495);
         setLocationRelativeTo(null);
         setResizable(false);
 

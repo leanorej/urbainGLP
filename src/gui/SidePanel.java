@@ -11,6 +11,7 @@ import config.GameConfiguration;
 import engine.mobile.Sim;
 import engine.mobile.Sims;
 import engine.donnee.RelationAmicale;
+import engine.process.DerniersEvenementsRepository;
 import engine.process.EtatSimManager;
 import engine.process.NiveauManager;
 import engine.process.RelationsRepository;
@@ -40,7 +41,7 @@ public class SidePanel extends JPanel {
     private String selectedSimName;
     
  
-    private ArrayList<String> derniersEvenementsList;
+    //private ArrayList<String> derniersEvenementsList;
     private JTextArea detailEvenements = new JTextArea(10,10);
     
     private JTextArea relationsArea = new JTextArea(4, 10);
@@ -48,14 +49,14 @@ public class SidePanel extends JPanel {
 
 
 
-    public SidePanel(Chronometer chronometer, String[] array, Sims sims, ArrayList<String> derniersEvenements, EtatSimManager EtatManager, NiveauManager NiveauManager) {
+    public SidePanel(Chronometer chronometer, String[] array, Sims sims,/* ArrayList<String> derniersEvenements,*/ EtatSimManager EtatManager, NiveauManager NiveauManager) {
         this.setPreferredSize(new Dimension(GameConfiguration.SIDE_PANEL_WIDTH, GameConfiguration.WINDOW_HEIGHT));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         this.chronometer = chronometer;
         this.sims = sims;
-        this.derniersEvenementsList = derniersEvenements;
+        //this.derniersEvenementsList = derniersEvenements;
         this.EtatManager = EtatManager;
         this.NiveauManager = NiveauManager ;
 
@@ -174,7 +175,7 @@ public class SidePanel extends JPanel {
         add(scrollPane);
         
         //button retour au menu
-        JButton menuButton = new JButton("Recommencer le jeux");
+        JButton menuButton = new JButton("Recommencer le jeu");
         menuButton.addActionListener(e -> returnToMenu());
         menuButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         menuButton.setBackground(Color.RED);
@@ -359,6 +360,7 @@ public class SidePanel extends JPanel {
     
     private String printEventList() {
     	StringBuilder buffer= new StringBuilder();
+    	ArrayList<String> derniersEvenementsList = DerniersEvenementsRepository.getInstance().getListEvenementPasse();
     	int dim=derniersEvenementsList.size()-1;
     	for(int i=dim; i>=0; i-- ) {
     		buffer.append(derniersEvenementsList.get(i)+"\n");

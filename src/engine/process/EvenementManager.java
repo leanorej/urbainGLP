@@ -21,7 +21,7 @@ public class EvenementManager {
     private Sim simChoisi = null;
     private EvenementsRepository eventRep = EvenementsRepository.getInstance();;
      
-    private ArrayList<String> derniersEvenements = new ArrayList<>();
+    //private ArrayList<String> derniersEvenements = new ArrayList<>();
 	private static Logger logger = LoggerUtility.getLogger(EvenementManager.class, "html");
 
     public EvenementManager(Sims sims) {
@@ -66,7 +66,7 @@ public class EvenementManager {
                 break;
             }
         //j'enregistre les evenement dans un list qui est dans un classe de traitement faut changer ca
-    	derniersEvenements.add(sim.getNom()+"-> "+event.toString());
+        DerniersEvenementsRepository.getInstance().add(sim.getNom()+"-> "+event.toString());
     }
     
 
@@ -78,6 +78,7 @@ public class EvenementManager {
     	Sim sim = getRandomSim(); 
     	Evenement event = getRandomEvent(); 
     	updateBesoinsEvenement(sim, event); 
+    	logger.info("Evenement ->"+event+" appliqué a "+sim.getNom());
     }
 
     /**

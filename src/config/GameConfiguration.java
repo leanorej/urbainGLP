@@ -11,7 +11,7 @@ package config;
 public class GameConfiguration {
 	
 	/**Dimension bloc de la map.*/
-	public static final int BLOCK_SIZE = 35;
+	public static final int BLOCK_SIZE = 45;
 	/**Larguer du side pannel.*/
 	public static final int SIDE_PANEL_WIDTH = 400;
 	/**Numéro de ligne (Hauteur)*/
