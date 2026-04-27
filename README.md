@@ -20,7 +20,7 @@ Pour installer le projet suivre les suivants
 
 Projet réalisé dans le cadre d'un projet de Génie Logiciel — **Groupe DL**.
 
-- **[Nour CHOUAREF](https://github.com/nurccc)**.
+- **[Nur CHOUAREF](https://github.com/nurccc)**.
 - **[Léanore JEAN](https://github.com/leanorej)**.
 - **[Mohamed LOUKILI](https://github.com/AminL00)**.
   
