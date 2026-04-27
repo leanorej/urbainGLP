@@ -4,6 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import chrono.Chronometer;
 import engine.map.Map;
 import engine.map.Ville;
@@ -29,6 +32,7 @@ public class TestPerformance {
 
     @Before
     public void preparer() {
+    	Logger.getRootLogger().setLevel(Level.OFF);
         Map map = GameBuilder.buildMap();
         ville = GameBuilder.buildVille(map);
         sims = GameBuilder.initializeSims(ville);
