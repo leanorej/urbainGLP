@@ -9,13 +9,10 @@ Pour installer le projet suivre les suivants
 
 1. Cloner le repository: `git clone https://github.com/nurccc/urbainGLP.git`
 2. Importer dans Eclispe: File > Import > General > Existing Projects from folder or archive`
-3. Sélectionner le dossier racine du projet 
-4. Clic droit sur le projet > Build Path > Configure Build Path...
-5. Onglet Libraries > Add External JARs...
-6. Ajouter le fichier log4j.jar
-7. Faire la même chose avec JUnit si demandé
-8. Ouvrir src/test/manual/TestGame.java
-9. Enfin Run as> Java Application 
+3. Sélectionner le dossier racine du projet
+4. Ajouter les librairies log4j et JUnit 4 au projet
+5. Ouvrir src/test/manual/TestGame.java
+6. Enfin Run as> Java Application 
 
 ## Auteurs et remerciements
 
