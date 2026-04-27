@@ -12,9 +12,10 @@ Pour installer le projet suivre les suivants
 3. Sélectionner le dossier racine du projet 
 4. Clic droit sur le projet > Build Path > Configure Build Path...
 5. Onglet Libraries > Add External JARs...
-6. Faire la même chose avec JUnit si demandé
-7. Ouvrir src/test/manual/TestGame.java
-8. Enfin Run as> Java Application 
+6. Ajouter le fichier log4j.jar
+7. Faire la même chose avec JUnit si demandé
+8. Ouvrir src/test/manual/TestGame.java
+9. Enfin Run as> Java Application 
 
 ## Auteurs et remerciements
 
