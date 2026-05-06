@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>18</x>
+      <y>711</y>
+      <w>225</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>Evenement
+--
+- nom : String
+- barreImpactee : String
+- impact : int
+--
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>18</x>
+      <y>216</y>
+      <w>243</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>Ville
+--
+- map: Map
+- batiments : HashMap&lt;String, Batiment&gt;
+--
++ creationBatiments() : void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>342</x>
+      <y>522</y>
+      <w>207</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>Sim
+--
+- nom : String
+- positionCourante : Block
+- routine : Routine
+- routineWeekEnd : Routine
+- etats : Etats
+- faim : BoundedCounter
+- santePhysique : BoundedCounter
+- santeMentale : BoundedCounter
+- vivant : Boolean
+- jourRestant : int 
+--
++ getScoreGlobal() : int
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>18</x>
+      <y>387</y>
+      <w>270</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Routine
+--
+- routine : HashMap&lt;Integer, Batiment&gt;
+--
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>18</x>
+      <y>45</y>
+      <w>189</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>Batiment
+--
+- nomBatiment : String
+- position : Bloc
+- longueur : int
+- largeur : int
+--
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>108</x>
+      <y>441</y>
+      <w>252</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1..n</panel_attributes>
+    <additional_attributes>260.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>108</x>
+      <y>144</y>
+      <w>36</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=n</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>333</x>
+      <y>216</y>
+      <w>189</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Map
+--
+- blocks : Bloc[][]
+- lineCount :int
+- columnCount : int
+--
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>333</x>
+      <y>45</y>
+      <w>189</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>Block
+--
+- line: int
+- column : int
+--
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>198</x>
+      <y>108</y>
+      <w>153</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0...n
+occuppe</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>18</x>
+      <y>522</y>
+      <w>225</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>RelationAmicale
+--
+- nomSim1 : String
+- nomSim2 : String
+- heuresPasEnsemble : int
+- amis : boolean
+--
++ incrementerTemps(): void
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>396</x>
+      <y>774</y>
+      <w>189</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Sims
+--
+- sims : HashMap&lt;String,Sim&gt;
+--
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>486</x>
+      <y>702</y>
+      <w>72</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=0...n
+</panel_attributes>
+    <additional_attributes>60.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>414</x>
+      <y>450</y>
+      <w>63</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>234</x>
+      <y>603</y>
+      <w>126</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=-
+ont une relation
+m1=1
+m2=2
+</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>414</x>
+      <y>144</y>
+      <w>36</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=n
+</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>234</x>
+      <y>657</y>
+      <w>126</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0...n
+m2=0...n
+subi</panel_attributes>
+    <additional_attributes>10.0;90.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>342</x>
+      <y>387</y>
+      <w>207</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Etats
+--
+- etats : ArrayList&lt;String&gt;
+--
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>0</x>
+      <y>9</y>
+      <w>594</w>
+      <h>864</h>
+    </coordinates>
+    <panel_attributes>donnee</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>117</x>
+      <y>306</y>
+      <w>90</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1...n 
+m2=1
+a lieu dans</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>252</x>
+      <y>774</y>
+      <w>135</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>BoundedCounter
+--
+- max : int
+- min : in
+--
+ increment() : int
++ decrement(): int
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>315</x>
+      <y>702</y>
+      <w>99</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=3
+m2=1
+posséde</panel_attributes>
+    <additional_attributes>10.0;80.0;70.0;10.0</additional_attributes>
+  </element>
+</diagram>

@@ -32,7 +32,7 @@ public class PaintStrategy {
 	private Color textColor= Color.WHITE;
 /*
 	//La base de la map est toute verte 
-//ON UTILISE PLUS
+//ON UTILISE POUR DEBUG 
 	public void paint(Map map, Graphics graphics) {
 		int blockSize = GameConfiguration.BLOCK_SIZE;
 		Block[][] blocks = map.getBlocks();
@@ -152,7 +152,7 @@ public class PaintStrategy {
 
 	}
 
-	/*//ON UTILISE PLUS
+	/*//ON UTILISE PLUS NOM BATIMENT
 	public void paintNomBat(Batiment batiment, Graphics2D graphics2) {
 	Block position = batiment.getPosition();
 	int blockSize = GameConfiguration.BLOCK_SIZE;

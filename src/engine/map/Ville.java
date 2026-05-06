@@ -19,9 +19,6 @@ import org.apache.log4j.Logger;
 import log.LoggerUtility;
 
 
-import engine.mobile.Sims;
-import engine.process.EtatSimManager;
-
 public class Ville {
 	private Map map;
 	private HashMap<String,Batiment> batiments = new HashMap<String,Batiment>();
