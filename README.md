@@ -2,10 +2,10 @@
 
 ## Introduction
 
-Urbain est un jeu de simulation de vie urbaine développé en Java. Il modélise une ville avec des bâtiments, des personnages (Sims) dotés d'états et de routines, un moteur événementiel, des relations d'amitié entre personnages, et dont l'objectif est de subvenir à leurs besoins.
-## **Installation sur Eclipse**
+Urbain est un jeu de simulation de vie urbaine développé en Java. Il modélise une ville avec des bâtiments, des personnages (Sims) dotés d'états et de routines, un moteur événementiel, des relations d'amitié entre personnages, dont l'objectif est de subvenir à leurs besoins".
+## Installation sur Eclipse
 
-Pour installer le projet suivre les suivants
+Pour installer le projet suivre les étapes suivantes
 
 1. Cloner le repository: `git clone https://github.com/nurccc/urbainGLP.git`
 2. Importer dans Eclispe: File > Import > General > Existing Projects from folder or archive`
@@ -22,7 +22,7 @@ Projet réalisé dans le cadre d'un projet de Génie Logiciel — **Groupe DL**.
 - **[Léanore JEAN](https://github.com/leanorej)**.
 - **[Mohamed LOUKILI](https://github.com/AminL00)**.
   
-Merci à tous les contributeurs pour leur travail et leur investissement dans ce projet et a l'encadrement du professeur Tianxao **LIU**.
+Merci à tous les contributeurs pour leur travail et leur investissement dans ce projet et a l'encadrement du professeur Tianxiao **LIU**.
 
 
 
